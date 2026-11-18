@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CSS Syntax and Selectors</title>
+  <meta name="description" content="Web Technology (C2111C3): CSS syntax, types of selectors with examples, interactive selector demo and quiz.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Topic.css only colours the first 4 sections, so colour sections 5 to 7 here */
+    .note-section:nth-of-type(5) { --accent: var(--color-teal, #00c9a7); }
+    .note-section:nth-of-type(6) { --accent: var(--color-cyan, #00b4d8); }
+    .note-section:nth-of-type(7) { --accent: var(--color-sky, #3dbeff); }
+
+    .steps pre.example { margin: 0.6rem 0 0; overflow-x: auto; white-space: pre; }
+
+    .cmp-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 18px;
+      background: var(--solid, rgba(4, 18, 28, 0.88));
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+    .cmp {
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--color-ink, #ffffff);
+    }
+    .cmp th,
+    .cmp td {
+      padding: 0.75rem 1.1rem;
+      text-align: left;
+      font-weight: 500;
+      vertical-align: middle;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .cmp th {
+      background: var(--accent, #00c9a7);
+      color: #031b26;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .cmp td:first-child { font-weight: 700; }
+    .cmp td:nth-child(2) {
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .cmp tbody tr:hover td { background: rgba(0, 180, 216, 0.16); }
+
+    /* White box so the colour demo stays readable on the dark page.
+       Every selector demo works only inside this box. */
+    .demo-box {
+      margin: 0.6rem 0;
+      padding: 0.9rem 1.1rem;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+    }
+    .steps .demo-box h2,
+    .steps .demo-box h3,
+    .steps .demo-box p { color: #031b26; }
+    .steps .demo-box h2 { margin: 0.2rem 0 0.4rem; font-size: 1.05rem; font-weight: 800; }
+    .steps .demo-box h3 { margin: 0.4rem 0; font-size: 1.15rem; font-weight: 800; }
+    .steps .demo-box p  { margin: 0.4rem 0; font-weight: 500; }
+
+    .btn {
+      margin: 0.6rem 0.5rem 0 0;
+      padding: 0.5rem 1.2rem;
+      border: 0;
+      border-radius: 99px;
+      background: var(--accent, #00c9a7);
+      color: #031b26;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:focus-visible { outline: 3px solid var(--color-ink, #ffffff); outline-offset: 3px; }
+
+    .quiz-options { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .quiz-options .btn { margin: 0.4rem 0 0; text-align: left; }
+
+    .msg { margin: 0.8rem 0 0; font-weight: 600; min-height: 1.5em; }
+    .result { margin: 0.8rem 0 0; padding: 0; border-radius: 10px; font-weight: 700; }
+    .result.ok  { padding: 0.6rem 1rem; background: #25c55e; color: #031b26; }
+    .result.bad { padding: 0.6rem 1rem; background: #ffb4a8; color: #031b26; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit3.html">&larr; Back to Unit 3</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="CSS Syntax and Selectors">CSS Syntax and Selectors</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; CSS &nbsp;/&nbsp; Syntax and Selectors</p>
+
+    <p class="intro">CSS <b>selectors</b> determine which HTML elements receive styling. CSS <b>syntax</b> defines how styling rules are written.</p>
+
+    <!-- 3.1 -->
+    <section class="note-section">
+      <h2 class="section-title">3.1 CSS Syntax</h2>
+      <ol class="steps">
+        <li>
+          <h3>What a rule is</h3>
+          <p>A CSS rule consists of a selector and a declaration block.</p>
+        </li>
+        <li>
+          <h3>General syntax</h3>
+          <pre class="example">selector {
+  property: value;
+}</pre>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <pre class="example">.notice {
+  color: blue;
+  background-color: lightgray;
+  border-left: 4px solid blue;
+  padding: 10px;
+}</pre>
+        </li>
+        <li>
+          <h3>Components of a CSS rule</h3>
+          <p class="example">
+            <b>Selector:</b> Identifies the HTML elements to style.<br>
+            <b>Property:</b> Specifies what aspect of an element to change.<br>
+            <b>Value:</b> Specifies the setting for that property.<br>
+            <b>Declaration:</b> A property and its value.<br>
+            <b>Declaration Block:</b> All declarations enclosed in curly braces { }.
+          </p>
+        </li>
+        <li>
+          <h3>Understanding the example</h3>
+          <p class="example">Selector: .notice<br>Property: color<br>Value: blue<br>Declaration: color: blue;</p>
+        </li>
+        <li>
+          <h3>Note</h3>
+          <p>A semicolon separates declarations, and curly braces enclose the declaration block.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3.2 -->
+    <section class="note-section">
+      <h2 class="section-title">3.2 Types of CSS Selectors</h2>
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <thead>
+            <tr><th scope="col">Selector Type</th><th scope="col">Syntax</th><th scope="col">Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Element</td><td>p</td><td>Selects all paragraphs</td></tr>
+            <tr><td>Class</td><td>.notice</td><td>Selects elements with class notice</td></tr>
+            <tr><td>ID</td><td>#main-title</td><td>Selects an element with a specific ID</td></tr>
+            <tr><td>Universal</td><td>*</td><td>Selects all elements</td></tr>
+            <tr><td>Grouping</td><td>h1, h2</td><td>Selects multiple element types</td></tr>
+            <tr><td>Descendant</td><td>nav a</td><td>Selects links inside nav</td></tr>
+            <tr><td>Child</td><td>ul &gt; li</td><td>Selects direct child list items</td></tr>
+            <tr><td>Pseudo-class</td><td>a:hover</td><td>Selects a hovered link</td></tr>
+            <tr><td>Pseudo-element</td><td>p::first-line</td><td>Selects the first formatted line</td></tr>
+            <tr><td>Attribute</td><td>input[type="email"]</td><td>Selects email input elements</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3.3 -->
+    <section class="note-section">
+      <h2 class="section-title">3.3 Examples of CSS Selectors</h2>
+      <ol class="steps">
+        <li>
+          <h3>Element Selector</h3>
+          <pre class="example">p {
+  line-height: 1.6;
+}</pre>
+          <p>Applies line height to all paragraph elements.</p>
+        </li>
+        <li>
+          <h3>Class Selector</h3>
+          <pre class="example">.notice {
+  padding: 10px;
+}</pre>
+          <p>Applies padding to every element with class="notice".</p>
+          <p><b>HTML:</b></p>
+          <pre class="example">&lt;p class="notice"&gt;
+  Important information.
+&lt;/p&gt;</pre>
+        </li>
+        <li>
+          <h3>ID Selector</h3>
+          <pre class="example">#main-title {
+  color: navy;
+}</pre>
+          <p>Styles the element whose ID is main-title.</p>
+          <p><b>HTML:</b></p>
+          <pre class="example">&lt;h1 id="main-title"&gt;Welcome&lt;/h1&gt;</pre>
+        </li>
+        <li>
+          <h3>Universal Selector</h3>
+          <pre class="example">* {
+  box-sizing: border-box;
+}</pre>
+          <p>Applies the specified sizing rule to all elements.</p>
+        </li>
+        <li>
+          <h3>Grouping Selector</h3>
+          <pre class="example">h1, h2 {
+  color: navy;
+}</pre>
+          <p>Applies the same color to both heading types.</p>
+        </li>
+        <li>
+          <h3>Descendant Selector</h3>
+          <pre class="example">nav a {
+  text-decoration: none;
+}</pre>
+          <p>Removes text decoration from links anywhere inside a navigation element.</p>
+        </li>
+        <li>
+          <h3>Child Selector</h3>
+          <pre class="example">ul &gt; li {
+  margin-bottom: 5px;
+}</pre>
+          <p>Applies margin only to list items that are direct children of a ul element.</p>
+        </li>
+        <li>
+          <h3>Pseudo-class</h3>
+          <pre class="example">a:hover {
+  color: green;
+}</pre>
+          <p>Changes a link's color when the pointer hovers over it.</p>
+        </li>
+        <li>
+          <h3>Pseudo-element</h3>
+          <pre class="example">p::first-line {
+  font-weight: bold;
+}</pre>
+          <p>Makes the first formatted line of each paragraph bold.</p>
+        </li>
+        <li>
+          <h3>Attribute Selector</h3>
+          <pre class="example">input[type="email"] {
+  border-color: blue;
+}</pre>
+          <p>Styles input elements whose type is email.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3.4 -->
+    <section class="note-section">
+      <h2 class="section-title">3.4 Important Distinction</h2>
+      <ol class="steps">
+        <li>
+          <h3>Class Selector</h3>
+          <p>A class can be used on multiple HTML elements.</p>
+          <pre class="example">&lt;p class="notice"&gt;First paragraph&lt;/p&gt;
+&lt;p class="notice"&gt;Second paragraph&lt;/p&gt;</pre>
+        </li>
+        <li>
+          <h3>ID Selector</h3>
+          <p>An ID should uniquely identify one element within an HTML document.</p>
+          <pre class="example">&lt;h1 id="main-title"&gt;Welcome&lt;/h1&gt;</pre>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3.5 -->
+    <section class="note-section">
+      <h2 class="section-title">3.5 Interactive Selector Demonstration</h2>
+      <ol class="steps">
+        <li>
+          <h3>Try it</h3>
+          <p>Click the buttons to see different selectors in action.</p>
+
+          <div class="demo-box" id="selectorDemo">
+            <h2>Sample heading (h2)</h2>
+            <h3 id="mainTitle">Welcome to CSS Selectors!</h3>
+            <p class="notice">This is the first paragraph.</p>
+            <p class="notice">This is the second paragraph.</p>
+            <p>This is a normal paragraph.</p>
+          </div>
+
+          <button class="btn" type="button" onclick="elementSelector()">Element Selector</button>
+          <button class="btn" type="button" onclick="classSelector()">Class Selector</button>
+          <button class="btn" type="button" onclick="idSelector()">ID Selector</button>
+          <button class="btn" type="button" onclick="groupSelector()">Grouping Selector</button>
+          <button class="btn" type="button" onclick="resetSelectors()">Reset</button>
+
+          <p id="demoMessage" class="msg" role="status" aria-live="polite"></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3.6 -->
+    <section class="note-section">
+      <h2 class="section-title">3.6 Test Your Knowledge</h2>
+      <ol class="steps">
+        <li>
+          <h3>Which symbol is used for a class selector in CSS?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" onclick="checkAnswer('a')">A. #</button>
+            <button class="btn" type="button" onclick="checkAnswer('b')">B. .</button>
+            <button class="btn" type="button" onclick="checkAnswer('c')">C. *</button>
+          </div>
+          <p id="answer" class="result" role="status" aria-live="polite"></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Remember -->
+    <section class="note-section">
+      <h2 class="section-title">Important Points to Remember</h2>
+      <ol class="steps">
+        <li>
+          <h3>Remember</h3>
+          <p class="example">
+            CSS rules contain selectors and declaration blocks.<br>
+            A property defines what to change.<br>
+            A value defines how the property should appear.<br>
+            A class selector uses a dot (.).<br>
+            An ID selector uses a hash (#).<br>
+            A universal selector uses an asterisk (*).<br>
+            A class can be reused on multiple elements.<br>
+            An ID should be unique within an HTML document.
+          </p>
+        </li>
+      </ol>
+    </section>
+
+    <p class="intro"><b>Thank You!</b> &nbsp; Learn &bull; Practice &bull; Create</p>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a href="Unit3.2.html">&larr; Previous: Three Ways to Add CSS</a>
+      <a href="Unit3.4.html">Next topic &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    // All demos work only inside the white demo box
+    var demoBox = document.getElementById("selectorDemo");
+
+    // Element Selector
+    function elementSelector() {
+      demoBox.querySelectorAll("p").forEach(function (p) {
+        p.style.color = "blue";
+      });
+      document.getElementById("demoMessage").textContent =
+        "Element Selector: All paragraphs are selected.";
+    }
+
+    // Class Selector
+    function classSelector() {
+      demoBox.querySelectorAll(".notice").forEach(function (element) {
+        element.style.backgroundColor = "lightyellow";
+        element.style.padding = "10px";
+        element.style.border = "2px solid orange";
+      });
+      document.getElementById("demoMessage").textContent =
+        "Class Selector: Both notice paragraphs are selected.";
+    }
+
+    // ID Selector
+    function idSelector() {
+      var title = document.getElementById("mainTitle");
+      title.style.color = "purple";
+      title.style.fontSize = "28px";
+      document.getElementById("demoMessage").textContent =
+        "ID Selector: Only the element with the selected ID is styled.";
+    }
+
+    // Grouping Selector
+    function groupSelector() {
+      demoBox.querySelectorAll("h2, h3").forEach(function (heading) {
+        heading.style.color = "green";
+      });
+      document.getElementById("demoMessage").textContent =
+        "Grouping Selector: Both h2 and h3 elements are selected.";
+    }
+
+    // Reset the demo box only
+    function resetSelectors() {
+      demoBox.querySelectorAll("*").forEach(function (element) {
+        element.removeAttribute("style");
+      });
+      document.getElementById("demoMessage").textContent = "";
+    }
+
+    // Quiz
+    function checkAnswer(option) {
+      var result = document.getElementById("answer");
+      if (option === "b") {
+        result.textContent = "Correct! A dot (.) is used for a class selector.";
+        result.className = "result ok";
+      } else {
+        result.textContent = "Incorrect! Try again.";
+        result.className = "result bad";
+      }
+    }
+  </script>
+</body>
+</html>

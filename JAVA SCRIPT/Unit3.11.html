@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CSS Lesson 11 - Positioning</title>
+  <meta name="description" content="Web Technology (C2111C3): CSS positioning, static, relative, absolute, fixed and sticky, with interactive demos and a quiz.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Topic.css only colours the first 4 sections, so colour the rest here */
+    .note-section:nth-of-type(n+5) { --accent: var(--color-teal, #00c9a7); }
+
+    /* ---- Tables (same look as Unit 3.7) ---- */
+    .cmp-wrap {
+      overflow-x: auto;
+      margin: 0.6rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 14px;
+    }
+    .cmp {
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--color-ink, #ffffff);
+    }
+    .cmp th,
+    .cmp td {
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .cmp th {
+      background: var(--accent, #00c9a7);
+      color: #031b26;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .cmp td.code { font-family: Consolas, "Courier New", monospace; font-weight: 600; }
+    .steps pre.example { margin: 0.6rem 0 0; overflow-x: auto; white-space: pre-wrap; }
+    .steps ul.plain { margin: 0.4rem 0; padding-left: 1.4rem; }
+    .steps ul.plain li {
+      all: revert;
+      color: var(--color-ink, #ffffff);
+      font-weight: 500;
+    }
+
+    /* ---- Demos: light panels with dark text ---- */
+    .pdemo { color: #031b26; text-shadow: none; }
+
+    #staticDemo {
+      max-width: 250px;
+      padding: 20px;
+      border: 3px solid navy;
+      background: #bde0fe;
+      position: static;
+    }
+
+    #relativeArea {
+      min-height: 110px;
+      padding: 10px;
+      background: #eeeeee;
+    }
+    #relativeDemo {
+      position: relative;
+      top: 0;
+      left: 0;
+      max-width: 200px;
+      padding: 20px;
+      border: 3px solid green;
+      background: #d9ffd9;
+      transition: top 0.25s, left 0.25s;
+    }
+
+    #absoluteParent {
+      position: relative;
+      max-width: 400px;
+      padding: 60px 20px;
+      border: 3px solid navy;
+      background: #eeeeee;
+    }
+    #absoluteChild {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 10px;
+      background: orange;
+    }
+
+    #stickyContainer {
+      height: 220px;
+      overflow-y: auto;
+      padding: 10px;
+      border: 2px solid gray;
+      border-radius: 12px;
+      background: #ffffff;
+    }
+    #stickyHeader {
+      position: sticky;
+      top: 0;
+      padding: 15px;
+      border-radius: 8px;
+      background: navy;
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    /* The fixed demo button sits outside <main> (see bottom of the page) */
+    #fixedDemo {
+      position: fixed;
+      right: calc(20px + env(safe-area-inset-right, 0px));
+      bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+      z-index: 50;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: navy;
+      color: #ffffff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit3.html">&larr; Back to Unit 3</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="CSS Positioning">CSS Positioning</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; CSS &nbsp;/&nbsp; Lesson 11</p>
+
+    <p class="intro">The CSS position property determines how an element is positioned in a document. CSS has five commonly used positioning values.</p>
+
+    <!-- 1 -->
+    <section class="note-section">
+      <h2 class="section-title">1. Five Positioning Types</h2>
+      <ol class="steps">
+        <li>
+          <h3>Position values</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Value</th><th scope="col">Behavior</th></tr></thead>
+              <tbody>
+                <tr><td class="code">static</td><td>Default positioning in normal document flow.</td></tr>
+                <tr><td class="code">relative</td><td>Remains in normal flow but can be visually moved.</td></tr>
+                <tr><td class="code">absolute</td><td>Removed from normal flow and positioned relative to its containing block.</td></tr>
+                <tr><td class="code">fixed</td><td>Usually positioned relative to the viewport.</td></tr>
+                <tr><td class="code">sticky</td><td>Behaves relatively until a scrolling threshold is reached.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 2 -->
+    <section class="note-section">
+      <h2 class="section-title">2. Static Positioning</h2>
+      <ol class="steps">
+        <li>
+          <h3>Example</h3>
+          <pre class="example">.box {
+    position: static;
+}</pre>
+        </li>
+        <li>
+          <h3>Key points</h3>
+          <ul class="plain">
+            <li>This is the default position.</li>
+            <li>The element follows normal document flow.</li>
+            <li>top and left do not reposition a static element.</li>
+          </ul>
+        </li>
+        <li>
+          <h3>Static demo</h3>
+          <div class="demo-box">
+            <div id="staticDemo" class="pdemo">Static Box</div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3 -->
+    <section class="note-section">
+      <h2 class="section-title">3. Relative Positioning</h2>
+      <ol class="steps">
+        <li>
+          <h3>Example</h3>
+          <pre class="example">.box {
+    position: relative;
+    top: 10px;
+    left: 20px;
+}</pre>
+        </li>
+        <li>
+          <h3>Key points</h3>
+          <ul class="plain">
+            <li>The element moves relative to its normal position.</li>
+            <li>Its original space remains reserved.</li>
+            <li>It can establish a containing block for absolute descendants.</li>
+          </ul>
+        </li>
+        <li>
+          <h3>Relative demo</h3>
+          <div class="demo-box">
+            <div id="relativeArea" class="pdemo">
+              <div id="relativeDemo">Relative Box</div>
+            </div>
+          </div>
+          <button class="btn" type="button" id="moveRelative">Move Relative Box</button>
+          <button class="btn" type="button" id="resetRelative">Reset Position</button>
+          <p id="relativeValue" class="msg" role="status" aria-live="polite">Offset: top 0px, left 0px</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 4 -->
+    <section class="note-section">
+      <h2 class="section-title">4. Absolute Positioning</h2>
+      <ol class="steps">
+        <li>
+          <h3>Example</h3>
+          <pre class="example">.parent {
+    position: relative;
+}
+
+.child {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}</pre>
+        </li>
+        <li>
+          <h3>Key points</h3>
+          <ul class="plain">
+            <li>The child is removed from normal document flow.</li>
+            <li>It is positioned relative to its containing block.</li>
+            <li>A relatively positioned parent can act as its containing block.</li>
+          </ul>
+          <p>Absolute positioning is useful for badges, labels and icons inside cards.</p>
+        </li>
+        <li>
+          <h3>Absolute demo</h3>
+          <div class="demo-box">
+            <div id="absoluteParent" class="pdemo">
+              Parent Element
+              <div id="absoluteChild">Absolute Child</div>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 5 -->
+    <section class="note-section">
+      <h2 class="section-title">5. Fixed Positioning</h2>
+      <ol class="steps">
+        <li>
+          <h3>Example</h3>
+          <pre class="example">.button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}</pre>
+        </li>
+        <li>
+          <h3>Definition</h3>
+          <p>Fixed positioning usually places an element relative to the viewport. It remains in place while the page scrolls.</p>
+        </li>
+        <li>
+          <h3>Common uses</h3>
+          <ul class="plain">
+            <li>Floating buttons.</li>
+            <li>Persistent interface controls.</li>
+            <li>Fixed navigation elements.</li>
+          </ul>
+        </li>
+        <li>
+          <h3>Fixed demo</h3>
+          <p>Look at the bottom-right corner of your screen. The navy <b>Fixed Button</b> stays there while you scroll.</p>
+          <p id="fixedValue" class="msg" role="status" aria-live="polite">Click the fixed button to test it.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 6 -->
+    <section class="note-section">
+      <h2 class="section-title">6. Sticky Positioning</h2>
+      <ol class="steps">
+        <li>
+          <h3>Example</h3>
+          <pre class="example">header {
+    position: sticky;
+    top: 0;
+}</pre>
+        </li>
+        <li>
+          <h3>Definition</h3>
+          <p>A sticky element scrolls normally until it reaches a specified scrolling threshold. It then stays stuck within its scrolling container while conditions allow.</p>
+        </li>
+        <li>
+          <h3>Common uses</h3>
+          <ul class="plain">
+            <li>Sticky navigation bars.</li>
+            <li>Table headers.</li>
+            <li>Section headings.</li>
+          </ul>
+        </li>
+        <li>
+          <h3>Sticky demo</h3>
+          <p>Scroll inside the box below.</p>
+          <div id="stickyContainer" class="pdemo" tabindex="0" aria-label="Scrollable sticky demo">
+            <div id="stickyHeader">Sticky Header - Scroll Inside This Box</div>
+            <p>Content Section 1</p>
+            <p>Learning CSS positioning is useful.</p>
+            <p>Content Section 2</p>
+            <p>Sticky elements stay visible after reaching their threshold.</p>
+            <p>Content Section 3</p>
+            <p>Keep scrolling to see the sticky effect.</p>
+            <p>Content Section 4</p>
+            <p>Sticky positioning is useful for navigation.</p>
+            <p>Content Section 5</p>
+            <p>End of the demonstration.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 7 -->
+    <section class="note-section">
+      <h2 class="section-title">7. Positioning Comparison</h2>
+      <ol class="steps">
+        <li>
+          <h3>Comparison</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Value</th><th scope="col">Space Retained?</th><th scope="col">Common Use</th></tr></thead>
+              <tbody>
+                <tr><td class="code">static</td><td>Yes</td><td>Regular content</td></tr>
+                <tr><td class="code">relative</td><td>Yes</td><td>Small offsets and positioning anchors</td></tr>
+                <tr><td class="code">absolute</td><td>No</td><td>Overlays and positioned children</td></tr>
+                <tr><td class="code">fixed</td><td>No</td><td>Floating interface elements</td></tr>
+                <tr><td class="code">sticky</td><td>Generally yes</td><td>Sticky headers</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 8 -->
+    <section class="note-section">
+      <h2 class="section-title">8. Quick Quiz</h2>
+      <ol class="steps">
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 1: Which position value is the default?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>static</button>
+            <button class="btn" type="button">fixed</button>
+            <button class="btn" type="button">absolute</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 2: Which position keeps the original space reserved?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>relative</button>
+            <button class="btn" type="button">absolute</button>
+            <button class="btn" type="button">fixed</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 3: Which position is commonly used for floating buttons?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>fixed</button>
+            <button class="btn" type="button">static</button>
+            <button class="btn" type="button">sticky</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 4: Which position is useful for sticky navigation bars?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button">absolute</button>
+            <button class="btn" type="button" data-correct>sticky</button>
+            <button class="btn" type="button">static</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 5: Which position removes an element from normal flow?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>absolute</button>
+            <button class="btn" type="button">relative</button>
+            <button class="btn" type="button">static</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 9 -->
+    <section class="note-section">
+      <h2 class="section-title">9. Summary</h2>
+      <ol class="steps">
+        <li>
+          <h3>Quick revision</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Topic</th><th scope="col">Key Point</th></tr></thead>
+              <tbody>
+                <tr><td class="code">static</td><td>Default positioning value</td></tr>
+                <tr><td class="code">relative</td><td>Moves an element from its normal position</td></tr>
+                <tr><td class="code">absolute</td><td>Positions an element relative to its containing block</td></tr>
+                <tr><td class="code">fixed</td><td>Positions an element relative to the viewport in typical cases</td></tr>
+                <tr><td class="code">sticky</td><td>Combines normal scrolling with sticking at a threshold</td></tr>
+                <tr><td class="code">top / right / bottom / left</td><td>Control positioning offsets</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <p class="intro"><b>Lesson Completed!</b></p>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a href="Unit3.10.html">&larr; Previous: The CSS Box Model</a>
+      <a href="Unit3.12.html">Next topic &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <!-- Kept outside <main> so no parent effect can change what "fixed" is measured against -->
+  <button id="fixedDemo" type="button">Fixed Button</button>
+
+  <script>
+    (function () {
+      // Relative demo
+      var relativeDemo = document.getElementById("relativeDemo");
+      var relativeValue = document.getElementById("relativeValue");
+
+      function offset(top, left) {
+        relativeDemo.style.top = top;
+        relativeDemo.style.left = left;
+        relativeValue.textContent = "Offset: top " + top + ", left " + left;
+      }
+      document.getElementById("moveRelative").addEventListener("click", function () { offset("10px", "20px"); });
+      document.getElementById("resetRelative").addEventListener("click", function () { offset("0px", "0px"); });
+
+      // Fixed demo
+      var clicks = 0;
+      document.getElementById("fixedDemo").addEventListener("click", function () {
+        clicks += 1;
+        document.getElementById("fixedValue").textContent =
+          "This is a fixed button! Clicked " + clicks + (clicks === 1 ? " time." : " times.");
+      });
+
+      // Quiz: the button marked data-correct is the right answer
+      document.querySelectorAll(".quiz").forEach(function (question) {
+        var answer = question.querySelector(".result");
+        question.querySelectorAll(".quiz-options .btn").forEach(function (button) {
+          button.addEventListener("click", function () {
+            if (button.hasAttribute("data-correct")) {
+              answer.textContent = "Correct! " + question.getAttribute("data-explain");
+              answer.className = "result ok";
+            } else {
+              answer.textContent = "Incorrect. Try again!";
+              answer.className = "result bad";
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

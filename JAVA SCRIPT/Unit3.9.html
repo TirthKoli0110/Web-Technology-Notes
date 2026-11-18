@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CSS Lesson 9 - Borders</title>
+  <meta name="description" content="Web Technology (C2111C3): CSS borders, width, style, color, shorthand, individual sides and rounded corners, with interactive demos and a quiz.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Topic.css only colours the first 4 sections, so colour the rest here */
+    .note-section:nth-of-type(n+5) { --accent: var(--color-teal, #00c9a7); }
+
+    /* ---- Tables (same look as Unit 3.7) ---- */
+    .cmp-wrap {
+      overflow-x: auto;
+      margin: 0.6rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 14px;
+    }
+    .cmp {
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--color-ink, #ffffff);
+    }
+    .cmp th,
+    .cmp td {
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .cmp th {
+      background: var(--accent, #00c9a7);
+      color: #031b26;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .cmp td.code { font-family: Consolas, "Courier New", monospace; font-weight: 600; }
+    .steps pre.example { margin: 0.6rem 0 0; overflow-x: auto; white-space: pre-wrap; }
+
+    /* ---- Demos: light panel so the borders stay easy to see ---- */
+    .bdemo {
+      max-width: 550px;
+      padding: 1.5rem;
+      border: 3px solid navy;
+      background: #ffffff;
+      color: #031b26;
+      text-shadow: none;
+    }
+    .bdemo h3 { margin: 0 0 0.3rem; }
+    .bdemo p { margin: 0; }
+    #styleDemo  { border-style: solid; }
+    #widthDemo  { border-width: 3px; }
+    #colorDemo  { border-color: blue; }
+    #radiusDemo { border-radius: 10px; }
+    #completeDemo {
+      border: 4px double green;
+      border-radius: 20px;
+      background: lightyellow;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit3.html">&larr; Back to Unit 3</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="CSS Borders">CSS Borders</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; CSS &nbsp;/&nbsp; Lesson 9</p>
+
+    <p class="intro">A border is a line surrounding an element's padding and content. CSS allows us to control its thickness, style, color and corners.</p>
+
+    <!-- 1 -->
+    <section class="note-section">
+      <h2 class="section-title">1. Border Properties</h2>
+      <ol class="steps">
+        <li>
+          <h3>Properties</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Property</th><th scope="col">Purpose</th></tr></thead>
+              <tbody>
+                <tr><td class="code">border-width</td><td>Controls border thickness.</td></tr>
+                <tr><td class="code">border-style</td><td>Controls the border pattern.</td></tr>
+                <tr><td class="code">border-color</td><td>Controls border color.</td></tr>
+                <tr><td class="code">border-radius</td><td>Rounds the corners of an element.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 2 -->
+    <section class="note-section">
+      <h2 class="section-title">2. Common Border Styles</h2>
+      <ol class="steps">
+        <li>
+          <h3>Style values</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Style</th><th scope="col">Appearance</th></tr></thead>
+              <tbody>
+                <tr><td class="code">solid</td><td>Continuous line</td></tr>
+                <tr><td class="code">dotted</td><td>Dotted line</td></tr>
+                <tr><td class="code">dashed</td><td>Dashed line</td></tr>
+                <tr><td class="code">double</td><td>Two lines</td></tr>
+                <tr><td class="code">none</td><td>No border</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>
+          <h3>Border style demo</h3>
+          <div class="demo-box">
+            <div id="styleDemo" class="bdemo"><p>This is a border style demonstration.</p></div>
+          </div>
+          <button class="btn" type="button" data-bstyle="solid">Solid</button>
+          <button class="btn" type="button" data-bstyle="dotted">Dotted</button>
+          <button class="btn" type="button" data-bstyle="dashed">Dashed</button>
+          <button class="btn" type="button" data-bstyle="double">Double</button>
+          <button class="btn" type="button" data-bstyle="none">None</button>
+          <p id="styleValue" class="msg" role="status" aria-live="polite">Current style: solid</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3 -->
+    <section class="note-section">
+      <h2 class="section-title">3. Border Shorthand Property</h2>
+      <ol class="steps">
+        <li>
+          <h3>Definition</h3>
+          <p>The border shorthand allows us to set width, style and color in one declaration.</p>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <pre class="example">.box {
+    border: 2px solid navy;
+}</pre>
+          <p>This creates a 2-pixel solid navy border.</p>
+        </li>
+        <li>
+          <h3>General syntax</h3>
+          <pre class="example">border: width style color;</pre>
+        </li>
+        <li>
+          <h3>Border width demo</h3>
+          <div class="demo-box">
+            <div id="widthDemo" class="bdemo"><p>Change my border thickness!</p></div>
+          </div>
+          <button class="btn" type="button" data-bwidth="1px">1px</button>
+          <button class="btn" type="button" data-bwidth="3px">3px</button>
+          <button class="btn" type="button" data-bwidth="5px">5px</button>
+          <button class="btn" type="button" data-bwidth="10px">10px</button>
+          <p id="widthValue" class="msg" role="status" aria-live="polite">Current width: 3px</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 4 -->
+    <section class="note-section">
+      <h2 class="section-title">4. Border Color</h2>
+      <ol class="steps">
+        <li>
+          <h3>Definition</h3>
+          <p>The <b>border-color</b> property controls the color of an element's border.</p>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <pre class="example">.box {
+    border: 3px solid navy;
+}</pre>
+        </li>
+        <li>
+          <h3>Border color demo</h3>
+          <div class="demo-box">
+            <div id="colorDemo" class="bdemo"><p>Change my border color!</p></div>
+          </div>
+          <button class="btn" type="button" data-bcolor="red">Red</button>
+          <button class="btn" type="button" data-bcolor="blue">Blue</button>
+          <button class="btn" type="button" data-bcolor="green">Green</button>
+          <button class="btn" type="button" data-bcolor="purple">Purple</button>
+          <button class="btn" type="button" data-bcolor="orange">Orange</button>
+          <p id="colorValue" class="msg" role="status" aria-live="polite">Current color: blue</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 5 -->
+    <section class="note-section">
+      <h2 class="section-title">5. Individual Borders</h2>
+      <ol class="steps">
+        <li>
+          <h3>Definition</h3>
+          <p>CSS allows us to style each side of an element separately.</p>
+        </li>
+        <li>
+          <h3>Side properties</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Property</th><th scope="col">Styles</th></tr></thead>
+              <tbody>
+                <tr><td class="code">border-top</td><td>Top side</td></tr>
+                <tr><td class="code">border-right</td><td>Right side</td></tr>
+                <tr><td class="code">border-bottom</td><td>Bottom side</td></tr>
+                <tr><td class="code">border-left</td><td>Left side</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <pre class="example">.box {
+    border-top: 2px solid red;
+    border-right: 3px dashed blue;
+    border-bottom: 2px solid green;
+    border-left: 4px dotted orange;
+}</pre>
+        </li>
+        <li>
+          <h3>Individual border demo</h3>
+          <div class="demo-box">
+            <div id="individualDemo" class="bdemo"><p>Each side has a different border style and color.</p></div>
+          </div>
+          <button class="btn" type="button" id="showIndividual">Show Individual Borders</button>
+          <button class="btn" type="button" id="showNormal">Normal Border</button>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 6 -->
+    <section class="note-section">
+      <h2 class="section-title">6. Rounded Corners</h2>
+      <ol class="steps">
+        <li>
+          <h3>Definition</h3>
+          <p>The <b>border-radius</b> property rounds the corners of an element.</p>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <pre class="example">.box {
+    border: 2px solid navy;
+    border-radius: 10px;
+}</pre>
+        </li>
+        <li>
+          <h3>Radius values</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Value</th><th scope="col">Result</th></tr></thead>
+              <tbody>
+                <tr><td class="code">0px</td><td>Sharp corners</td></tr>
+                <tr><td class="code">10px, 25px</td><td>Softly rounded corners</td></tr>
+                <tr><td class="code">50%</td><td>Circle or oval shape</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>
+          <h3>Border radius demo</h3>
+          <div class="demo-box">
+            <div id="radiusDemo" class="bdemo"><p>My corners can be rounded!</p></div>
+          </div>
+          <button class="btn" type="button" data-radius="0px">0px</button>
+          <button class="btn" type="button" data-radius="10px">10px</button>
+          <button class="btn" type="button" data-radius="25px">25px</button>
+          <button class="btn" type="button" data-radius="50px">50px</button>
+          <button class="btn" type="button" data-radius="50%">50%</button>
+          <p id="radiusValue" class="msg" role="status" aria-live="polite">Current radius: 10px</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 7 -->
+    <section class="note-section">
+      <h2 class="section-title">7. Complete Border Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>All together</h3>
+          <div class="demo-box">
+            <div id="completeDemo" class="bdemo">
+              <h3>Beautiful Border Box</h3>
+              <p>This box demonstrates border width, style, color and rounded corners together.</p>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 8 -->
+    <section class="note-section">
+      <h2 class="section-title">8. Quick Quiz</h2>
+      <ol class="steps">
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 1: Which property controls border thickness?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>border-width</button>
+            <button class="btn" type="button">border-color</button>
+            <button class="btn" type="button">border-radius</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 2: Which border style creates dots?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button">solid</button>
+            <button class="btn" type="button" data-correct>dotted</button>
+            <button class="btn" type="button">double</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 3: Which property rounds corners?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>border-radius</button>
+            <button class="btn" type="button">border-width</button>
+            <button class="btn" type="button">border-style</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 4: What does this code create?</h3>
+          <pre class="example">border: 2px solid navy;</pre>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>2px solid navy border</button>
+            <button class="btn" type="button">2px dotted red border</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 5: Which property styles the top border separately?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>border-top</button>
+            <button class="btn" type="button">border-bottom</button>
+            <button class="btn" type="button">border-left</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 9 -->
+    <section class="note-section">
+      <h2 class="section-title">9. Summary</h2>
+      <ol class="steps">
+        <li>
+          <h3>Quick revision</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Topic</th><th scope="col">Key Point</th></tr></thead>
+              <tbody>
+                <tr><td>Border</td><td>Surrounds an element's padding and content</td></tr>
+                <tr><td class="code">border-width</td><td>Controls thickness</td></tr>
+                <tr><td class="code">border-style</td><td>Controls the pattern</td></tr>
+                <tr><td class="code">border-color</td><td>Controls border color</td></tr>
+                <tr><td class="code">border-radius</td><td>Creates rounded corners</td></tr>
+                <tr><td>Individual borders</td><td>Style each side separately</td></tr>
+                <tr><td class="code">border</td><td>Shorthand for width, style and color</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <p class="intro"><b>Lesson Completed!</b></p>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a href="Unit3.8.html">&larr; Previous: Text, Fonts and Typography</a>
+      <a href="Unit3.10.html">Next topic &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      // Each demo: buttons carry the value in a data attribute, the box gets the style
+      function demo(attr, boxId, cssProp, outId, label) {
+        var box = document.getElementById(boxId);
+        document.querySelectorAll("[" + attr + "]").forEach(function (button) {
+          button.addEventListener("click", function () {
+            var value = button.getAttribute(attr);
+            box.style[cssProp] = value;
+            document.getElementById(outId).textContent = label + value;
+          });
+        });
+      }
+
+      demo("data-bstyle", "styleDemo", "borderStyle", "styleValue", "Current style: ");
+      demo("data-bwidth", "widthDemo", "borderWidth", "widthValue", "Current width: ");
+      demo("data-bcolor", "colorDemo", "borderColor", "colorValue", "Current color: ");
+      demo("data-radius", "radiusDemo", "borderRadius", "radiusValue", "Current radius: ");
+
+      // Individual borders
+      var individual = document.getElementById("individualDemo");
+      document.getElementById("showIndividual").addEventListener("click", function () {
+        individual.style.borderTop = "2px solid red";
+        individual.style.borderRight = "3px dashed blue";
+        individual.style.borderBottom = "2px solid green";
+        individual.style.borderLeft = "4px dotted orange";
+      });
+      document.getElementById("showNormal").addEventListener("click", function () {
+        individual.style.border = "3px solid navy";
+      });
+
+      // Quiz: the button marked data-correct is the right answer
+      document.querySelectorAll(".quiz").forEach(function (question) {
+        var answer = question.querySelector(".result");
+        question.querySelectorAll(".quiz-options .btn").forEach(function (button) {
+          button.addEventListener("click", function () {
+            if (button.hasAttribute("data-correct")) {
+              answer.textContent = "Correct! " + question.getAttribute("data-explain");
+              answer.className = "result ok";
+            } else {
+              answer.textContent = "Incorrect. Try again!";
+              answer.className = "result bad";
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

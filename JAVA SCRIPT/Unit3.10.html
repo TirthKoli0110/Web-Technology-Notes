@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CSS Lesson 10 - The Box Model</title>
+  <meta name="description" content="Web Technology (C2111C3): the CSS box model, content-box vs border-box, margin vs padding and margin collapsing, with interactive demos and a quiz.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Topic.css only colours the first 4 sections, so colour the rest here */
+    .note-section:nth-of-type(n+5) { --accent: var(--color-teal, #00c9a7); }
+
+    /* ---- Tables (same look as Unit 3.7) ---- */
+    .cmp-wrap {
+      overflow-x: auto;
+      margin: 0.6rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 14px;
+    }
+    .cmp {
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--color-ink, #ffffff);
+    }
+    .cmp th,
+    .cmp td {
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .cmp th {
+      background: var(--accent, #00c9a7);
+      color: #031b26;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .cmp td.code { font-family: Consolas, "Courier New", monospace; font-weight: 600; }
+    .steps pre.example { margin: 0.6rem 0 0; overflow-x: auto; white-space: pre-wrap; }
+
+    /* ---- Demos: light panels with dark text so every layer stays readable ---- */
+    .scroll { overflow-x: auto; padding: 2px; }
+
+    /* Box model diagram (outside to inside) */
+    .layer { color: #031b26; text-shadow: none; border-radius: 8px; text-align: center; }
+    .layer b { display: block; letter-spacing: 0.08em; }
+    #marginLayer  { max-width: 450px; margin: 0 auto; padding: 25px; background: #d9f3ff; }
+    #borderLayer  { padding: 20px; background: #ffe4b5; border: 5px solid orange; }
+    #paddingLayer { padding: 20px; background: #d9ffd9; }
+    #contentLayer { padding: 20px; background: #bde0fe; }
+    #contentLayer p { margin: 0.3rem 0 0; }
+
+    /* content-box vs border-box */
+    .sizebox { color: #031b26; text-shadow: none; width: 300px; padding: 20px; margin: 10px 0; }
+    .sizebox h3 { margin: 0 0 0.3rem; }
+    .sizebox p { margin: 0.2rem 0; }
+    #contentBoxDemo { box-sizing: content-box; border: 5px solid navy; background: #d9f3ff; }
+    #borderBoxDemo  { box-sizing: border-box;  border: 5px solid green; background: #d9ffd9; }
+
+    /* margin and padding demo: the dashed frame shows where the margin sits */
+    .frame { max-width: 520px; border: 2px dashed #888; background: rgba(255, 255, 255, 0.55); }
+    #spacingDemo {
+      max-width: 400px;
+      padding: 20px;
+      margin: 20px;
+      border: 5px solid navy;
+      background: #bde0fe;
+      color: #031b26;
+      text-shadow: none;
+    }
+    #spacingDemo p { margin: 0; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit3.html">&larr; Back to Unit 3</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="The CSS Box Model">The CSS Box Model</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; CSS &nbsp;/&nbsp; Lesson 10</p>
+
+    <p class="intro">The CSS Box Model explains how the size of an HTML element is calculated. Every HTML element is represented by a rectangular box consisting of four layers.</p>
+
+    <!-- 1 -->
+    <section class="note-section">
+      <h2 class="section-title">1. Four Layers of the Box Model</h2>
+      <ol class="steps">
+        <li>
+          <h3>Layers (inside to outside)</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Layer</th><th scope="col">Meaning</th></tr></thead>
+              <tbody>
+                <tr><td>Content</td><td>Text, images or other material inside an element.</td></tr>
+                <tr><td>Padding</td><td>Space between content and border.</td></tr>
+                <tr><td>Border</td><td>Line surrounding padding and content.</td></tr>
+                <tr><td>Margin</td><td>Space outside the border.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 2 -->
+    <section class="note-section">
+      <h2 class="section-title">2. Box Model Diagram</h2>
+      <ol class="steps">
+        <li>
+          <h3>The four layers</h3>
+          <div class="scroll">
+            <div id="marginLayer" class="layer">
+              <b>MARGIN</b>
+              <div id="borderLayer" class="layer">
+                <b>BORDER</b>
+                <div id="paddingLayer" class="layer">
+                  <b>PADDING</b>
+                  <div id="contentLayer" class="layer">
+                    <b>CONTENT</b>
+                    <p>Hello CSS!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p>The diagram shows the four layers from outside to inside.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3 -->
+    <section class="note-section">
+      <h2 class="section-title">3. Content-Box Sizing</h2>
+      <ol class="steps">
+        <li>
+          <h3>Default value</h3>
+          <pre class="example">box-sizing: content-box;</pre>
+          <p>In content-box, the declared width and height apply only to the content. Padding and borders increase the final dimensions.</p>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <pre class="example">.box {
+    width: 300px;
+    padding: 20px;
+    border: 5px solid black;
+}</pre>
+        </li>
+        <li>
+          <h3>Width calculation</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Part</th><th scope="col">Calculation</th><th scope="col">Width</th></tr></thead>
+              <tbody>
+                <tr><td>Content</td><td>Declared width</td><td class="code">300px</td></tr>
+                <tr><td>Left + right padding</td><td>20px &times; 2</td><td class="code">40px</td></tr>
+                <tr><td>Left + right borders</td><td>5px &times; 2</td><td class="code">10px</td></tr>
+                <tr><td><b>Total width</b></td><td>300 + 40 + 10</td><td class="code"><b>350px</b></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Margins are outside the border and add further spacing around the element.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 4 -->
+    <section class="note-section">
+      <h2 class="section-title">4. Border-Box Sizing</h2>
+      <ol class="steps">
+        <li>
+          <h3>Definition</h3>
+          <p>With border-box, the declared width includes content, padding and border.</p>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <pre class="example">.box {
+    box-sizing: border-box;
+    width: 300px;
+    padding: 20px;
+    border: 5px solid black;
+}</pre>
+        </li>
+        <li>
+          <h3>Width calculation</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Part</th><th scope="col">Calculation</th><th scope="col">Width</th></tr></thead>
+              <tbody>
+                <tr><td>Total width</td><td>Declared width</td><td class="code">300px</td></tr>
+                <tr><td>Padding</td><td>20px &times; 2</td><td class="code">40px</td></tr>
+                <tr><td>Border</td><td>5px &times; 2</td><td class="code">10px</td></tr>
+                <tr><td><b>Content width</b></td><td>300 &minus; 40 &minus; 10</td><td class="code"><b>250px</b></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 5 -->
+    <section class="note-section">
+      <h2 class="section-title">5. Interactive Box Sizing Demo</h2>
+      <ol class="steps">
+        <li>
+          <h3>content-box vs border-box</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">content-box</th><th scope="col">border-box</th></tr></thead>
+              <tbody>
+                <tr><td>Width applies to content only</td><td>Width includes padding and border</td></tr>
+                <tr><td>Actual width: 350px</td><td>Actual width: 300px</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>
+          <h3>Side-by-side demo</h3>
+          <p>Both boxes use a declared width of 300px, padding of 20px and a border of 5px.</p>
+          <div class="scroll">
+            <div id="contentBoxDemo" class="sizebox">
+              <h3>Content Box</h3>
+              <p>Declared width: 300px</p>
+              <p>Actual width: 350px</p>
+            </div>
+            <div id="borderBoxDemo" class="sizebox">
+              <h3>Border Box</h3>
+              <p>Declared width: 300px</p>
+              <p>Actual width: 300px</p>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 6 -->
+    <section class="note-section">
+      <h2 class="section-title">6. Recommended Global Rule</h2>
+      <ol class="steps">
+        <li>
+          <h3>Rule</h3>
+          <pre class="example">*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}</pre>
+          <p>This rule makes element sizing easier to predict because padding and borders are included in declared dimensions.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 7 -->
+    <section class="note-section">
+      <h2 class="section-title">7. Margin vs Padding</h2>
+      <ol class="steps">
+        <li>
+          <h3>Difference</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Margin</th><th scope="col">Padding</th></tr></thead>
+              <tbody>
+                <tr><td>Space outside the border.</td><td>Space inside the border.</td></tr>
+                <tr><td>Separates neighboring elements.</td><td>Separates content from its border.</td></tr>
+                <tr><td>Background does not fill the margin.</td><td>Background generally extends through padding.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 8 -->
+    <section class="note-section">
+      <h2 class="section-title">8. Interactive Margin and Padding Demo</h2>
+      <ol class="steps">
+        <li>
+          <h3>Margin and padding demo</h3>
+          <p>Change margin and padding to see how they affect the spacing of a box. The dashed frame marks the outer edge, so the margin appears as the gap between the frame and the box.</p>
+          <div class="scroll">
+            <div class="frame">
+              <div id="spacingDemo"><p>This is the content inside the box.</p></div>
+            </div>
+          </div>
+          <button class="btn" type="button" data-padding="5px">Padding 5px</button>
+          <button class="btn" type="button" data-padding="20px">Padding 20px</button>
+          <button class="btn" type="button" data-padding="40px">Padding 40px</button>
+          <br>
+          <button class="btn" type="button" data-margin="5px">Margin 5px</button>
+          <button class="btn" type="button" data-margin="20px">Margin 20px</button>
+          <button class="btn" type="button" data-margin="40px">Margin 40px</button>
+          <p id="spacingValue" class="msg" role="status" aria-live="polite">Padding: 20px | Margin: 20px</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 9 -->
+    <section class="note-section">
+      <h2 class="section-title">9. Important Additional Point</h2>
+      <ol class="steps">
+        <li>
+          <h3>Margin collapsing</h3>
+          <p>In normal block layout, adjacent vertical margins can collapse rather than simply add together. This behavior is called <b>margin collapsing</b>.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 10 -->
+    <section class="note-section">
+      <h2 class="section-title">10. Quick Quiz</h2>
+      <ol class="steps">
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 1: How many layers are in the CSS Box Model?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>4</button>
+            <button class="btn" type="button">3</button>
+            <button class="btn" type="button">5</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 2: Which layer is outside the border?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button">Padding</button>
+            <button class="btn" type="button" data-correct>Margin</button>
+            <button class="btn" type="button">Content</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 3: What is the default box-sizing value?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button">border-box</button>
+            <button class="btn" type="button" data-correct>content-box</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done. 300 + 40 + 10 = 350px.">
+          <h3>Question 4: What is the total width in this example?</h3>
+          <pre class="example">width: 300px;
+padding: 20px;
+border: 5px solid black;
+box-sizing: content-box;</pre>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>350px</button>
+            <button class="btn" type="button">300px</button>
+            <button class="btn" type="button">250px</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 5: Which property creates space inside the border?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button">margin</button>
+            <button class="btn" type="button" data-correct>padding</button>
+            <button class="btn" type="button">width</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 11 -->
+    <section class="note-section">
+      <h2 class="section-title">11. Summary</h2>
+      <ol class="steps">
+        <li>
+          <h3>Quick revision</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Topic</th><th scope="col">Key Point</th></tr></thead>
+              <tbody>
+                <tr><td>Box model</td><td>Four layers: content, padding, border, margin</td></tr>
+                <tr><td>Content</td><td>Innermost layer</td></tr>
+                <tr><td>Padding</td><td>Space inside the border</td></tr>
+                <tr><td>Border</td><td>Surrounds content and padding</td></tr>
+                <tr><td>Margin</td><td>Space outside the border</td></tr>
+                <tr><td class="code">content-box</td><td>Adds padding and borders to the declared width</td></tr>
+                <tr><td class="code">border-box</td><td>Includes padding and borders in the declared width</td></tr>
+                <tr><td>Margin vs padding</td><td>Different purposes</td></tr>
+                <tr><td>Margin collapsing</td><td>Adjacent vertical margins can collapse</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <p class="intro"><b>Lesson Completed!</b></p>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a href="Unit3.9.html">&larr; Previous: CSS Borders</a>
+      <a href="Unit3.11.html">Next topic &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      // Margin and padding demo
+      var spacingBox = document.getElementById("spacingDemo");
+      var padding = "20px";
+      var margin = "20px";
+
+      function update() {
+        spacingBox.style.padding = padding;
+        spacingBox.style.margin = margin;
+        document.getElementById("spacingValue").textContent =
+          "Padding: " + padding + " | Margin: " + margin;
+      }
+
+      document.querySelectorAll("[data-padding]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          padding = button.getAttribute("data-padding");
+          update();
+        });
+      });
+
+      document.querySelectorAll("[data-margin]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          margin = button.getAttribute("data-margin");
+          update();
+        });
+      });
+
+      // Quiz: the button marked data-correct is the right answer
+      document.querySelectorAll(".quiz").forEach(function (question) {
+        var answer = question.querySelector(".result");
+        question.querySelectorAll(".quiz-options .btn").forEach(function (button) {
+          button.addEventListener("click", function () {
+            if (button.hasAttribute("data-correct")) {
+              answer.textContent = "Correct! " + question.getAttribute("data-explain");
+              answer.className = "result ok";
+            } else {
+              answer.textContent = "Incorrect. Try again!";
+              answer.className = "result bad";
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CSS Lesson 7 - Colors and Backgrounds</title>
+  <meta name="description" content="Web Technology (C2111C3): CSS colors, RGBA transparency, background properties and gradients, with interactive demos and a quiz.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Topic.css only colours the first 4 sections, so colour the rest here */
+    .note-section:nth-of-type(n+5) { --accent: var(--color-teal, #00c9a7); }
+
+    /* ---- Tables (same look as Unit 2.12) ---- */
+    .cmp-wrap {
+      overflow-x: auto;
+      margin: 0.6rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 14px;
+    }
+    .cmp {
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--color-ink, #ffffff);
+    }
+    .cmp th,
+    .cmp td {
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .cmp th {
+      background: var(--accent, #00c9a7);
+      color: #031b26;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .cmp td.code { font-family: Consolas, "Courier New", monospace; font-weight: 600; }
+    .steps pre.example { margin: 0.6rem 0 0; overflow-x: auto; white-space: pre-wrap; }
+
+    /* ---- Demos ---- */
+    .sample {
+      min-height: 5rem;
+      padding: 1.5rem;
+      border: 2px solid gray;
+      border-radius: 12px;
+      color: #ffffff;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    }
+    .sample h3 { margin: 0 0 0.3rem; }
+
+    #transparencyBox {
+      background-color: rgba(255, 99, 71, 1);
+      color: #031b26;
+      text-shadow: none;
+    }
+    #repeatBox {
+      min-height: 9rem;
+      background-image: linear-gradient(45deg, #174678 25%, #31765b 25%, #31765b 50%, #174678 50%, #174678 75%, #31765b 75%);
+      background-size: 40px 40px;
+    }
+    #sizeBox {
+      min-height: 9rem;
+      background-color: #dbe8ee;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      color: #031b26;
+      font-weight: 700;
+      text-shadow: 0 0 3px #fff, 0 0 6px #fff;
+    }
+    #gradientBox { background-image: linear-gradient(to right, blue, green); }
+    #goodBox { background-color: #174678; }
+    #badBox  { background-color: #6f8fb5; color: #8aa6c8; text-shadow: none; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit3.html">&larr; Back to Unit 3</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Colors and Backgrounds">Colors and Backgrounds</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; CSS &nbsp;/&nbsp; Lesson 7</p>
+
+    <p class="intro">This page covers color formats, RGBA transparency, background properties, repeat and size values, gradients and text contrast.</p>
+
+    <!-- 1 -->
+    <section class="note-section">
+      <h2 class="section-title">1. Ways to Specify Colors</h2>
+      <ol class="steps">
+        <li>
+          <h3>Color formats</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Format</th><th scope="col">Example</th><th scope="col">Explanation</th></tr></thead>
+              <tbody>
+                <tr><td>Named Color</td><td class="code">tomato</td><td>Uses a predefined color name.</td></tr>
+                <tr><td>Hexadecimal</td><td class="code">#FF6347</td><td>Uses hexadecimal digits.</td></tr>
+                <tr><td>RGB</td><td class="code">rgb(255, 99, 71)</td><td>Uses red, green and blue values.</td></tr>
+                <tr><td>RGBA</td><td class="code">rgba(255, 99, 71, 0.5)</td><td>RGB with transparency.</td></tr>
+                <tr><td>HSL</td><td class="code">hsl(9, 100%, 64%)</td><td>Uses hue, saturation and lightness.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>
+          <h3>Color example</h3>
+          <pre class="example">h1 {
+    color: tomato;
+    background-color: lightyellow;
+}</pre>
+        </li>
+        <li>
+          <h3>color vs background-color</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">color</th><th scope="col">background-color</th></tr></thead>
+              <tbody><tr><td>Changes text color</td><td>Changes background color</td></tr></tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 2 -->
+    <section class="note-section">
+      <h2 class="section-title">2. Transparency Using RGBA</h2>
+      <ol class="steps">
+        <li>
+          <h3>Definition</h3>
+          <p>RGBA adds an <b>alpha</b> value to RGB. The alpha value controls transparency.</p>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <pre class="example">.box {
+    background-color: rgba(255, 99, 71, 0.5);
+}</pre>
+        </li>
+        <li>
+          <h3>Alpha values</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Alpha</th><th scope="col">Meaning</th></tr></thead>
+              <tbody>
+                <tr><td class="code">1</td><td>Fully visible (100%)</td></tr>
+                <tr><td class="code">0.5</td><td>Half transparent (50%)</td></tr>
+                <tr><td class="code">0</td><td>Fully transparent (0%)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>
+          <h3>Interactive transparency demo</h3>
+          <div class="demo-box">
+            <div id="transparencyBox" class="sample">
+              <h3>Transparency Box</h3>
+              <p>Change the transparency using the buttons.</p>
+            </div>
+          </div>
+          <button class="btn" type="button" data-alpha="1">100%</button>
+          <button class="btn" type="button" data-alpha="0.75">75%</button>
+          <button class="btn" type="button" data-alpha="0.5">50%</button>
+          <button class="btn" type="button" data-alpha="0.25">25%</button>
+          <p id="alphaValue" class="msg" role="status" aria-live="polite">Current opacity: 100%</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3 -->
+    <section class="note-section">
+      <h2 class="section-title">3. Background Properties</h2>
+      <ol class="steps">
+        <li>
+          <h3>Properties</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Property</th><th scope="col">Purpose</th></tr></thead>
+              <tbody>
+                <tr><td class="code">background-color</td><td>Sets a solid background color</td></tr>
+                <tr><td class="code">background-image</td><td>Adds images or gradients</td></tr>
+                <tr><td class="code">background-repeat</td><td>Controls image repetition</td></tr>
+                <tr><td class="code">background-position</td><td>Sets the image position</td></tr>
+                <tr><td class="code">background-size</td><td>Controls image dimensions</td></tr>
+                <tr><td class="code">background-attachment</td><td>Controls background behavior while scrolling</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>
+          <h3>Background example</h3>
+          <pre class="example">.banner {
+    background-color: #174678;
+    background-image: linear-gradient(
+        100deg, #174678, #31765b
+    );
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}</pre>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 4 -->
+    <section class="note-section">
+      <h2 class="section-title">4. Background Repeat Values</h2>
+      <ol class="steps">
+        <li>
+          <h3>Repeat values</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Value</th><th scope="col">Purpose</th></tr></thead>
+              <tbody>
+                <tr><td class="code">repeat</td><td>Repeats horizontally and vertically</td></tr>
+                <tr><td class="code">repeat-x</td><td>Repeats horizontally</td></tr>
+                <tr><td class="code">repeat-y</td><td>Repeats vertically</td></tr>
+                <tr><td class="code">no-repeat</td><td>Displays the image once</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>
+          <h3>Background repeat demo</h3>
+          <div class="demo-box">
+            <div id="repeatBox" class="sample">Background Repeat Demo</div>
+          </div>
+          <button class="btn" type="button" data-repeat="repeat">Repeat</button>
+          <button class="btn" type="button" data-repeat="repeat-x">Repeat X</button>
+          <button class="btn" type="button" data-repeat="repeat-y">Repeat Y</button>
+          <button class="btn" type="button" data-repeat="no-repeat">No Repeat</button>
+          <p id="repeatValue" class="msg" role="status" aria-live="polite">Current value: repeat</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 5 -->
+    <section class="note-section">
+      <h2 class="section-title">5. Background Size Values</h2>
+      <ol class="steps">
+        <li>
+          <h3>cover vs contain</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">cover</th><th scope="col">contain</th></tr></thead>
+              <tbody>
+                <tr><td>Covers the entire element</td><td>Fits the entire image inside</td></tr>
+                <tr><td>May crop part of the image</td><td>May leave empty space</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>
+          <h3>Background size demo</h3>
+          <p>The demo uses a picture with a fixed shape, so you can see how <b>cover</b> crops it and <b>contain</b> leaves empty space.</p>
+          <div class="demo-box">
+            <div id="sizeBox" class="sample">Background Size Demo</div>
+          </div>
+          <button class="btn" type="button" data-size="cover">Cover</button>
+          <button class="btn" type="button" data-size="contain">Contain</button>
+          <p id="sizeValue" class="msg" role="status" aria-live="polite">Current value: cover</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 6 -->
+    <section class="note-section">
+      <h2 class="section-title">6. CSS Gradients</h2>
+      <ol class="steps">
+        <li>
+          <h3>Definition</h3>
+          <p>Gradients create smooth color transitions without requiring a separate image file.</p>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <pre class="example">.banner {
+    background-image: linear-gradient(
+        to right, blue, green
+    );
+}</pre>
+        </li>
+        <li>
+          <h3>Interactive gradient demo</h3>
+          <div class="demo-box">
+            <div id="gradientBox" class="sample">
+              <h3>Beautiful Gradient</h3>
+              <p>Choose a gradient below.</p>
+            </div>
+          </div>
+          <button class="btn" type="button" data-gradient="linear-gradient(to right, blue, green)">Blue to Green</button>
+          <button class="btn" type="button" data-gradient="linear-gradient(to right, cyan, blue)">Cyan to Blue</button>
+          <button class="btn" type="button" data-gradient="linear-gradient(to right, orange, tomato)">Orange to Red</button>
+          <button class="btn" type="button" data-gradient="linear-gradient(135deg, purple, pink)">Purple to Pink</button>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 7 -->
+    <section class="note-section">
+      <h2 class="section-title">7. Text and Background Contrast</h2>
+      <ol class="steps">
+        <li>
+          <h3>Rule</h3>
+          <p>Text and background colors should have sufficient contrast to keep content readable.</p>
+        </li>
+        <li>
+          <h3>Good vs poor contrast</h3>
+          <div class="demo-box">
+            <div id="goodBox" class="sample">
+              <h3>Good Contrast</h3>
+              <p>This text is easy to read.</p>
+            </div>
+          </div>
+          <div class="demo-box" style="margin-top:0.8rem;">
+            <div id="badBox" class="sample">
+              <h3>Poor Contrast</h3>
+              <p>This text is hard to read.</p>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 8 -->
+    <section class="note-section">
+      <h2 class="section-title">8. Quick Quiz</h2>
+      <ol class="steps">
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 1: Which property changes text color?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>color</button>
+            <button class="btn" type="button">background</button>
+            <button class="btn" type="button">border</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 2: What does the alpha value control in RGBA?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>Transparency</button>
+            <button class="btn" type="button">Font size</button>
+            <button class="btn" type="button">Width</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 3: Which value prevents background repetition?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button">repeat</button>
+            <button class="btn" type="button" data-correct>no-repeat</button>
+            <button class="btn" type="button">repeat-x</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 4: Which background-size value covers the entire element?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button">contain</button>
+            <button class="btn" type="button" data-correct>cover</button>
+            <button class="btn" type="button">repeat</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 5: Which property creates a gradient background?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>background-image</button>
+            <button class="btn" type="button">font-family</button>
+            <button class="btn" type="button">margin</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 9 -->
+    <section class="note-section">
+      <h2 class="section-title">9. Summary</h2>
+      <ol class="steps">
+        <li>
+          <h3>Quick revision</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Topic</th><th scope="col">Key Point</th></tr></thead>
+              <tbody>
+                <tr><td>Color formats</td><td>Named, HEX, RGB, RGBA and HSL</td></tr>
+                <tr><td class="code">color</td><td>Changes text color</td></tr>
+                <tr><td class="code">background-color</td><td>Sets a solid background</td></tr>
+                <tr><td class="code">rgba()</td><td>Controls transparency using alpha</td></tr>
+                <tr><td class="code">background-image</td><td>Adds images and gradients</td></tr>
+                <tr><td class="code">background-repeat</td><td>Controls image repetition</td></tr>
+                <tr><td class="code">background-position</td><td>Controls image position</td></tr>
+                <tr><td class="code">background-size</td><td>Controls image dimensions</td></tr>
+                <tr><td>Gradients</td><td>Smooth color transitions</td></tr>
+                <tr><td>Contrast</td><td>Good contrast improves readability</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <p class="intro"><b>Lesson Completed!</b></p>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a href="Unit3.6.html">&larr; Previous: Inheritance and the Cascade</a>
+      <a href="Unit3.8.html">Next topic &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      // The picture used by the background-size demo (a fixed 2:1 shape)
+      var picture =
+        "<svg xmlns='http://www.w3.org/2000/svg' width='200' height='100'>" +
+        "<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>" +
+        "<stop offset='0' stop-color='#174678'/><stop offset='0.6' stop-color='#31765b'/><stop offset='1' stop-color='#00b4d8'/>" +
+        "</linearGradient></defs>" +
+        "<rect width='200' height='100' fill='url(#g)'/>" +
+        "<circle cx='100' cy='50' r='28' fill='white' fill-opacity='0.85'/></svg>";
+
+      var transparencyBox = document.getElementById("transparencyBox");
+      var repeatBox = document.getElementById("repeatBox");
+      var sizeBox = document.getElementById("sizeBox");
+      var gradientBox = document.getElementById("gradientBox");
+
+      sizeBox.style.backgroundImage = 'url("data:image/svg+xml,' + encodeURIComponent(picture) + '")';
+
+      document.querySelectorAll("[data-alpha]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          var alpha = Number(button.getAttribute("data-alpha"));
+          transparencyBox.style.backgroundColor = "rgba(255, 99, 71, " + alpha + ")";
+          document.getElementById("alphaValue").textContent = "Current opacity: " + Math.round(alpha * 100) + "%";
+        });
+      });
+
+      document.querySelectorAll("[data-repeat]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          var value = button.getAttribute("data-repeat");
+          repeatBox.style.backgroundRepeat = value;
+          document.getElementById("repeatValue").textContent = "Current value: " + value;
+        });
+      });
+
+      document.querySelectorAll("[data-size]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          var value = button.getAttribute("data-size");
+          sizeBox.style.backgroundSize = value;
+          document.getElementById("sizeValue").textContent = "Current value: " + value;
+        });
+      });
+
+      document.querySelectorAll("[data-gradient]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          gradientBox.style.backgroundImage = button.getAttribute("data-gradient");
+        });
+      });
+
+      // Quiz: the button marked data-correct is the right answer
+      document.querySelectorAll(".quiz").forEach(function (question) {
+        var answer = question.querySelector(".result");
+        question.querySelectorAll(".quiz-options .btn").forEach(function (button) {
+          button.addEventListener("click", function () {
+            if (button.hasAttribute("data-correct")) {
+              answer.textContent = "Correct! " + question.getAttribute("data-explain");
+              answer.className = "result ok";
+            } else {
+              answer.textContent = "Incorrect. Try again!";
+              answer.className = "result bad";
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
