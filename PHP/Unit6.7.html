@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Running PHP Programs</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 6.7: running PHP programs with the development server and the command line, plus a Laravel example.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the boxes, tables and demo work with any topic.css) */
+
+    /* Box around a table, with visible borders on every cell */
+    .table-box {
+      margin: 0.6rem 0 0;
+      padding: 0.6rem;
+      overflow-x: auto;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    .box-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #062a3a;
+    }
+    .box-table th,
+    .box-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: top;
+      border: 1.5px solid rgba(6, 42, 58, 0.6);
+    }
+    .box-table th {
+      background: #00c9a7;
+      color: #031b26;
+      font-weight: 800;
+    }
+    .box-table th:nth-child(2) { background: #00b4d8; }
+
+    /* Box with a bullet list inside */
+    .list-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      color: #062a3a;
+    }
+    .list-box ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .list-box li {
+      position: relative;
+      padding: 0.25rem 0 0.25rem 1.6rem;
+    }
+    .list-box li::before {
+      content: "";
+      position: absolute;
+      top: 0.85em;
+      left: 0.2rem;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: #00c9a7;
+    }
+    .list-box code {
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.92em;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    /* The live demo button (white box so it is readable in both themes) */
+    .demo-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem 1.3rem;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+    }
+    .demo-box button {
+      padding: 0.55rem 1.6rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .demo-box button:hover { transform: translateY(-2px); }
+    .demo-box button:focus-visible { outline: 3px solid #031b26; outline-offset: 3px; }
+
+    /* Dark mode */
+    html[data-theme="dark"] .table-box,
+    html[data-theme="dark"] .list-box {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(4, 18, 28, 0.7);
+    }
+    html[data-theme="dark"] .box-table,
+    html[data-theme="dark"] .list-box { color: #eaf8ff; }
+    html[data-theme="dark"] .box-table th,
+    html[data-theme="dark"] .box-table td { border-color: rgba(255, 255, 255, 0.45); }
+    html[data-theme="dark"] .box-table th { color: #031b26; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit6.html">&larr; All Unit 6 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Running PHP Programs">Running PHP Programs</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 6 &nbsp;/&nbsp; Topic 7</p>
+
+    <p class="intro">PHP programs can be executed in two main ways: with the <b>PHP development server</b> and with the <b>command line (CLI)</b>.</p>
+
+    <!-- A -->
+    <section class="note-section">
+      <h2 class="section-title">A. Using the PHP Development Server</h2>
+      <ol class="steps">
+        <li>
+          <h3>Create the file</h3>
+          <p>First, create a PHP file named <code>hello.php</code>.</p>
+          <pre class="code-block">&lt;?php
+echo "Hello PHP!";
+?&gt;</pre>
+        </li>
+        <li>
+          <h3>Start the server</h3>
+          <p>Open the terminal in the folder containing the file and run:</p>
+          <pre class="code-block">php -S localhost:8000</pre>
+        </li>
+        <li>
+          <h3>Open the address</h3>
+          <p>Then open this address in your browser:</p>
+          <pre class="code-block">http://localhost:8000/hello.php</pre>
+        </li>
+        <li>
+          <h3>Output</h3>
+          <div class="output" data-label="Output">Hello PHP!</div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- B -->
+    <section class="note-section">
+      <h2 class="section-title">B. Using the Command Line (CLI)</h2>
+      <ol class="steps">
+        <li>
+          <h3>What it is</h3>
+          <p><b>CLI</b> stands for Command Line Interface. It is used to run PHP programs directly from the terminal.</p>
+        </li>
+        <li>
+          <h3>Command</h3>
+          <pre class="code-block">php hello.php</pre>
+        </li>
+        <li>
+          <h3>Output</h3>
+          <div class="output" data-label="Output">Hello PHP!</div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Difference -->
+    <section class="note-section">
+      <h2 class="section-title">Difference Between PHP CLI and Development Server</h2>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">PHP CLI</th><th scope="col">PHP Development Server</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Runs PHP through the terminal.</td><td>Runs PHP through a local web server.</td></tr>
+            <tr><td>Output appears in terminal.</td><td>Output appears in browser.</td></tr>
+            <tr><td>Useful for scripts and practice.</td><td>Useful for testing websites and forms.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- C -->
+    <section class="note-section">
+      <h2 class="section-title">C. Laravel Framework Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>What it is</h3>
+          <p><b>Laravel</b> is a popular PHP framework.</p>
+        </li>
+        <li>
+          <h3>Create a Laravel project</h3>
+          <pre class="code-block">composer create-project laravel/laravel php-framework-demo</pre>
+        </li>
+        <li>
+          <h3>Move into the project folder</h3>
+          <pre class="code-block">cd php-framework-demo</pre>
+        </li>
+        <li>
+          <h3>Start the Laravel development server</h3>
+          <pre class="code-block">php artisan serve</pre>
+        </li>
+        <li>
+          <h3>Open the address</h3>
+          <p>Usually, open this address:</p>
+          <pre class="code-block">http://127.0.0.1:8000</pre>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Laravel route -->
+    <section class="note-section">
+      <h2 class="section-title">Laravel Route Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>Add a route</h3>
+          <p>In <code>routes/web.php</code>:</p>
+          <pre class="code-block">&lt;?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/hello/{name}', function (string $name) {
+    return view('hello', ['name' =&gt; $name]);
+});</pre>
+        </li>
+        <li>
+          <h3>Create a template</h3>
+          <p>File: <code>resources/views/hello.blade.php</code></p>
+          <pre class="code-block">&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;title&gt;Framework Greeting&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello, {{ $name }}!&lt;/h1&gt;
+    &lt;p&gt;This page is returned through a Laravel route and view.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+        </li>
+        <li>
+          <h3>Visit the address</h3>
+          <p>If you visit:</p>
+          <pre class="code-block">http://127.0.0.1:8000/hello/Asha</pre>
+        </li>
+        <li>
+          <h3>Browser output</h3>
+          <div class="output" data-label="Browser output"><b>Hello, Asha!</b><br>This page is returned through a Laravel route and view.</div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Terms -->
+    <section class="note-section">
+      <h2 class="section-title">Important Terms</h2>
+      <div class="list-box">
+        <ul>
+          <li><b>Composer:</b> PHP dependency manager.</li>
+          <li><b>Laravel:</b> PHP framework.</li>
+          <li><b>Artisan:</b> Laravel command-line tool.</li>
+          <li><b>Route:</b> Defines which code handles a URL.</li>
+          <li><b>Blade:</b> Laravel's templating engine.</li>
+          <li><b>View:</b> Page or template displayed to the user.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- JavaScript example -->
+    <section class="note-section">
+      <h2 class="section-title">JavaScript Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>HTML code</h3>
+          <pre class="code-block">&lt;button onclick="showCommand()"&gt;Show Command&lt;/button&gt;
+
+&lt;p id="result"&gt;&lt;/p&gt;</pre>
+        </li>
+        <li>
+          <h3>JavaScript code</h3>
+          <pre class="code-block">function showCommand() {
+    document.getElementById("result").textContent =
+        "PHP CLI Command: php hello.php";
+}</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <p>Click the button to display a PHP command. This only shows the command as text. It does not run any PHP, because PHP runs on a server or in a terminal, not in the browser.</p>
+          <div class="demo-box">
+            <button type="button" onclick="showCommand()">Show Command</button>
+          </div>
+          <div id="result" class="output" data-label="Result" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Important note -->
+    <section class="note-section">
+      <h2 class="section-title">Important Note</h2>
+      <div class="output-box" data-label="Important">
+        <p>The Laravel example requires Composer, a supported PHP version and project dependencies. It cannot run simply by opening this HTML file.</p>
+      </div>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit6.6.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit6.8.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    // Same code as shown in the JavaScript code card above
+    function showCommand() {
+      document.getElementById("result").textContent =
+        "PHP CLI Command: php hello.php";
+    }
+  </script>
+</body>
+</html>

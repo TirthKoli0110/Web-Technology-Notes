@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Unit 6 - Quick Revision</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 6.9: quick revision of PHP topics, with a live revision list and important points for exams.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the boxes, tables and demo work with any topic.css) */
+
+    /* Box around a table, with visible borders on every cell */
+    .table-box {
+      margin: 0.6rem 0 0;
+      padding: 0.6rem;
+      overflow-x: auto;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    .box-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #062a3a;
+    }
+    .box-table th,
+    .box-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: top;
+      border: 1.5px solid rgba(6, 42, 58, 0.6);
+    }
+    .box-table th {
+      background: #00c9a7;
+      color: #031b26;
+      font-weight: 800;
+    }
+    .box-table th:nth-child(2) { background: #00b4d8; }
+    .box-table td:first-child { font-weight: 700; }
+    .box-table code {
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.92em;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    /* The live demo button (white box so it is readable in both themes) */
+    .demo-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem 1.3rem;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+    }
+    .demo-box button {
+      padding: 0.55rem 1.6rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .demo-box button:hover { transform: translateY(-2px); }
+    .demo-box button:focus-visible { outline: 3px solid #031b26; outline-offset: 3px; }
+
+    /* The list the demo builds */
+    #result ol {
+      margin: 0;
+      padding-left: 1.4rem;
+    }
+    #result li { padding: 0.2rem 0; }
+
+    /* Dark mode */
+    html[data-theme="dark"] .table-box {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(4, 18, 28, 0.7);
+    }
+    html[data-theme="dark"] .box-table { color: #eaf8ff; }
+    html[data-theme="dark"] .box-table th,
+    html[data-theme="dark"] .box-table td { border-color: rgba(255, 255, 255, 0.45); }
+    html[data-theme="dark"] .box-table th { color: #031b26; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit6.html">&larr; All Unit 6 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Unit 6 - Quick Revision">Unit 6 - Quick Revision</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 6 &nbsp;/&nbsp; Topic 9</p>
+
+    <p class="intro">Important topics and points to remember for examinations.</p>
+
+    <!-- Table -->
+    <section class="note-section">
+      <h2 class="section-title">Quick Revision Table</h2>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">Topic</th><th scope="col">What You Should Remember</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Server-Side Scripting</td><td>Code executes on the web server.</td></tr>
+            <tr><td>PHP</td><td>Server-side scripting language.</td></tr>
+            <tr><td>PHP Tags</td><td><code>&lt;?php ... ?&gt;</code></td></tr>
+            <tr><td>Output</td><td><code>echo</code>, <code>print</code></td></tr>
+            <tr><td>Variables</td><td>Begin with <code>$</code>.</td></tr>
+            <tr><td>Arrays</td><td>Indexed, associative, multidimensional.</td></tr>
+            <tr><td>Conditions</td><td><code>if</code>, <code>else</code>, <code>elseif</code>.</td></tr>
+            <tr><td>Loops</td><td><code>for</code>, <code>while</code>, <code>foreach</code>.</td></tr>
+            <tr><td>Functions</td><td>Reusable blocks of code.</td></tr>
+            <tr><td>Forms</td><td>GET and POST.</td></tr>
+            <tr><td>Input Validation</td><td>Checks submitted data.</td></tr>
+            <tr><td>Output Escaping</td><td><code>htmlspecialchars()</code></td></tr>
+            <tr><td>String Functions</td><td><code>trim()</code>, <code>strlen()</code>, <code>str_replace()</code>.</td></tr>
+            <tr><td>Regex</td><td>Pattern matching.</td></tr>
+            <tr><td>Regex Functions</td><td><code>preg_match()</code>, <code>preg_replace()</code>.</td></tr>
+            <tr><td>MVC</td><td>Model, View, Controller.</td></tr>
+            <tr><td>Frameworks</td><td>Laravel, Symfony, CodeIgniter.</td></tr>
+            <tr><td>PHP Execution</td><td>CLI and development server.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- JavaScript example -->
+    <section class="note-section">
+      <h2 class="section-title">JavaScript Example - Quick Revision</h2>
+      <ol class="steps">
+        <li>
+          <h3>HTML code</h3>
+          <pre class="code-block">&lt;button onclick="showRevision()"&gt;Show Revision&lt;/button&gt;
+
+&lt;div id="result"&gt;&lt;/div&gt;</pre>
+        </li>
+        <li>
+          <h3>JavaScript code</h3>
+          <pre class="code-block">function showRevision() {
+
+    let topics = [
+        "PHP - Server-side language",
+        "Variables - Begin with $",
+        "Arrays - Three main types",
+        "Loops - for, while, foreach",
+        "Functions - Reusable code",
+        "Forms - GET and POST",
+        "MVC - Model, View, Controller",
+        "Frameworks - Laravel, Symfony, CodeIgniter"
+    ];
+
+    let list = document.createElement("ol");
+
+    topics.forEach(function (text) {
+        let item = document.createElement("li");
+        item.textContent = text;
+        list.appendChild(item);
+    });
+
+    let result = document.getElementById("result");
+    result.textContent = "";
+    result.appendChild(list);
+}</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <p>Click the button to display important PHP topics as a numbered list. Clicking again rebuilds the list, so the topics never repeat.</p>
+          <div class="demo-box">
+            <button type="button" onclick="showRevision()">Show Revision</button>
+          </div>
+          <div id="result" class="output" data-label="Result" role="status" aria-live="polite">Click the button to display important PHP topics.</div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Exam points -->
+    <section class="note-section">
+      <h2 class="section-title">Important Points for Exams</h2>
+      <ol class="steps">
+        <li><h3>PHP</h3><p>PHP is a server-side scripting language.</p></li>
+        <li><h3>Variables</h3><p>PHP variables start with <code>$</code>.</p></li>
+        <li><h3>Output</h3><p><code>echo</code> and <code>print</code> are used for output.</p></li>
+        <li><h3>Arrays</h3><p>Arrays store multiple values.</p></li>
+        <li><h3>Loops</h3><p>Loops execute code repeatedly.</p></li>
+        <li><h3>Functions</h3><p>Functions are reusable blocks of code.</p></li>
+        <li><h3>Forms</h3><p>GET and POST are used for form submission.</p></li>
+        <li><h3>MVC</h3><p>MVC stands for Model, View and Controller.</p></li>
+        <li><h3>Laravel</h3><p>Laravel is a popular PHP framework.</p></li>
+        <li><h3>Running PHP</h3><p>PHP can run through CLI or a development server.</p></li>
+      </ol>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit6.8.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit6.html">All Unit 6 topics &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    // Same code as shown in the JavaScript code card above
+    function showRevision() {
+
+      let topics = [
+        "PHP - Server-side language",
+        "Variables - Begin with $",
+        "Arrays - Three main types",
+        "Loops - for, while, foreach",
+        "Functions - Reusable code",
+        "Forms - GET and POST",
+        "MVC - Model, View, Controller",
+        "Frameworks - Laravel, Symfony, CodeIgniter"
+      ];
+
+      let list = document.createElement("ol");
+
+      topics.forEach(function (text) {
+        let item = document.createElement("li");
+        item.textContent = text;
+        list.appendChild(item);
+      });
+
+      let result = document.getElementById("result");
+      result.textContent = "";
+      result.appendChild(list);
+    }
+  </script>
+</body>
+</html>

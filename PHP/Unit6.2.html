@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Introduction and Basic Syntax of PHP</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 6.2: What PHP is, basic PHP syntax, variables, data types and operators, with a live example.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the boxes, tables and button work with any topic.css) */
+
+    /* Box around a table, with visible borders on every cell */
+    .table-box {
+      margin: 0.6rem 0 0;
+      padding: 0.6rem;
+      overflow-x: auto;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    .box-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #062a3a;
+    }
+    .box-table th,
+    .box-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: top;
+      border: 1.5px solid rgba(6, 42, 58, 0.6);
+    }
+    .box-table th {
+      background: #00c9a7;
+      color: #031b26;
+      font-weight: 800;
+    }
+    .box-table th:nth-child(2) { background: #00b4d8; }
+    .box-table th:nth-child(3) { background: #3dbeff; }
+    .box-table code {
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.95em;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    /* Box with a bullet list inside */
+    .list-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      color: #062a3a;
+    }
+    .list-box ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .list-box li {
+      position: relative;
+      padding: 0.25rem 0 0.25rem 1.6rem;
+    }
+    .list-box li::before {
+      content: "";
+      position: absolute;
+      top: 0.85em;
+      left: 0.2rem;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: #00c9a7;
+    }
+
+    /* Small inline code inside cards */
+    .steps code {
+      padding: 0.1rem 0.35rem;
+      border-radius: 6px;
+      background: rgba(0, 180, 216, 0.18);
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.9em;
+    }
+
+    /* Button */
+    .js-btn {
+      margin: 0.6rem 0 0;
+      padding: 0.5rem 1.4rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .js-btn:hover { transform: translateY(-2px); }
+    .js-btn:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+
+    /* Dark mode */
+    html[data-theme="dark"] .table-box,
+    html[data-theme="dark"] .list-box {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(4, 18, 28, 0.7);
+    }
+    html[data-theme="dark"] .box-table,
+    html[data-theme="dark"] .list-box { color: #eaf8ff; }
+    html[data-theme="dark"] .box-table th,
+    html[data-theme="dark"] .box-table td { border-color: rgba(255, 255, 255, 0.45); }
+    html[data-theme="dark"] .box-table th { color: #031b26; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit6.html">&larr; All Unit 6 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Introduction and Basic Syntax of PHP">Introduction and Basic Syntax of PHP</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 6 &nbsp;/&nbsp; Topic 2</p>
+
+    <!-- What is PHP -->
+    <section class="note-section">
+      <h2 class="section-title">What is PHP?</h2>
+      <p class="intro">PHP stands for PHP: Hypertext Preprocessor. It is an open-source, server-side scripting language used to develop dynamic websites and web applications.</p>
+    </section>
+
+    <!-- Features -->
+    <section class="note-section">
+      <h2 class="section-title">Features of PHP:</h2>
+      <div class="list-box">
+        <ul>
+          <li>Open-source and free.</li>
+          <li>Runs on the server.</li>
+          <li>Can be embedded inside HTML.</li>
+          <li>Supports databases.</li>
+          <li>Used for dynamic webpages.</li>
+          <li>Supports functions, arrays, loops and conditions.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Basic syntax -->
+    <section class="note-section">
+      <h2 class="section-title">Basic PHP Syntax</h2>
+      <p>PHP code is written inside PHP tags:</p>
+      <pre class="code-block">&lt;?php
+    echo "Hello World!";
+?&gt;</pre>
+      <h3 style="margin:1.2rem 0 0.2rem;">Explanation:</h3>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">Part</th><th scope="col">Meaning</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>&lt;?php</code></td><td>Starts PHP code.</td></tr>
+            <tr><td><code>echo</code></td><td>Displays output.</td></tr>
+            <tr><td><code>"Hello World!"</code></td><td>Text to display.</td></tr>
+            <tr><td><code>;</code></td><td>Ends a PHP statement.</td></tr>
+            <tr><td><code>?&gt;</code></td><td>Closes the PHP block.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Rules -->
+    <section class="note-section">
+      <h2 class="section-title">Important Rules:</h2>
+      <ol class="steps">
+        <li><h3>Rule 1</h3><p>PHP variables start with <code>$</code>.</p></li>
+        <li><h3>Rule 2</h3><p>Statements generally end with a semicolon (<code>;</code>).</p></li>
+        <li><h3>Rule 3</h3><p>Variable names are case-sensitive.</p></li>
+        <li><h3>Rule 4</h3><p>Keywords and function names are generally case-insensitive.</p></li>
+        <li><h3>Rule 5</h3><p>Comments use <code>//</code> or <code>/* ... */</code>.</p></li>
+      </ol>
+    </section>
+
+    <!-- Variables and data types -->
+    <section class="note-section">
+      <h2 class="section-title">PHP Variables and Data Types</h2>
+      <p>A variable is a named memory location used to store data.</p>
+      <ol class="steps">
+        <li>
+          <h3>Example</h3>
+          <pre class="code-block">&lt;?php
+$name = "Asha";
+$age = 20;
+$passed = true;
+$marks = 88.5;
+
+echo $name;
+?&gt;</pre>
+        </li>
+      </ol>
+      <h3 style="margin:1.2rem 0 0.2rem;">Common PHP Data Types:</h3>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">Data Type</th><th scope="col">Meaning</th><th scope="col">Example</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>String</td><td>Text</td><td><code>"Hello"</code></td></tr>
+            <tr><td>Integer</td><td>Whole number</td><td><code>25</code></td></tr>
+            <tr><td>Float</td><td>Decimal number</td><td><code>85.5</code></td></tr>
+            <tr><td>Boolean</td><td>True or false</td><td><code>true</code></td></tr>
+            <tr><td>Array</td><td>Collection of values</td><td><code>[10, 20, 30]</code></td></tr>
+            <tr><td>NULL</td><td>No value</td><td><code>NULL</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Operators -->
+    <section class="note-section">
+      <h2 class="section-title">Operators in PHP</h2>
+      <p>Operators are symbols used to perform operations on values.</p>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">Operator Type</th><th scope="col">Examples</th><th scope="col">Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Arithmetic</td><td><code>+ - * / %</code></td><td>Mathematical calculations</td></tr>
+            <tr><td>Comparison</td><td><code>== != &gt; &lt; &gt;= &lt;=</code></td><td>Compare values</td></tr>
+            <tr><td>Assignment</td><td><code>= += -=</code></td><td>Assign values</td></tr>
+            <tr><td>Logical</td><td><code>&amp;&amp; || !</code></td><td>Combine conditions</td></tr>
+            <tr><td>Concatenation</td><td><code>.</code></td><td>Join strings</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Operators example -->
+    <section class="note-section">
+      <h2 class="section-title">PHP Operators Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>PHP code</h3>
+          <pre class="code-block">&lt;?php
+$a = 10;
+$b = 5;
+
+echo $a + $b;  // 15
+echo $a * $b;  // 50
+echo "Hello " . "PHP";
+?&gt;</pre>
+        </li>
+        <li>
+          <h3>JavaScript Example</h3>
+          <pre class="code-block">function calculate() {
+    let a = 10;
+    let b = 5;
+
+    let add = a + b;
+    let multiply = a * b;
+
+    document.getElementById("result").innerHTML =
+        "Addition = " + add +
+        "&lt;br&gt;Multiplication = " + multiply;
+}</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <p>PHP runs only on a server, so this button runs the same calculations in JavaScript. Click it to perform addition and multiplication.</p>
+          <button id="calcBtn" class="js-btn" type="button">Calculate</button>
+          <div id="result" class="output" data-label="Output" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Remember -->
+    <section class="note-section">
+      <h2 class="section-title">Remember:</h2>
+      <div class="output-box" data-label="Remember">
+        <p>PHP uses the dot (.) operator to join strings, unlike Java or JavaScript, which commonly use +.</p>
+      </div>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit6.1.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit6.3.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      // Same function as shown in the JavaScript Example card above
+      function calculate() {
+        let a = 10;
+        let b = 5;
+
+        let add = a + b;
+        let multiply = a * b;
+
+        document.getElementById("result").innerHTML =
+          "Addition = " + add +
+          "<br>Multiplication = " + multiply;
+      }
+
+      document.getElementById("calcBtn").addEventListener("click", calculate);
+    })();
+  </script>
+</body>
+</html>

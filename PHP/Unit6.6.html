@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Web Development Frameworks</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 6.6: PHP web development frameworks, MVC architecture and a comparison of Laravel, Symfony and CodeIgniter, with a live example.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the boxes, tables and button work with any topic.css) */
+
+    /* Box around a table, with visible borders on every cell */
+    .table-box {
+      margin: 0.6rem 0 0;
+      padding: 0.6rem;
+      overflow-x: auto;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    .box-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #062a3a;
+    }
+    .box-table th,
+    .box-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: top;
+      border: 1.5px solid rgba(6, 42, 58, 0.6);
+    }
+    .box-table th {
+      background: #00c9a7;
+      color: #031b26;
+      font-weight: 800;
+    }
+    .box-table th:nth-child(2) { background: #00b4d8; }
+    .box-table th:nth-child(3) { background: #3dbeff; }
+    .box-table code {
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.95em;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    /* Box with a bullet list inside */
+    .list-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      color: #062a3a;
+    }
+    .list-box ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .list-box li {
+      position: relative;
+      padding: 0.25rem 0 0.25rem 1.6rem;
+    }
+    .list-box li::before {
+      content: "";
+      position: absolute;
+      top: 0.85em;
+      left: 0.2rem;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: #00c9a7;
+    }
+
+    /* Small inline code inside cards */
+    .steps code {
+      padding: 0.1rem 0.35rem;
+      border-radius: 6px;
+      background: rgba(0, 180, 216, 0.18);
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.9em;
+    }
+
+    /* Small heading above a table or list inside a section */
+    .sub-title {
+      margin: 1.4rem 0 0.4rem;
+      color: inherit;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    /* Button */
+    .js-btn {
+      margin: 0.6rem 0 0;
+      padding: 0.5rem 1.4rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .js-btn:hover { transform: translateY(-2px); }
+    .js-btn:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+
+    /* The live form (white box so it is readable in both themes) */
+    .form-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem 1.3rem;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+    }
+    .form-box label {
+      display: block;
+      font-weight: 700;
+    }
+    .form-box input {
+      display: block;
+      width: 100%;
+      max-width: 420px;
+      margin-top: 0.3rem;
+      padding: 0.55rem 0.8rem;
+      border: 2px solid #8aa6b2;
+      border-radius: 10px;
+      background: #ffffff;
+      color: #031b26;
+      font: 500 1rem Poppins, system-ui, sans-serif;
+    }
+    .form-box input:focus-visible {
+      border-color: #00b4d8;
+      outline: 3px solid rgba(0, 180, 216, 0.35);
+    }
+    .form-box button {
+      margin-top: 1.1rem;
+      padding: 0.55rem 1.6rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .form-box button[type="reset"] {
+      margin-left: 0.6rem;
+      border: 2px solid #031b26;
+      background: transparent;
+    }
+    .form-box button:hover { transform: translateY(-2px); }
+    .form-box button:focus-visible { outline: 3px solid #031b26; outline-offset: 3px; }
+
+    /* Plain bullets inside a numbered card (so they never turn into cards themselves) */
+    .steps ul.sub { margin: 0.4rem 0 0.2rem; padding-left: 1.3rem; list-style: disc; }
+    .steps ul.sub > li {
+      display: list-item;
+      position: static;
+      min-height: 0;
+      margin: 0.15rem 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: none;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      counter-increment: none;
+    }
+    .steps ul.sub > li::before { content: none; display: none; }
+
+    /* Dark mode */
+    html[data-theme="dark"] .table-box,
+    html[data-theme="dark"] .list-box {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(4, 18, 28, 0.7);
+    }
+    html[data-theme="dark"] .box-table,
+    html[data-theme="dark"] .list-box { color: #eaf8ff; }
+    html[data-theme="dark"] .box-table th,
+    html[data-theme="dark"] .box-table td { border-color: rgba(255, 255, 255, 0.45); }
+    html[data-theme="dark"] .box-table th { color: #031b26; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit6.html">&larr; All Unit 6 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Web Development Frameworks">Web Development Frameworks</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 6 &nbsp;/&nbsp; Topic 6</p>
+
+    <section class="note-section">
+      <h2 class="section-title">What is a Framework?</h2>
+      <p class="intro">A framework is a reusable structure that provides tools, libraries and rules for developing applications.</p>
+      <div class="output-box" data-label="PHP">
+        <p>In PHP, frameworks help developers build websites faster and in an organized way.</p>
+      </div>
+      <h3 class="sub-title">Advantages:</h3>
+      <div class="list-box">
+        <ul>
+          <li>Saves development time.</li>
+          <li>Provides reusable code.</li>
+          <li>Improves code organization.</li>
+          <li>Supports routing and database operations.</li>
+          <li>Provides security-related features.</li>
+          <li>Makes large applications easier to maintain.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="note-section">
+      <h2 class="section-title">MVC Architecture</h2>
+      <p class="intro">MVC stands for Model - View - Controller. It is a software design pattern that separates an application into three main parts.</p>
+      <h3 class="sub-title">Three Main Components of MVC</h3>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">Component</th><th scope="col">Work</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>Model</b></td><td>Manages data and database operations.</td></tr>
+            <tr><td><b>Controller</b></td><td>Receives requests and coordinates the application.</td></tr>
+            <tr><td><b>View</b></td><td>Displays the output to the user.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="note-section">
+      <h2 class="section-title">Conceptual Roles of MVC Components</h2>
+      <ol class="steps">
+        <li>
+          <h3>1. Model</h3>
+          <ul class="sub"><li>Represents application data.</li><li>Handles database operations.</li><li>Contains business rules.</li></ul>
+          <p><b>Example:</b> Fetching student marks from a database.</p>
+        </li>
+        <li>
+          <h3>2. View</h3>
+          <ul class="sub"><li>Represents the user interface.</li><li>Displays information.</li><li>Usually uses HTML templates.</li></ul>
+          <p><b>Example:</b> Displaying student marks on a webpage.</p>
+        </li>
+        <li>
+          <h3>3. Controller</h3>
+          <ul class="sub"><li>Receives user requests.</li><li>Processes the request.</li><li>Communicates with the Model.</li><li>Selects the appropriate View or response.</li></ul>
+          <p><b>Example:</b> Receiving a request to display student results.</p>
+        </li>
+      </ol>
+      <h3 class="sub-title">Easy Way to Remember:</h3>
+      <div class="list-box">
+        <ul>
+          <li><b>Model</b> = Data</li>
+          <li><b>View</b> = Design / Display</li>
+          <li><b>Controller</b> = Control / Coordination</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="note-section">
+      <h2 class="section-title">Common PHP Frameworks</h2>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">Framework</th><th scope="col">Description</th><th scope="col">Common Use</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>Laravel</b></td><td>Full-featured framework with routing, Blade templates, ORM and migrations.</td><td>Modern web applications.</td></tr>
+            <tr><td><b>Symfony</b></td><td>Modular framework with reusable components.</td><td>Large and complex applications.</td></tr>
+            <tr><td><b>CodeIgniter</b></td><td>Lightweight framework with straightforward setup.</td><td>Smaller projects.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="note-section">
+      <h2 class="section-title">Comparison of PHP Frameworks</h2>
+      <ol class="steps">
+        <li>
+          <h3>1. Laravel</h3>
+          <ul class="sub"><li>Provides many built-in features.</li><li>Supports database management.</li><li>Uses Blade templating.</li><li>Suitable for modern applications.</li></ul>
+        </li>
+        <li>
+          <h3>2. Symfony</h3>
+          <ul class="sub"><li>Provides reusable components.</li><li>Highly configurable.</li><li>Suitable for complex projects.</li></ul>
+        </li>
+        <li>
+          <h3>3. CodeIgniter</h3>
+          <ul class="sub"><li>Lightweight.</li><li>Relatively simple to learn.</li><li>Has a smaller footprint.</li></ul>
+        </li>
+      </ol>
+    </section>
+
+    <section class="note-section">
+      <h2 class="section-title">JavaScript Example - MVC Architecture</h2>
+      <ol class="steps">
+        <li>
+          <h3>Code</h3>
+          <pre class="code-block">function showMVC() {
+    let model = "Model = Data";
+    let view = "View = Display";
+    let controller = "Controller = Control";
+
+    document.getElementById("result").innerHTML =
+        model + "&lt;br&gt;" +
+        view + "&lt;br&gt;" +
+        controller;
+}</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <p>Click the button to see the three MVC components.</p>
+          <button id="mvcBtn" class="js-btn" type="button">Show MVC</button>
+          <div id="result" class="output" data-label="Output" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit6.5.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit6.7.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      // Same function as shown in the Code card above
+      function showMVC() {
+        let model = "Model = Data";
+        let view = "View = Display";
+        let controller = "Controller = Control";
+
+        document.getElementById("result").innerHTML =
+          model + "<br>" +
+          view + "<br>" +
+          controller;
+      }
+
+      document.getElementById("mvcBtn").addEventListener("click", showMVC);
+    })();
+  </script>
+</body>
+</html>

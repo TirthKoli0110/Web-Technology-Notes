@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Types, Variables, Arrays and Output</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 6.3: PHP arrays, output statements, loops, conditions and functions, with a live JavaScript example.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the boxes, tables and button work with any topic.css) */
+
+    /* Box around a table, with visible borders on every cell */
+    .table-box {
+      margin: 0.6rem 0 0;
+      padding: 0.6rem;
+      overflow-x: auto;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    .box-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #062a3a;
+    }
+    .box-table th,
+    .box-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: top;
+      border: 1.5px solid rgba(6, 42, 58, 0.6);
+    }
+    .box-table th {
+      background: #00c9a7;
+      color: #031b26;
+      font-weight: 800;
+    }
+    .box-table th:nth-child(2) { background: #00b4d8; }
+    .box-table th:nth-child(3) { background: #3dbeff; }
+    .box-table code {
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.95em;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    /* Box with a bullet list inside */
+    .list-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      color: #062a3a;
+    }
+    .list-box ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .list-box li {
+      position: relative;
+      padding: 0.25rem 0 0.25rem 1.6rem;
+    }
+    .list-box li::before {
+      content: "";
+      position: absolute;
+      top: 0.85em;
+      left: 0.2rem;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: #00c9a7;
+    }
+
+    /* Small inline code inside cards */
+    .steps code {
+      padding: 0.1rem 0.35rem;
+      border-radius: 6px;
+      background: rgba(0, 180, 216, 0.18);
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.9em;
+    }
+
+    /* Small heading above a table or list inside a section */
+    .sub-title {
+      margin: 1.4rem 0 0.4rem;
+      color: inherit;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    /* Button */
+    .js-btn {
+      margin: 0.6rem 0 0;
+      padding: 0.5rem 1.4rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .js-btn:hover { transform: translateY(-2px); }
+    .js-btn:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+
+    /* Dark mode */
+    html[data-theme="dark"] .table-box,
+    html[data-theme="dark"] .list-box {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(4, 18, 28, 0.7);
+    }
+    html[data-theme="dark"] .box-table,
+    html[data-theme="dark"] .list-box { color: #eaf8ff; }
+    html[data-theme="dark"] .box-table th,
+    html[data-theme="dark"] .box-table td { border-color: rgba(255, 255, 255, 0.45); }
+    html[data-theme="dark"] .box-table th { color: #031b26; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit6.html">&larr; All Unit 6 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Types, Variables, Arrays and Output">Types, Variables, Arrays and Output</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 6 &nbsp;/&nbsp; Topic 3</p>
+
+    <section class="note-section">
+      <h2 class="section-title">A. Arrays in PHP</h2>
+      <p class="intro">An array is a variable that stores multiple values in a single variable.</p>
+      <div style="height:1rem"></div>
+      <ol class="steps">
+        <li>
+          <h3>1. Indexed Array</h3>
+          <p>Stores values using numeric indexes starting from 0.</p>
+          <pre class="code-block">&lt;?php
+$subjects = ["PHP", "HTML", "CSS"];
+
+echo $subjects[0];
+echo $subjects[1];
+?&gt;</pre>
+        </li>
+        <li>
+          <h3>2. Associative Array</h3>
+          <p>Stores values using named keys.</p>
+          <pre class="code-block">&lt;?php
+$marks = [
+    "Mira" =&gt; 88,
+    "Dev" =&gt; 76
+];
+
+echo $marks["Mira"];
+?&gt;</pre>
+        </li>
+        <li>
+          <h3>3. Multidimensional Array</h3>
+          <p>An array containing one or more arrays.</p>
+          <pre class="code-block">&lt;?php
+$students = [
+    ["Mira", 88],
+    ["Dev", 76]
+];
+
+echo $students[0][0];
+?&gt;</pre>
+        </li>
+      </ol>
+    </section>
+
+    <section class="note-section">
+      <h2 class="section-title">B. Output Statements</h2>
+      <p>PHP provides two commonly used output statements:</p>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">Statement</th><th scope="col">Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>echo</b></td><td>Displays one or more strings.</td></tr>
+            <tr><td><b>print</b></td><td>Displays a string and returns the value 1.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="height:1rem"></div>
+      <ol class="steps">
+        <li>
+          <h3>Example:</h3>
+          <pre class="code-block">&lt;?php
+$name = "Asha";
+
+echo "Hello ";
+print $name;
+?&gt;</pre>
+        </li>
+      </ol>
+    </section>
+
+    <section class="note-section">
+      <h2 class="section-title">C. Loops in PHP</h2>
+      <p>Loops are used to execute a block of code repeatedly.</p>
+      <ol class="steps">
+        <li>
+          <h3>1. For Loop</h3>
+          <p>Used when the number of repetitions is known.</p>
+          <pre class="code-block">&lt;?php
+for ($i = 1; $i &lt;= 5; $i++) {
+    echo $i . "&lt;br&gt;";
+}
+?&gt;</pre>
+          <p><b>Output:</b> 1, 2, 3, 4, 5</p>
+        </li>
+        <li>
+          <h3>2. While Loop</h3>
+          <p>Executes while a condition is true.</p>
+          <pre class="code-block">&lt;?php
+$i = 1;
+
+while ($i &lt;= 5) {
+    echo $i;
+    $i++;
+}
+?&gt;</pre>
+        </li>
+        <li>
+          <h3>3. Foreach Loop</h3>
+          <p>Used especially for arrays.</p>
+          <pre class="code-block">&lt;?php
+$subjects = ["PHP", "HTML", "CSS"];
+
+foreach ($subjects as $subject) {
+    echo $subject . "&lt;br&gt;";
+}
+?&gt;</pre>
+        </li>
+      </ol>
+      <h3 class="sub-title">Difference Between Loops</h3>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">Loop</th><th scope="col">Use</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>For</b></td><td>When repetitions are known.</td></tr>
+            <tr><td><b>While</b></td><td>When repetition depends on a condition.</td></tr>
+            <tr><td><b>Foreach</b></td><td>When processing array elements.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="note-section">
+      <h2 class="section-title">D. Conditions in PHP</h2>
+      <p>Conditions help a program make decisions.</p>
+      <ol class="steps">
+        <li>
+          <h3>If-Else Statement</h3>
+          <pre class="code-block">&lt;?php
+$marks = 85;
+
+if ($marks &gt;= 40) {
+    echo "Pass";
+} else {
+    echo "Fail";
+}
+?&gt;</pre>
+        </li>
+      </ol>
+      <h3 class="sub-title">Explanation:</h3>
+      <div class="list-box">
+        <ul>
+          <li>If marks are 40 or more, display Pass.</li>
+          <li>Otherwise, display Fail.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="note-section">
+      <h2 class="section-title">E. Functions in PHP</h2>
+      <p>A function is a reusable block of code that performs a particular task.</p>
+      <ol class="steps">
+        <li>
+          <h3>Example:</h3>
+          <pre class="code-block">&lt;?php
+function greet($name) {
+    return "Hello " . $name;
+}
+
+echo greet("Asha");
+?&gt;</pre>
+          <p><b>Output:</b> Hello Asha</p>
+        </li>
+        <li>
+          <h3>Function with Return Type</h3>
+          <pre class="code-block">&lt;?php
+function resultLabel(int $marks): string {
+    if ($marks &gt;= 40) {
+        return "Pass";
+    }
+
+    return "Needs more practice";
+}
+
+echo resultLabel(88);
+?&gt;</pre>
+        </li>
+      </ol>
+      <h3 class="sub-title">Advantages of Functions:</h3>
+      <div class="list-box">
+        <ul>
+          <li>Code reusability.</li>
+          <li>Reduces repetition.</li>
+          <li>Makes programs easier to understand.</li>
+          <li>Makes debugging easier.</li>
+        </ul>
+      </div>
+      <h3 class="sub-title">Explanation of the return type example:</h3>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">Part</th><th scope="col">Meaning</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>int</code></td><td>Specifies the parameter type.</td></tr>
+            <tr><td><code>string</code></td><td>Specifies the return type.</td></tr>
+            <tr><td><code>return</code></td><td>Sends a value back to the calling code.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="note-section">
+      <h2 class="section-title">JavaScript Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>Code</h3>
+          <pre class="code-block">function showSubjects() {
+    let subjects = ["PHP", "HTML", "CSS"];
+
+    let result = "";
+
+    for (let i = 0; i &lt; subjects.length; i++) {
+        result += subjects[i] + "&lt;br&gt;";
+    }
+
+    document.getElementById("output").innerHTML = result;
+}</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <p>Click the button to display array values using JavaScript.</p>
+          <button id="subjectsBtn" class="js-btn" type="button">Show Subjects</button>
+          <div id="output" class="output" data-label="Output" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit6.2.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit6.4.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      // Same function as shown in the Code card above
+      function showSubjects() {
+        let subjects = ["PHP", "HTML", "CSS"];
+
+        let result = "";
+
+        for (let i = 0; i < subjects.length; i++) {
+          result += subjects[i] + "<br>";
+        }
+
+        document.getElementById("output").innerHTML = result;
+      }
+
+      document.getElementById("subjectsBtn").addEventListener("click", showSubjects);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Important Security Concepts</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 6.8: important PHP security concepts, safe output with htmlspecialchars and a live input validation example.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the boxes, tables and demo work with any topic.css) */
+
+    /* Box around a table, with visible borders on every cell */
+    .table-box {
+      margin: 0.6rem 0 0;
+      padding: 0.6rem;
+      overflow-x: auto;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    .box-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #062a3a;
+    }
+    .box-table th,
+    .box-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: top;
+      border: 1.5px solid rgba(6, 42, 58, 0.6);
+    }
+    .box-table th {
+      background: #00c9a7;
+      color: #031b26;
+      font-weight: 800;
+    }
+    .box-table th:nth-child(2) { background: #00b4d8; }
+    .box-table td:first-child { font-weight: 700; }
+
+    /* Box with a bullet list inside */
+    .list-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      color: #062a3a;
+    }
+    .list-box ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .list-box li {
+      position: relative;
+      padding: 0.25rem 0 0.25rem 1.6rem;
+    }
+    .list-box li::before {
+      content: "";
+      position: absolute;
+      top: 0.85em;
+      left: 0.2rem;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: #00c9a7;
+    }
+    .list-box code {
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.92em;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    /* The live name check (white box so it is readable in both themes) */
+    .demo-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem 1.3rem;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+    }
+    .demo-box label {
+      display: block;
+      font-weight: 700;
+    }
+    .demo-box input {
+      display: block;
+      width: 100%;
+      max-width: 320px;
+      margin-top: 0.3rem;
+      padding: 0.55rem 0.8rem;
+      border: 2px solid #8aa6b2;
+      border-radius: 10px;
+      background: #ffffff;
+      color: #031b26;
+      font: 500 1rem Poppins, system-ui, sans-serif;
+    }
+    .demo-box input:focus-visible {
+      border-color: #00b4d8;
+      outline: 3px solid rgba(0, 180, 216, 0.35);
+    }
+    .demo-box button {
+      margin-top: 1rem;
+      padding: 0.55rem 1.6rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .demo-box button:hover { transform: translateY(-2px); }
+    .demo-box button:focus-visible { outline: 3px solid #031b26; outline-offset: 3px; }
+
+    /* Keeps long names from stretching the page */
+    #result { overflow-wrap: anywhere; }
+
+    /* Dark mode */
+    html[data-theme="dark"] .table-box,
+    html[data-theme="dark"] .list-box {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(4, 18, 28, 0.7);
+    }
+    html[data-theme="dark"] .box-table,
+    html[data-theme="dark"] .list-box { color: #eaf8ff; }
+    html[data-theme="dark"] .box-table th,
+    html[data-theme="dark"] .box-table td { border-color: rgba(255, 255, 255, 0.45); }
+    html[data-theme="dark"] .box-table th { color: #031b26; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit6.html">&larr; All Unit 6 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Important Security Concepts">Important Security Concepts</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 6 &nbsp;/&nbsp; Topic 8</p>
+
+    <p class="intro">These concepts are important for both practical programming and theory examinations.</p>
+
+    <!-- Concepts -->
+    <section class="note-section">
+      <h2 class="section-title">Important Security Concepts</h2>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">Security Concept</th><th scope="col">Explanation</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Input Validation</td><td>Checks whether user input meets application rules.</td></tr>
+            <tr><td>Output Escaping</td><td>Prevents user input from being interpreted as HTML.</td></tr>
+            <tr><td>Prepared Statements</td><td>Help prevent SQL injection.</td></tr>
+            <tr><td>Password Protection</td><td>Passwords should be securely hashed, not stored as plain text.</td></tr>
+            <tr><td>HTTPS</td><td>Protects data while travelling between browser and server.</td></tr>
+            <tr><td>Server-Side Execution</td><td>Keeps PHP source code on the server.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Safe output -->
+    <section class="note-section">
+      <h2 class="section-title">Example of Safe Output</h2>
+      <ol class="steps">
+        <li>
+          <h3>PHP code</h3>
+          <pre class="code-block">&lt;?php
+$name = "&lt;script&gt;alert('Hello')&lt;/script&gt;";
+
+echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+?&gt;</pre>
+        </li>
+        <li>
+          <h3>Explanation</h3>
+          <div class="list-box">
+            <ul>
+              <li><code>$name</code>: Stores the user input.</li>
+              <li><code>htmlspecialchars()</code>: Converts special HTML characters into safe text.</li>
+              <li><code>ENT_QUOTES</code>: Converts both single and double quotes.</li>
+              <li><code>UTF-8</code>: Specifies the character encoding.</li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <h3>What the browser receives</h3>
+          <pre class="code-block">&amp;lt;script&amp;gt;alert(&amp;#039;Hello&amp;#039;)&amp;lt;/script&amp;gt;</pre>
+        </li>
+        <li>
+          <h3>Output</h3>
+          <p>Instead of executing the script, the browser displays it as text.</p>
+          <div class="output" data-label="Output">&lt;script&gt;alert('Hello')&lt;/script&gt;</div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- JavaScript example -->
+    <section class="note-section">
+      <h2 class="section-title">JavaScript Example - Input Validation</h2>
+      <ol class="steps">
+        <li>
+          <h3>HTML code</h3>
+          <pre class="code-block">&lt;form onsubmit="return checkName()"&gt;
+
+    &lt;label for="username"&gt;Enter Name:&lt;/label&gt;
+
+    &lt;input type="text" id="username"&gt;
+
+    &lt;button type="submit"&gt;Check&lt;/button&gt;
+
+&lt;/form&gt;
+
+&lt;p id="result"&gt;&lt;/p&gt;</pre>
+        </li>
+        <li>
+          <h3>JavaScript code</h3>
+          <pre class="code-block">function checkName() {
+
+    let name = document.getElementById("username").value.trim();
+
+    if (name === "") {
+        document.getElementById("result").textContent =
+            "Please enter your name.";
+    } else {
+        document.getElementById("result").textContent =
+            "Input is valid. Welcome " + name;
+    }
+
+    return false;
+}</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <p>Enter your name to check the input. Try leaving it empty, or typing only spaces.</p>
+          <div class="demo-box">
+            <form onsubmit="return checkName()">
+              <label for="username">Enter Name:</label>
+              <input type="text" id="username" autocomplete="off">
+              <button type="submit">Check</button>
+            </form>
+          </div>
+          <div id="result" class="output" data-label="Result" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Remember -->
+    <section class="note-section">
+      <h2 class="section-title">Remember for Exams</h2>
+      <ol class="steps">
+        <li><h3>Input validation</h3><p>Input validation checks user input.</p></li>
+        <li><h3>Output escaping</h3><p>Output escaping protects displayed content.</p></li>
+        <li><h3>Prepared statements</h3><p>Prepared statements help prevent SQL injection.</p></li>
+        <li><h3>Password hashing</h3><p>Password hashing protects stored passwords.</p></li>
+        <li><h3>HTTPS</h3><p>HTTPS protects data during transmission.</p></li>
+        <li><h3>PHP on the server</h3><p>PHP runs on the server.</p></li>
+      </ol>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit6.7.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit6.9.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    // Same code as shown in the JavaScript code card above
+    function checkName() {
+
+      let name = document.getElementById("username").value.trim();
+
+      if (name === "") {
+        document.getElementById("result").textContent =
+          "Please enter your name.";
+      } else {
+        document.getElementById("result").textContent =
+          "Input is valid. Welcome " + name;
+      }
+
+      return false;
+    }
+  </script>
+</body>
+</html>
