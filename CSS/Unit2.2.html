@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>HTML Document</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 2.2: HTML history, document rules, DOCTYPE, headings, paragraphs, links, images, nesting and end tags.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit2.html">&larr; All Unit 2 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="HTML Document">HTML Document</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 2 &nbsp;/&nbsp; Topic 2</p>
+
+    <!-- HTML History -->
+    <section class="note-section">
+      <h2 class="section-title">HTML History</h2>
+      <ol class="steps">
+        <li><h3>1989</h3><p>World Wide Web invented</p></li>
+        <li><h3>1991</h3><p>HTML invented</p></li>
+        <li><h3>1995</h3><p>HTML 2.0</p></li>
+        <li><h3>1999</h3><p>HTML 4.01</p></li>
+        <li><h3>2014</h3><p>HTML5 Recommendation</p></li>
+      </ol>
+    </section>
+
+    <!-- HTML Document Rules -->
+    <section class="note-section">
+      <h2 class="section-title">HTML Document Rules</h2>
+      <ol class="steps">
+        <li><p>Starts with <code>&lt;!DOCTYPE html&gt;</code></p></li>
+        <li><p>Root element: <code>&lt;html&gt;</code></p></li>
+        <li><p>Visible content is placed inside <code>&lt;body&gt;</code></p></li>
+      </ol>
+    </section>
+
+    <!-- DOCTYPE -->
+    <section class="note-section">
+      <h2 class="section-title">DOCTYPE</h2>
+      <pre class="code-block">&lt;!DOCTYPE html&gt;</pre>
+
+      <h3 class="sub-title">Purpose</h3>
+      <ol class="steps">
+        <li><p>Declares HTML5 document.</p></li>
+        <li><p>Written at the top of the HTML file.</p></li>
+        <li><p>Written only once.</p></li>
+        <li><p>Helps the browser display the webpage correctly.</p></li>
+      </ol>
+    </section>
+
+    <!-- HTML Headings -->
+    <section class="note-section">
+      <h2 class="section-title">HTML Headings</h2>
+      <div class="demo" data-label="Output">
+        <p class="sz sz1">Largest Heading (h1)</p>
+        <p class="sz sz2">Heading (h2)</p>
+        <p class="sz sz3">Heading (h3)</p>
+        <p class="sz sz4">Heading (h4)</p>
+        <p class="sz sz5">Heading (h5)</p>
+        <p class="sz sz6">Smallest Heading (h6)</p>
+      </div>
+
+      <ol class="steps">
+        <li><h3><code>&lt;h1&gt;</code></h3><p>Most important heading.</p></li>
+        <li><h3><code>&lt;h6&gt;</code></h3><p>Least important heading.</p></li>
+      </ol>
+    </section>
+
+    <!-- Paragraph -->
+    <section class="note-section">
+      <h2 class="section-title">Paragraph</h2>
+      <pre class="code-block">&lt;p&gt;This is a paragraph.&lt;/p&gt;</pre>
+      <div class="demo" data-label="Output"><p>This is a paragraph.</p></div>
+
+      <ol class="steps">
+        <li><p>Block-level element.</p></li>
+        <li><p>Starts on a new line.</p></li>
+        <li><p>Browser automatically adds spacing.</p></li>
+      </ol>
+    </section>
+
+    <!-- Links -->
+    <section class="note-section">
+      <h2 class="section-title">Links</h2>
+      <pre class="code-block">&lt;a href="https://www.itm.ac.in"&gt;Visit ITM&lt;/a&gt;</pre>
+      <div class="demo" data-label="Output"><p><a href="https://www.itm.ac.in" target="_blank" rel="noopener noreferrer">Visit ITM</a></p></div>
+
+      <ol class="steps">
+        <li><h3><code>&lt;a&gt;</code></h3><p>Anchor tag.</p></li>
+        <li><h3><code>href</code></h3><p>Specifies the destination URL.</p></li>
+      </ol>
+    </section>
+
+    <!-- Images -->
+    <section class="note-section">
+      <h2 class="section-title">Images</h2>
+      <pre class="code-block">&lt;img src="image.jpg" alt="Image"&gt;</pre>
+
+      <h3 class="sub-title">Important Attributes</h3>
+      <ol class="steps">
+        <li><h3><code>src</code></h3><p>Image location</p></li>
+        <li><h3><code>alt</code></h3><p>Alternative text</p></li>
+        <li><h3><code>width</code></h3><p>Image width</p></li>
+        <li><h3><code>height</code></h3><p>Image height</p></li>
+      </ol>
+
+      <h3 class="sub-title">Example</h3>
+      <pre class="code-block">&lt;img src="image.jpg"
+     alt="Girl"
+     width="300"
+     height="400"&gt;</pre>
+      <div class="demo" data-label="Output">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjvVayeMnRAto6N_BnVNmqF3mu8BAUWIWpdygA5ybzHg&amp;s=10" alt="cr7" width="400" height="500" loading="lazy">
+      </div>
+    </section>
+
+    <!-- View HTML Source -->
+    <section class="note-section">
+      <h2 class="section-title">View HTML Source</h2>
+      <ol class="steps">
+        <li><h3>View Source</h3><p><strong>Shortcut:</strong> Ctrl + U</p></li>
+        <li>
+          <h3>Inspect</h3>
+          <p>Right Click &rarr; <strong>Inspect</strong></p>
+          <p>Inspect shows the HTML and CSS of the webpage.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Nested Elements -->
+    <section class="note-section">
+      <h2 class="section-title">Nested Elements</h2>
+      <p class="lead-text">HTML elements can be placed inside other HTML elements.</p>
+      <pre class="code-block">&lt;html&gt;
+&lt;body&gt;
+    &lt;h1&gt;Heading&lt;/h1&gt;
+    &lt;p&gt;Paragraph&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+      <h3 class="sub-title">Example Output</h3>
+      <div class="demo" data-label="Output">
+        <h4 class="demo-h">Heading</h4>
+        <p>Paragraph</p>
+      </div>
+
+      <p class="note"><strong>Note:</strong> Always close tags in the correct order.</p>
+    </section>
+
+    <!-- End Tags -->
+    <section class="note-section">
+      <h2 class="section-title">End Tags</h2>
+      <pre class="code-block">&lt;p&gt;Hello&lt;/p&gt;</pre>
+      <div class="demo" data-label="Output"><p>Hello</p></div>
+
+      <h3 class="sub-title">Missing End Tags May Cause</h3>
+      <div class="output-box" data-label="May cause">
+        <ul class="chips">
+        <li>Layout problems</li>
+        <li>Rendering errors</li>
+        <li>Validation errors</li>
+      </ul>
+      </div>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit2.1.html">&larr; Previous: HTML</a>
+      <a class="nav-next" href="Unit2.3.html">Next: HTML Attributes &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+</body>
+</html>

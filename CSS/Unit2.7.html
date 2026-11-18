@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>HTML Quick Revision Table</title>
+  <meta name="description" content="Web Technology (C2111C3): quick revision table of HTML formatting and text tags with example output.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    .rev-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 18px;
+      background: var(--solid, rgba(4, 18, 28, 0.88));
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+    .rev {
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--color-ink, #ffffff);
+    }
+    .rev th,
+    .rev td {
+      padding: 0.8rem 1.1rem;
+      text-align: left;
+      font-weight: 500;
+      vertical-align: middle;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .rev th {
+      background: var(--accent, #00c9a7);
+      color: #031b26;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .rev td:first-child {
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .rev tbody tr:hover td { background: rgba(0, 180, 216, 0.16); }
+    .rev blockquote {
+      margin: 0;
+      padding: 0.3rem 0.8rem;
+      border-left: 4px solid var(--accent, #00c9a7);
+    }
+    .rev address { margin: 0; font-style: italic; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit2.html">&larr; Back to Unit 2</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="HTML Quick Revision Table">&#11088; HTML Quick Revision Table</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; HTML &nbsp;/&nbsp; Quick Revision</p>
+
+    <p class="intro">One table to revise every formatting and text tag: its <b>purpose</b> and its <b>output</b>.</p>
+
+    <section class="note-section">
+      <h2 class="section-title">Tag, purpose and output</h2>
+
+      <div class="rev-wrap">
+        <table class="rev">
+          <thead>
+            <tr>
+              <th scope="col">Tag</th>
+              <th scope="col">Purpose</th>
+              <th scope="col">Example Output</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>&lt;sub&gt;</td><td>Subscript</td><td>H<sub>2</sub>O</td></tr>
+            <tr><td>&lt;sup&gt;</td><td>Superscript</td><td>x<sup>2</sup></td></tr>
+            <tr><td>&lt;b&gt;</td><td>Bold Text</td><td><b>Bold Text</b></td></tr>
+            <tr><td>&lt;strong&gt;</td><td>Important Text</td><td><strong>Important Text</strong></td></tr>
+            <tr><td>&lt;i&gt;</td><td>Italic Text</td><td><i>Italic Text</i></td></tr>
+            <tr><td>&lt;em&gt;</td><td>Emphasized Text</td><td><em>Emphasized Text</em></td></tr>
+            <tr><td>&lt;small&gt;</td><td>Small Text</td><td><small>Small Text</small></td></tr>
+            <tr><td>&lt;mark&gt;</td><td>Highlighted Text</td><td><mark>Highlighted</mark></td></tr>
+            <tr><td>&lt;del&gt;</td><td>Deleted Text</td><td><del>Deleted Text</del></td></tr>
+            <tr><td>&lt;ins&gt;</td><td>Inserted Text</td><td><ins>Inserted Text</ins></td></tr>
+            <tr>
+              <td>&lt;blockquote&gt;</td>
+              <td>Long Quotation</td>
+              <td><blockquote>This is a long quotation.</blockquote></td>
+            </tr>
+            <tr><td>&lt;q&gt;</td><td>Short Quotation</td><td><q>Hello</q></td></tr>
+            <tr><td>&lt;abbr&gt;</td><td>Abbreviation</td><td><abbr title="HyperText Markup Language">HTML</abbr></td></tr>
+            <tr>
+              <td>&lt;address&gt;</td>
+              <td>Contact Information</td>
+              <td><address>John Doe<br>john@example.com</address></td>
+            </tr>
+            <tr><td>&lt;cite&gt;</td><td>Creative Work Title</td><td><cite>The Scream</cite></td></tr>
+            <tr><td>&lt;bdo&gt;</td><td>Text Direction</td><td><bdo dir="rtl">Hello</bdo></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a href="Unit2.6.html">&larr; Previous: Text Formatting part-2</a>
+      <a href="Unit2.8.html">Next: HTML Colors &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+</body>
+</html>

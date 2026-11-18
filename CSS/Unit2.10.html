@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>HTML Quotation &amp; Citation</title>
+  <meta name="description" content="Web Technology (C2111C3): HTML quotation and citation tags abbr, address, blockquote, q, cite and bdo.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Topic.css only colours the first 4 sections, so colour sections 5 to 7 here */
+    .note-section:nth-of-type(5) { --accent: var(--color-teal, #00c9a7); }
+    .note-section:nth-of-type(6) { --accent: var(--color-cyan, #00b4d8); }
+    .note-section:nth-of-type(7) { --accent: var(--color-sky, #3dbeff); }
+
+    .cmp-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 18px;
+      background: var(--solid, rgba(4, 18, 28, 0.88));
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+    .cmp {
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--color-ink, #ffffff);
+    }
+    .cmp th,
+    .cmp td {
+      padding: 0.8rem 1.1rem;
+      text-align: left;
+      font-weight: 500;
+      vertical-align: middle;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .cmp th {
+      background: var(--accent, #00c9a7);
+      color: #031b26;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .cmp td:first-child {
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .cmp tbody tr:hover td { background: rgba(0, 180, 216, 0.16); }
+    .cmp blockquote,
+    .steps blockquote {
+      margin: 0.4rem 0;
+      padding: 0.3rem 0.8rem;
+      border-left: 4px solid var(--accent, #00c9a7);
+    }
+    .cmp address,
+    .steps address { margin: 0.2rem 0; font-style: italic; }
+    .steps pre.example { margin: 0.6rem 0 0; overflow-x: auto; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit2.html">&larr; Back to Unit 2</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Quotation &amp; Citation">Quotation &amp; Citation</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; HTML &nbsp;/&nbsp; Part 3: Quotation &amp; Citation</p>
+
+    <p class="intro">These tags mark quotations, abbreviations, contact details, titles of works and text direction.</p>
+
+    <!-- Summary -->
+    <section class="note-section">
+      <h2 class="section-title">Quotation &amp; Citation Tags</h2>
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <thead>
+            <tr><th scope="col">Tag</th><th scope="col">Purpose</th><th scope="col">Example Output</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>&lt;abbr&gt;</td><td>Abbreviation</td><td><abbr title="World Health Organization">WHO</abbr></td></tr>
+            <tr><td>&lt;address&gt;</td><td>Contact Information</td><td><address>John Doe<br>India</address></td></tr>
+            <tr><td>&lt;blockquote&gt;</td><td>Long Quotation</td><td><blockquote>Learning never ends.</blockquote></td></tr>
+            <tr><td>&lt;q&gt;</td><td>Short Quotation</td><td>He said <q>Hello</q></td></tr>
+            <tr><td>&lt;cite&gt;</td><td>Creative Work Title</td><td><cite>Wings of Fire</cite></td></tr>
+            <tr><td>&lt;bdo&gt;</td><td>Change Text Direction</td><td><bdo dir="rtl">Hello</bdo></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 1 -->
+    <section class="note-section">
+      <h2 class="section-title">1. &lt;abbr&gt;</h2>
+      <ol class="steps">
+        <li>
+          <h3>Syntax</h3>
+          <pre class="example">&lt;abbr title="World Health Organization"&gt;WHO&lt;/abbr&gt;</pre>
+        </li>
+        <li>
+          <h3>Output</h3>
+          <p><abbr title="World Health Organization">WHO</abbr></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 2 -->
+    <section class="note-section">
+      <h2 class="section-title">2. &lt;address&gt;</h2>
+      <ol class="steps">
+        <li>
+          <h3>Syntax</h3>
+          <pre class="example">&lt;address&gt;
+John Doe
+India
+&lt;/address&gt;</pre>
+        </li>
+        <li>
+          <h3>Output</h3>
+          <address>John Doe<br>India</address>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3 -->
+    <section class="note-section">
+      <h2 class="section-title">3. &lt;blockquote&gt;</h2>
+      <ol class="steps">
+        <li>
+          <h3>Syntax</h3>
+          <pre class="example">&lt;blockquote&gt;
+Learning never ends.
+&lt;/blockquote&gt;</pre>
+        </li>
+        <li>
+          <h3>Output</h3>
+          <blockquote>Learning never ends.</blockquote>
+        </li>
+        <li>
+          <h3>Purpose</h3>
+          <p>Displays a long quotation.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 4 -->
+    <section class="note-section">
+      <h2 class="section-title">4. &lt;q&gt;</h2>
+      <ol class="steps">
+        <li>
+          <h3>Syntax</h3>
+          <pre class="example">&lt;p&gt;
+He said &lt;q&gt;Hello&lt;/q&gt;
+&lt;/p&gt;</pre>
+        </li>
+        <li>
+          <h3>Output</h3>
+          <p>He said <q>Hello</q>.</p>
+        </li>
+        <li>
+          <h3>Purpose</h3>
+          <p>Displays a short quotation.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 5 -->
+    <section class="note-section">
+      <h2 class="section-title">5. &lt;cite&gt;</h2>
+      <ol class="steps">
+        <li>
+          <h3>Syntax</h3>
+          <pre class="example">&lt;cite&gt;Wings of Fire&lt;/cite&gt;</pre>
+        </li>
+        <li>
+          <h3>Output</h3>
+          <p><cite>Wings of Fire</cite></p>
+        </li>
+        <li>
+          <h3>Purpose</h3>
+          <p>Displays the title of a creative work.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 6 -->
+    <section class="note-section">
+      <h2 class="section-title">6. &lt;bdo&gt;</h2>
+      <ol class="steps">
+        <li>
+          <h3>Syntax</h3>
+          <pre class="example">&lt;bdo dir="rtl"&gt;Hello&lt;/bdo&gt;</pre>
+        </li>
+        <li>
+          <h3>Output</h3>
+          <p>Normal: Hello</p>
+          <p>RTL: <bdo dir="rtl">Hello</bdo></p>
+        </li>
+        <li>
+          <h3>Purpose</h3>
+          <p>Changes the text direction.</p>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a href="Unit2.9.html">&larr; Previous: HTML Links</a>
+      <a href="Unit2.11.html">Next: HTML Quick Revision &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+</body>
+</html>

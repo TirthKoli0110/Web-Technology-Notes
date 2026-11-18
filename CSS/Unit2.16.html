@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Last-Minute HTML Memory Tricks</title>
+  <meta name="description" content="Web Technology (C2111C3): last-minute HTML memory tricks and quick formulas.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    .cmp-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 18px;
+      background: var(--solid, rgba(4, 18, 28, 0.88));
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+    .cmp {
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--color-ink, #ffffff);
+    }
+    .cmp th,
+    .cmp td {
+      padding: 0.75rem 1.1rem;
+      text-align: left;
+      font-weight: 500;
+      vertical-align: middle;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .cmp th {
+      background: var(--accent, #00c9a7);
+      color: #031b26;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .cmp td:first-child {
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 600;
+    }
+    .cmp tbody tr:hover td { background: rgba(0, 180, 216, 0.16); }
+
+    .steps pre.example {
+      margin: 0.6rem 0 0;
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit2.html">&larr; Back to Unit 2</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Last-Minute HTML Memory Tricks">&#129504; Last-Minute HTML Memory Tricks</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; HTML &nbsp;/&nbsp; Last Minute</p>
+
+    <p class="intro">Read this page just before the exam. One line per topic, then a short list of formulas.</p>
+
+    <!-- 1 -->
+    <section class="note-section">
+      <h2 class="section-title">Memory Tricks</h2>
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <thead><tr><th scope="col">Topic</th><th scope="col">Memory Trick</th></tr></thead>
+          <tbody>
+            <tr><td>Attributes</td><td>Extra Information</td></tr>
+            <tr><td>&lt;h1&gt;</td><td>Biggest Heading</td></tr>
+            <tr><td>&lt;p&gt;</td><td>Paragraph</td></tr>
+            <tr><td>&lt;br&gt;</td><td>New Line</td></tr>
+            <tr><td>&lt;hr&gt;</td><td>Horizontal Line</td></tr>
+            <tr><td>&lt;pre&gt;</td><td>Preserves Spaces</td></tr>
+            <tr><td>&lt;strong&gt;</td><td>Important Text</td></tr>
+            <tr><td>&lt;em&gt;</td><td>Emphasis</td></tr>
+            <tr><td>RGB</td><td>Red, Green, Blue</td></tr>
+            <tr><td>RGBA</td><td>RGB + Alpha (Transparency)</td></tr>
+            <tr><td>HEX</td><td>#RRGGBB</td></tr>
+            <tr><td>HSL</td><td>Hue, Saturation, Lightness</td></tr>
+            <tr><td>href</td><td>Link Destination</td></tr>
+            <tr><td>target</td><td>Where Link Opens</td></tr>
+            <tr><td>src</td><td>Image Source</td></tr>
+            <tr><td>alt</td><td>Image Description</td></tr>
+            <tr><td>&lt;ul&gt;</td><td>Bulleted List</td></tr>
+            <tr><td>&lt;ol&gt;</td><td>Numbered List</td></tr>
+            <tr><td>&lt;dl&gt;</td><td>Description List</td></tr>
+            <tr><td>&lt;table&gt;</td><td>Create a Table</td></tr>
+            <tr><td>&lt;form&gt;</td><td>User Input Form</td></tr>
+            <tr><td>Radio Button</td><td>One Choice</td></tr>
+            <tr><td>Checkbox</td><td>Multiple Choices</td></tr>
+            <tr><td>Semantic HTML</td><td>Meaningful Page Structure</td></tr>
+            <tr><td>Meta Tags</td><td>Page Information</td></tr>
+            <tr><td>XHTML</td><td>Strict HTML Rules</td></tr>
+            <tr><td>Drag &amp; Drop</td><td>draggable &rarr; ondragstart &rarr; ondragover &rarr; ondrop</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="note-section">
+      <h2 class="section-title">&#128204; Quick Formula</h2>
+      <ol class="steps">
+        <li>
+          <h3>Formulas to remember</h3>
+          <pre class="example">RGB    = Red + Green + Blue
+RGBA   = RGB + Alpha
+HEX    = #RRGGBB
+HSL    = Hue + Saturation + Lightness
+URL    = href
+Image  = src + alt
+List   = ul / ol / dl
+Table  = table + tr + th + td
+Form   = form + label + input
+Choice = Radio (One) | Checkbox (Many)
+Semantic = header, nav, main, section, article, aside, footer
+Drag &amp; Drop = draggable &rarr; ondragstart &rarr; ondragover &rarr; ondrop</pre>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a href="Unit2.15.html">&larr; Previous: HTML Complete Revision Sheet (Part 2)</a>
+      <a href="Unit2.html">All Unit 2 topics &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+</body>
+</html>

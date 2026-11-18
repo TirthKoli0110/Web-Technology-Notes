@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>HTML Complete Revision Sheet (Part 1)</title>
+  <meta name="description" content="Web Technology (C2111C3): complete HTML revision sheet part 1, covering basic tags, attributes, inline CSS, formatting, quotations, colors, links, URLs, lists and tables.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Topic.css only colours the first 4 sections, so colour sections 5 to 10 here */
+    .note-section:nth-of-type(5)  { --accent: var(--color-teal, #00c9a7); }
+    .note-section:nth-of-type(6)  { --accent: var(--color-cyan, #00b4d8); }
+    .note-section:nth-of-type(7)  { --accent: var(--color-sky, #3dbeff); }
+    .note-section:nth-of-type(8)  { --accent: var(--color-green, #25c55e); }
+    .note-section:nth-of-type(9)  { --accent: var(--color-teal, #00c9a7); }
+    .note-section:nth-of-type(10) { --accent: var(--color-cyan, #00b4d8); }
+
+    .cmp-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 18px;
+      background: var(--solid, rgba(4, 18, 28, 0.88));
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+    .cmp-wrap.inner {
+      margin: 0.6rem 0;
+      border-radius: 14px;
+      background: transparent;
+      box-shadow: none;
+    }
+    .cmp {
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--color-ink, #ffffff);
+    }
+    .cmp th,
+    .cmp td {
+      padding: 0.75rem 1.1rem;
+      text-align: left;
+      font-weight: 500;
+      vertical-align: middle;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .cmp th {
+      background: var(--accent, #00c9a7);
+      color: #031b26;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .cmp td:first-child {
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 600;
+    }
+    .cmp tbody tr:hover td { background: rgba(0, 180, 216, 0.16); }
+
+    .steps pre.example { margin: 0.6rem 0 0; overflow-x: auto; white-space: pre-wrap; }
+    .steps ul.plain,
+    .steps ol.plain { margin: 0.4rem 0; padding-left: 1.4rem; }
+    .steps ul.plain li,
+    .steps ol.plain li {
+      all: revert;
+      color: var(--color-ink, #ffffff);
+      font-weight: 500;
+    }
+    .steps dl { margin: 0.4rem 0; }
+    .steps dt { font-weight: 800; }
+    .steps dd { margin: 0 0 0.4rem 1.2rem; }
+    .demo {
+      margin: 0.5rem 0 0;
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+    .steps a.demo-link { color: var(--color-ink, #ffffff); font-weight: 700; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit2.html">&larr; Back to Unit 2</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="HTML Complete Revision Sheet">HTML Complete Revision Sheet</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; HTML &nbsp;/&nbsp; Complete Revision (Part 1)</p>
+
+    <p class="intro">One sheet to revise basic tags, attributes, inline CSS, formatting, quotations, colors, links, URLs, lists and tables.</p>
+
+    <!-- 1 -->
+    <section class="note-section">
+      <h2 class="section-title">1. Basic HTML Tags</h2>
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <thead><tr><th scope="col">Tag</th><th scope="col">Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>&lt;html&gt;</td><td>Root Element</td></tr>
+            <tr><td>&lt;head&gt;</td><td>Contains Metadata</td></tr>
+            <tr><td>&lt;title&gt;</td><td>Page Title</td></tr>
+            <tr><td>&lt;body&gt;</td><td>Visible Content</td></tr>
+            <tr><td>&lt;h1&gt; - &lt;h6&gt;</td><td>Headings</td></tr>
+            <tr><td>&lt;p&gt;</td><td>Paragraph</td></tr>
+            <tr><td>&lt;br&gt;</td><td>Line Break</td></tr>
+            <tr><td>&lt;hr&gt;</td><td>Horizontal Line</td></tr>
+            <tr><td>&lt;pre&gt;</td><td>Preserves Spaces</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="note-section">
+      <h2 class="section-title">2. HTML Attributes</h2>
+      <ol class="steps">
+        <li>
+          <h3>Syntax</h3>
+          <pre class="example">&lt;tag attribute="value"&gt;</pre>
+        </li>
+        <li>
+          <h3>Rules</h3>
+          <p class="example">Use lowercase attribute names.<br>Write values inside quotes.<br>Write attributes in the opening tag.</p>
+        </li>
+        <li>
+          <h3>Examples</h3>
+          <pre class="example">&lt;img src="flower.jpg" alt="Flower" width="120"&gt;</pre>
+          <pre class="example">&lt;a href="home.html"&gt;Home Page&lt;/a&gt;</pre>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3 -->
+    <section class="note-section">
+      <h2 class="section-title">3. Inline CSS (Style Attribute)</h2>
+      <ol class="steps">
+        <li>
+          <h3>Syntax</h3>
+          <pre class="example">style="property:value;"</pre>
+        </li>
+        <li>
+          <h3>Properties</h3>
+          <div class="cmp-wrap inner">
+            <table class="cmp">
+              <thead><tr><th scope="col">Property</th><th scope="col">Use</th></tr></thead>
+              <tbody>
+                <tr><td>color</td><td>Text Color</td></tr>
+                <tr><td>background-color</td><td>Background Color</td></tr>
+                <tr><td>font-family</td><td>Font Style</td></tr>
+                <tr><td>font-size</td><td>Text Size</td></tr>
+                <tr><td>text-align</td><td>Alignment</td></tr>
+                <tr><td>border</td><td>Border</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <pre class="example">&lt;p style="color:red;"&gt;Hello World&lt;/p&gt;</pre>
+          <p class="demo" style="background:#ffffff; color:red;">Hello World</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 4 -->
+    <section class="note-section">
+      <h2 class="section-title">4. HTML Formatting Tags</h2>
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <thead><tr><th scope="col">Tag</th><th scope="col">Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>&lt;b&gt;</td><td>Bold</td></tr>
+            <tr><td>&lt;strong&gt;</td><td>Important Text</td></tr>
+            <tr><td>&lt;i&gt;</td><td>Italic</td></tr>
+            <tr><td>&lt;em&gt;</td><td>Emphasized</td></tr>
+            <tr><td>&lt;small&gt;</td><td>Small Text</td></tr>
+            <tr><td>&lt;mark&gt;</td><td>Highlight</td></tr>
+            <tr><td>&lt;del&gt;</td><td>Deleted</td></tr>
+            <tr><td>&lt;ins&gt;</td><td>Inserted</td></tr>
+            <tr><td>&lt;sub&gt;</td><td>Subscript</td></tr>
+            <tr><td>&lt;sup&gt;</td><td>Superscript</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="note-section">
+      <h2 class="section-title">5. Quotations</h2>
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <thead><tr><th scope="col">Tag</th><th scope="col">Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>&lt;q&gt;</td><td>Short Quote</td></tr>
+            <tr><td>&lt;blockquote&gt;</td><td>Long Quote</td></tr>
+            <tr><td>&lt;abbr&gt;</td><td>Abbreviation</td></tr>
+            <tr><td>&lt;cite&gt;</td><td>Creative Work Title</td></tr>
+            <tr><td>&lt;address&gt;</td><td>Contact Details</td></tr>
+            <tr><td>&lt;bdo&gt;</td><td>Change Text Direction</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="note-section">
+      <h2 class="section-title">6. HTML Colors</h2>
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <thead><tr><th scope="col">Color Format</th><th scope="col">Example</th></tr></thead>
+          <tbody>
+            <tr><td>Color Name</td><td>Tomato</td></tr>
+            <tr><td>RGB</td><td>rgb(255,0,0)</td></tr>
+            <tr><td>RGBA</td><td>rgba(255,0,0,0.5)</td></tr>
+            <tr><td>HEX</td><td>#FF0000</td></tr>
+            <tr><td>HSL</td><td>hsl(0,100%,50%)</td></tr>
+            <tr><td>HSLA</td><td>hsla(0,100%,50%,0.5)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="note-section">
+      <h2 class="section-title">7. HTML Links</h2>
+      <ol class="steps">
+        <li>
+          <h3>Example</h3>
+          <pre class="example">&lt;a href="page.html"&gt;Click Here&lt;/a&gt;</pre>
+          <p><a class="demo-link" href="#">Click Here</a></p>
+        </li>
+        <li>
+          <h3>Attributes</h3>
+          <div class="cmp-wrap inner">
+            <table class="cmp">
+              <thead><tr><th scope="col">Attribute</th><th scope="col">Purpose</th></tr></thead>
+              <tbody>
+                <tr><td>href</td><td>Destination</td></tr>
+                <tr><td>target</td><td>Where to Open</td></tr>
+                <tr><td>title</td><td>Tooltip</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>
+          <h3>Target values</h3>
+          <p class="example">_self<br>_blank<br>_parent<br>_top</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 8 -->
+    <section class="note-section">
+      <h2 class="section-title">8. URLs</h2>
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <thead><tr><th scope="col">Absolute URL</th><th scope="col">Relative URL</th></tr></thead>
+          <tbody>
+            <tr><td>https://google.com</td><td>page.html</td></tr>
+            <tr><td>https://example.com/about.html</td><td>images/photo.jpg</td></tr>
+            <tr><td>Complete Web Address</td><td>../index.html</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="note-section">
+      <h2 class="section-title">9. HTML Lists</h2>
+      <ol class="steps">
+        <li>
+          <h3>Unordered List</h3>
+          <ul class="plain"><li>HTML</li><li>CSS</li></ul>
+        </li>
+        <li>
+          <h3>Ordered List</h3>
+          <ol class="plain"><li>HTML</li><li>CSS</li></ol>
+        </li>
+        <li>
+          <h3>Description List</h3>
+          <dl>
+            <dt>HTML</dt>
+            <dd>Markup Language</dd>
+          </dl>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 10 -->
+    <section class="note-section">
+      <h2 class="section-title">10. HTML Tables</h2>
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <thead><tr><th scope="col">Tag</th><th scope="col">Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>&lt;table&gt;</td><td>Table</td></tr>
+            <tr><td>&lt;tr&gt;</td><td>Row</td></tr>
+            <tr><td>&lt;th&gt;</td><td>Heading</td></tr>
+            <tr><td>&lt;td&gt;</td><td>Data</td></tr>
+            <tr><td>&lt;caption&gt;</td><td>Title</td></tr>
+            <tr><td>&lt;thead&gt;</td><td>Header</td></tr>
+            <tr><td>&lt;tbody&gt;</td><td>Body</td></tr>
+            <tr><td>&lt;tfoot&gt;</td><td>Footer</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a href="Unit2.13.html">&larr; Previous: HTML Quick Revision</a>
+      <a href="Unit2.15.html">Next: HTML Complete Revision Sheet (Part 2) &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+</body>
+</html>

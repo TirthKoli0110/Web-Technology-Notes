@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>HTML Quick Revision - Lists, Tables, Images &amp; Forms</title>
+  <meta name="description" content="Web Technology (C2111C3): quick revision of HTML lists, tables, images and forms, with programs and memory tricks.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Topic.css only colours the first 4 sections, so colour sections 5 and 6 here */
+    .note-section:nth-of-type(5) { --accent: var(--color-teal, #00c9a7); }
+    .note-section:nth-of-type(6) { --accent: var(--color-cyan, #00b4d8); }
+
+    .cmp-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 18px;
+      background: var(--solid, rgba(4, 18, 28, 0.88));
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+    .cmp-wrap.inner {
+      margin: 0.6rem 0;
+      border-radius: 14px;
+      background: transparent;
+      box-shadow: none;
+    }
+    .cmp {
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--color-ink, #ffffff);
+    }
+    .cmp th,
+    .cmp td {
+      padding: 0.8rem 1.1rem;
+      text-align: left;
+      font-weight: 500;
+      vertical-align: middle;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .cmp th {
+      background: var(--accent, #00c9a7);
+      color: #031b26;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .cmp td:first-child {
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 600;
+    }
+    .cmp tbody tr:hover td { background: rgba(0, 180, 216, 0.16); }
+
+    .steps pre.example { margin: 0.6rem 0 0; overflow-x: auto; white-space: pre-wrap; }
+    .steps ol.plain { margin: 0.4rem 0; padding-left: 1.4rem; }
+    .steps ol.plain li {
+      all: revert;
+      color: var(--color-ink, #ffffff);
+      font-weight: 500;
+    }
+    .form-demo label { display: block; margin-top: 0.4rem; font-weight: 700; }
+    .form-demo input[type="text"] {
+      width: 100%;
+      max-width: 22rem;
+      margin-top: 0.3rem;
+      padding: 0.5rem 0.7rem;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 8px;
+      background: #ffffff;
+      color: #031b26;
+      font: inherit;
+    }
+    .form-demo .submit-btn {
+      margin-top: 1rem;
+      padding: 0.5rem 1.4rem;
+      border: 0;
+      border-radius: 99px;
+      background: var(--accent, #00c9a7);
+      color: #031b26;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit2.html">&larr; Back to Unit 2</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="HTML Quick Revision">&#11088; HTML Quick Revision</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; HTML &nbsp;/&nbsp; Lists, Tables, Images &amp; Forms</p>
+
+    <p class="intro">A fast revision of the most important tags, programs and memory tricks for <b>lists, tables, images and forms</b>.</p>
+
+    <!-- 1 -->
+    <section class="note-section">
+      <h2 class="section-title">Important Tags</h2>
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <thead><tr><th scope="col">Tag</th><th scope="col">Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>&lt;form&gt;</td><td>Form</td></tr>
+            <tr><td>&lt;input&gt;</td><td>Input Field</td></tr>
+            <tr><td>&lt;label&gt;</td><td>Label</td></tr>
+            <tr><td>&lt;table&gt;</td><td>Table</td></tr>
+            <tr><td>&lt;tr&gt;</td><td>Table Row</td></tr>
+            <tr><td>&lt;th&gt;</td><td>Header Cell</td></tr>
+            <tr><td>&lt;td&gt;</td><td>Data Cell</td></tr>
+            <tr><td>&lt;img&gt;</td><td>Image</td></tr>
+            <tr><td>&lt;ul&gt;</td><td>Bullet List</td></tr>
+            <tr><td>&lt;ol&gt;</td><td>Number List</td></tr>
+            <tr><td>&lt;dl&gt;</td><td>Description List</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="note-section">
+      <h2 class="section-title">Most Important Program - Ordered List</h2>
+      <ol class="steps">
+        <li>
+          <h3>Code</h3>
+          <pre class="example">&lt;ol&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
+&lt;/ol&gt;</pre>
+        </li>
+        <li>
+          <h3>Output</h3>
+          <ol class="plain"><li>HTML</li><li>CSS</li></ol>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3 -->
+    <section class="note-section">
+      <h2 class="section-title">Most Important Program - Table</h2>
+      <ol class="steps">
+        <li>
+          <h3>Code</h3>
+          <pre class="example">&lt;table border="1" cellpadding="8"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Name&lt;/th&gt;
+    &lt;th&gt;Marks&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Rahul&lt;/td&gt;
+    &lt;td&gt;85&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</pre>
+        </li>
+        <li>
+          <h3>Output</h3>
+          <div class="cmp-wrap inner">
+            <table class="cmp">
+              <thead><tr><th scope="col">Name</th><th scope="col">Marks</th></tr></thead>
+              <tbody><tr><td>Rahul</td><td>85</td></tr></tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 4 -->
+    <section class="note-section">
+      <h2 class="section-title">Most Important Program - Image</h2>
+      <ol class="steps">
+        <li>
+          <h3>Code</h3>
+          <pre class="example">&lt;img src="flower.jpg"
+     alt="Flower"
+     width="300"&gt;</pre>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 5 -->
+    <section class="note-section">
+      <h2 class="section-title">Most Important Program - Form</h2>
+      <ol class="steps">
+        <li>
+          <h3>Code</h3>
+          <pre class="example">&lt;form&gt;
+  &lt;label&gt;Name&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text"&gt;
+  &lt;br&gt;&lt;br&gt;
+  &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;</pre>
+        </li>
+        <li>
+          <h3>Output</h3>
+          <p>This sample form does not send data anywhere.</p>
+          <form class="form-demo" action="#" onsubmit="return false;">
+            <label for="qname">Name</label>
+            <input type="text" id="qname">
+            <button class="submit-btn" type="submit">Submit</button>
+          </form>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 6 -->
+    <section class="note-section">
+      <h2 class="section-title">One-Line Memory Tricks</h2>
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <thead><tr><th scope="col">Concept</th><th scope="col">Remember</th></tr></thead>
+          <tbody>
+            <tr><td>Relative URL</td><td>Internal Page</td></tr>
+            <tr><td>&lt;ul&gt;</td><td>Bullet List</td></tr>
+            <tr><td>&lt;ol&gt;</td><td>Number List</td></tr>
+            <tr><td>&lt;dl&gt;</td><td>Description List</td></tr>
+            <tr><td>&lt;table&gt;</td><td>Creates a Table</td></tr>
+            <tr><td>&lt;tr&gt;</td><td>Table Row</td></tr>
+            <tr><td>&lt;th&gt;</td><td>Header Cell</td></tr>
+            <tr><td>&lt;td&gt;</td><td>Data Cell</td></tr>
+            <tr><td>&lt;img&gt;</td><td>Displays an Image</td></tr>
+            <tr><td>src</td><td>Image Path</td></tr>
+            <tr><td>alt</td><td>Alternative Text</td></tr>
+            <tr><td>&lt;form&gt;</td><td>Creates a Form</td></tr>
+            <tr><td>&lt;input&gt;</td><td>Input Field</td></tr>
+            <tr><td>&lt;label&gt;</td><td>Input Description</td></tr>
+            <tr><td>Radio Button</td><td>One Selection</td></tr>
+            <tr><td>Checkbox</td><td>Multiple Selections</td></tr>
+            <tr><td>Submit</td><td>Sends Form Data</td></tr>
+            <tr><td>GET</td><td>Data in URL</td></tr>
+            <tr><td>POST</td><td>Data in Request Body</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a href="Unit2.12.html">&larr; Previous: HTML Lists, Tables, Images &amp; Forms</a>
+      <a href="Unit2.14.html">Next: HTML Complete Revision Sheet (Part 1) &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+</body>
+</html>
