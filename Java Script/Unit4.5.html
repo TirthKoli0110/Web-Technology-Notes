@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Loops in JavaScript</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 4.5: JavaScript for, while and for...of loops, with live examples.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit4.html">&larr; All Unit 4 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Loops in JavaScript">Loops in JavaScript</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 4 &nbsp;/&nbsp; Topic 5</p>
+
+    <p class="intro">Loops execute a block of code repeatedly. They are useful for processing lists, printing results and repeating calculations.</p>
+
+    <!-- for loop -->
+    <section class="note-section">
+      <h2 class="section-title">for Loop</h2>
+      <div class="output-box" data-label="About">
+        <p>Used when you need to repeat instructions, often with a counter.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Example code</h3>
+          <pre class="code-block">for (let i = 1; i &lt;= 3; i++) {
+    console.log(i);
+}</pre>
+        </li>
+        <li>
+          <h3>Live output</h3>
+          <div id="out1" class="output" data-label="Output" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- while loop -->
+    <section class="note-section">
+      <h2 class="section-title">while Loop</h2>
+      <div class="output-box" data-label="About">
+        <p>Repeats as long as the condition remains true.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Example code</h3>
+          <pre class="code-block">let count = 1;
+
+while (count &lt;= 3) {
+    console.log(count);
+    count++;
+}</pre>
+        </li>
+        <li>
+          <h3>Live output</h3>
+          <div id="out2" class="output" data-label="Output" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- for...of loop -->
+    <section class="note-section">
+      <h2 class="section-title">for...of Loop</h2>
+      <div class="output-box" data-label="About">
+        <p>Used to visit each value in an iterable, such as an array.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Example code</h3>
+          <pre class="code-block">const subjects = ["HTML", "CSS", "JavaScript"];
+
+for (const subject of subjects) {
+    console.log(subject);
+}</pre>
+        </li>
+        <li>
+          <h3>Live output</h3>
+          <div id="out3" class="output" data-label="Subjects" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Difference Between Loops -->
+    <section class="note-section">
+      <h2 class="section-title">Difference Between Loops</h2>
+      <ol class="steps">
+        <li>
+          <h3>Which loop to use</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Loop</th><th scope="col">Main Use</th></tr></thead>
+              <tbody>
+                <tr><td class="code">for</td><td>Repetition with initialization, condition and update.</td></tr>
+                <tr><td class="code">while</td><td>Repetition while a condition is true.</td></tr>
+                <tr><td class="code">for...of</td><td>Iterating over values in an array or another iterable.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Important -->
+    <section class="note-section">
+      <h2 class="section-title">Important</h2>
+      <div class="output-box" data-label="Remember">
+        <p>Update the loop variable where necessary to prevent an infinite loop.</p>
+      </div>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit4.4.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit4.6.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      // Print lines into an output panel (textContent keeps it plain text)
+      function show(panel, lines) {
+        panel.textContent = "";
+        lines.forEach(function (line) {
+          var row = document.createElement("div");
+          row.textContent = line;
+          panel.appendChild(row);
+        });
+      }
+
+      // for loop
+      var forLines = [];
+      for (let i = 1; i <= 3; i++) {
+        forLines.push(String(i));
+      }
+      show(document.getElementById("out1"), forLines);
+
+      // while loop
+      var whileLines = [];
+      let count = 1;
+      while (count <= 3) {
+        whileLines.push(String(count));
+        count++;
+      }
+      show(document.getElementById("out2"), whileLines);
+
+      // for...of loop
+      var ofLines = [];
+      const subjects = ["HTML", "CSS", "JavaScript"];
+      for (const subject of subjects) {
+        ofLines.push(subject);
+      }
+      show(document.getElementById("out3"), ofLines);
+    })();
+  </script>
+</body>
+</html>

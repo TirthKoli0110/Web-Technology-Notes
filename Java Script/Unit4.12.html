@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>AJAX and Asynchronous Web Applications</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 4.10: AJAX, the request and response cycle, GET and POST, and a live fetch example.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the boxes and demo work with any topic.css) */
+
+    /* Box with a bullet list inside */
+    .list-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      color: #062a3a;
+    }
+    .list-box ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .list-box li {
+      position: relative;
+      padding: 0.25rem 0 0.25rem 1.6rem;
+    }
+    .list-box li::before {
+      content: "";
+      position: absolute;
+      top: 0.85em;
+      left: 0.2rem;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: #00c9a7;
+    }
+    .list-box code {
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.92em;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    /* The live demo (white box so it is readable in both themes) */
+    .demo-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem 1.3rem;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+    }
+    .demo-box button {
+      padding: 0.55rem 1.6rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .demo-box button:hover { transform: translateY(-2px); }
+    .demo-box button:focus-visible { outline: 3px solid #031b26; outline-offset: 3px; }
+
+    /* Keeps the line breaks in the text that the server sends back */
+    #result { white-space: pre-line; overflow-wrap: anywhere; }
+
+    /* Dark mode */
+    html[data-theme="dark"] .list-box {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(4, 18, 28, 0.7);
+      color: #eaf8ff;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit4.html">&larr; All Unit 4 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="AJAX and Asynchronous Web Applications">AJAX and Asynchronous Web Applications</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 4 &nbsp;/&nbsp; Topic 10</p>
+
+    <p class="intro"><b>AJAX</b> stands for <b>Asynchronous JavaScript and XML</b>.</p>
+    <p class="intro">It is a technique that allows JavaScript to send HTTP requests to a server and update part of a webpage without reloading the entire page.</p>
+    <p class="intro">Although XML appears in the name, modern AJAX applications commonly exchange <b>JSON</b> data.</p>
+
+    <!-- Uses -->
+    <section class="note-section">
+      <h2 class="section-title">Uses of AJAX</h2>
+      <div class="list-box">
+        <ul>
+          <li>Searching a catalogue without reloading the page.</li>
+          <li>Refreshing messages.</li>
+          <li>Checking whether a username is available.</li>
+          <li>Updating shopping-cart totals.</li>
+          <li>Submitting forms and displaying responses.</li>
+          <li>Loading information from a server when required.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Cycle -->
+    <section class="note-section">
+      <h2 class="section-title">Request and Response Cycle</h2>
+      <ol class="steps">
+        <li><h3>User action</h3><p>A click or another event starts the request.</p></li>
+        <li><h3>Request</h3><p>JavaScript sends an HTTP request using GET or POST.</p></li>
+        <li><h3>Response</h3><p>The server processes the request and returns JSON or text.</p></li>
+        <li><h3>Update</h3><p>JavaScript updates the DOM without reloading the page.</p></li>
+      </ol>
+    </section>
+
+    <!-- GET and POST -->
+    <section class="note-section">
+      <h2 class="section-title">GET and POST Methods</h2>
+      <div class="list-box">
+        <ul>
+          <li><code>GET</code>: Commonly used to retrieve information from a server.</li>
+          <li><code>POST</code>: Commonly used to send data to a server for processing.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Example -->
+    <section class="note-section">
+      <h2 class="section-title">AJAX Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>HTML code</h3>
+          <pre class="code-block">&lt;button onclick="loadData()"&gt;Load Data&lt;/button&gt;
+
+&lt;p id="result"&gt;Click the button to load information.&lt;/p&gt;</pre>
+        </li>
+        <li>
+          <h3>JavaScript code</h3>
+          <pre class="code-block">function loadData() {
+
+    const result = document.getElementById("result");
+
+    result.textContent = "Loading...";
+
+    fetch("https://jsonplaceholder.typicode.com/posts/1")
+
+        .then(response =&gt; {
+            if (!response.ok) throw new Error("Request failed");
+            return response.json();
+        })
+
+        .then(data =&gt; {
+            result.textContent =
+                "Title: " + data.title +
+                "\n\nBody: " + data.body;
+        })
+
+        .catch(error =&gt; {
+            result.textContent = "Error loading data.";
+        });
+}</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <p>Click the button to load a sample post from a test server. This needs an internet connection.</p>
+          <div class="demo-box">
+            <button type="button" onclick="loadData()">Load Data</button>
+          </div>
+          <div id="result" class="output" data-label="Result" role="status" aria-live="polite">Click the button to load information.</div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Explanation -->
+    <section class="note-section">
+      <h2 class="section-title">Explanation</h2>
+      <div class="list-box">
+        <ul>
+          <li><code>fetch()</code>: Sends an HTTP request to the server.</li>
+          <li><code>response.json()</code>: Converts the response into JSON data.</li>
+          <li><code>then()</code>: Processes the returned data.</li>
+          <li><code>textContent</code>: Displays the received information on the webpage.</li>
+          <li><code>catch()</code>: Handles errors if the request fails.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Remember -->
+    <section class="note-section">
+      <h2 class="section-title">Remember</h2>
+      <div class="output-box" data-label="Remember">
+        <p>AJAX is a communication technique, not a server or database itself. It requires a server or API to provide the requested information.</p>
+      </div>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit4.9.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit4.11.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    // Same code as shown in the JavaScript code card above
+    function loadData() {
+
+      const result = document.getElementById("result");
+
+      result.textContent = "Loading...";
+
+      fetch("https://jsonplaceholder.typicode.com/posts/1")
+
+        .then(response => {
+          if (!response.ok) throw new Error("Request failed");
+          return response.json();
+        })
+
+        .then(data => {
+          result.textContent =
+            "Title: " + data.title +
+            "\n\nBody: " + data.body;
+        })
+
+        .catch(error => {
+          result.textContent = "Error loading data.";
+        });
+    }
+  </script>
+</body>
+</html>

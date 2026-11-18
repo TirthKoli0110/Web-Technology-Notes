@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Popup Boxes in JavaScript</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 4.7: JavaScript popup boxes alert(), confirm() and prompt(), with a live example.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the table box and button work with any topic.css) */
+
+    /* Box around the table, with visible borders on every cell */
+    .type-box {
+      margin: 0.6rem 0 0;
+      padding: 0.6rem;
+      overflow-x: auto;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    .type-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #062a3a;
+    }
+    .type-table th,
+    .type-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: top;
+      border: 1.5px solid rgba(6, 42, 58, 0.6);
+    }
+    .type-table th {
+      background: #00c9a7;
+      color: #031b26;
+      font-weight: 800;
+    }
+    .type-table th:nth-child(2) { background: #00b4d8; }
+    .type-table th:nth-child(3) { background: #3dbeff; }
+    .type-table code {
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.95em;
+      font-weight: 700;
+    }
+
+    /* Dark mode */
+    html[data-theme="dark"] .type-box {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(4, 18, 28, 0.7);
+    }
+    html[data-theme="dark"] .type-table { color: #eaf8ff; }
+    html[data-theme="dark"] .type-table th,
+    html[data-theme="dark"] .type-table td { border-color: rgba(255, 255, 255, 0.45); }
+    html[data-theme="dark"] .type-table th { color: #031b26; }
+
+    /* "Click Here" button */
+    .popup-btn {
+      margin: 0.6rem 0 0;
+      padding: 0.5rem 1.4rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .popup-btn:hover { transform: translateY(-2px); }
+    .popup-btn:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit4.html">&larr; All Unit 4 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Popup Boxes in JavaScript">Popup Boxes in JavaScript</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 4 &nbsp;/&nbsp; Topic 7</p>
+
+    <p class="intro">JavaScript provides three basic browser dialog functions for interacting with users.</p>
+
+    <!-- Types -->
+    <section class="note-section">
+      <h2 class="section-title">Types of Popup Boxes</h2>
+      <div class="type-box">
+        <table class="type-table">
+          <thead>
+            <tr><th scope="col">Method</th><th scope="col">Purpose</th><th scope="col">Return Value</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>alert()</code></td><td>Displays a message.</td><td>No meaningful value.</td></tr>
+            <tr><td><code>confirm()</code></td><td>Asks for confirmation.</td><td><code>true</code> for OK, <code>false</code> for Cancel.</td></tr>
+            <tr><td><code>prompt()</code></td><td>Requests text input.</td><td>Entered string or <code>null</code> if cancelled.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Example -->
+    <section class="note-section">
+      <h2 class="section-title">Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>Code</h3>
+          <pre class="code-block">function showPopups() {
+    alert("Welcome to Unit 4!");
+
+    const proceed = confirm("Do you want to continue?");
+
+    if (proceed) {
+        result.textContent = "Continuing";
+    } else {
+        result.textContent = "Cancelled";
+    }
+
+    const name = prompt("What is your name?");
+
+    if (name !== null) {
+        result.textContent += " - Welcome, " + name;
+    }
+}</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <p>Click the button. Three popups will appear one after another.</p>
+          <button id="popupBtn" class="popup-btn" type="button">Click Here</button>
+          <div id="result" class="output" data-label="Output" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Explanation -->
+    <section class="note-section">
+      <h2 class="section-title">Explanation</h2>
+      <ol class="steps">
+        <li><h3>alert()</h3><p>Informs the user.</p></li>
+        <li><h3>confirm()</h3><p>Collects a yes/no decision.</p></li>
+        <li><h3>prompt()</h3><p>Accepts a short text response.</p></li>
+      </ol>
+      <div class="output-box" data-label="Note">
+        <p>These dialogs are useful for simple demonstrations. Modern websites often use custom-designed interfaces for a better user experience.</p>
+      </div>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit4.6.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit4.8.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      var result = document.getElementById("result");
+
+      // Same function as shown in the Code card above
+      function showPopups() {
+        alert("Welcome to Unit 4!");
+
+        const proceed = confirm("Do you want to continue?");
+
+        if (proceed) {
+          result.textContent = "Continuing";
+        } else {
+          result.textContent = "Cancelled";
+        }
+
+        const name = prompt("What is your name?");
+
+        if (name !== null) {
+          result.textContent += " - Welcome, " + name;
+        }
+      }
+
+      document.getElementById("popupBtn").addEventListener("click", showPopups);
+    })();
+  </script>
+</body>
+</html>

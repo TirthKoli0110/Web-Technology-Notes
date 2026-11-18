@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Events and Buttons in JavaScript</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 4.8: JavaScript events, event listeners and a button click counter.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the boxes, tables and demo work with any topic.css) */
+
+    /* Box around a table, with visible borders on every cell */
+    .table-box {
+      margin: 0.6rem 0 0;
+      padding: 0.6rem;
+      overflow-x: auto;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    .box-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #062a3a;
+    }
+    .box-table th,
+    .box-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: top;
+      border: 1.5px solid rgba(6, 42, 58, 0.6);
+    }
+    .box-table th {
+      background: #00c9a7;
+      color: #031b26;
+      font-weight: 800;
+    }
+    .box-table th:nth-child(2) { background: #00b4d8; }
+    .box-table th:nth-child(3) { background: #3dbeff; }
+    .box-table code,
+    .list-box code {
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.92em;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    /* Box with a bullet list inside */
+    .list-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      color: #062a3a;
+    }
+    .list-box ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .list-box li {
+      position: relative;
+      padding: 0.25rem 0 0.25rem 1.6rem;
+    }
+    .list-box li::before {
+      content: "";
+      position: absolute;
+      top: 0.85em;
+      left: 0.2rem;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: #00c9a7;
+    }
+
+    /* The live counter demo (white box so it is readable in both themes) */
+    .demo-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem 1.3rem;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+    }
+    .demo-box button {
+      padding: 0.55rem 1.6rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .demo-box button:hover { transform: translateY(-2px); }
+    .demo-box button:focus-visible { outline: 3px solid #031b26; outline-offset: 3px; }
+
+    /* Dark mode */
+    html[data-theme="dark"] .table-box,
+    html[data-theme="dark"] .list-box {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(4, 18, 28, 0.7);
+    }
+    html[data-theme="dark"] .box-table,
+    html[data-theme="dark"] .list-box { color: #eaf8ff; }
+    html[data-theme="dark"] .box-table th,
+    html[data-theme="dark"] .box-table td { border-color: rgba(255, 255, 255, 0.45); }
+    html[data-theme="dark"] .box-table th { color: #031b26; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit4.html">&larr; All Unit 4 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Events and Buttons in JavaScript">Events and Buttons in JavaScript</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 4 &nbsp;/&nbsp; Topic 8</p>
+
+    <p class="intro">An <b>event</b> is an action or occurrence in the browser, such as a button click, key press, form submission or page load.</p>
+    <p class="intro">An <b>event listener</b> connects an event to a function that runs when the event occurs.</p>
+
+    <!-- Common events -->
+    <section class="note-section">
+      <h2 class="section-title">Common JavaScript Events</h2>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">Event</th><th scope="col">Meaning</th><th scope="col">Common Use</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>click</code></td><td>User clicks or activates an element.</td><td>Button actions</td></tr>
+            <tr><td><code>input</code></td><td>User changes an input value.</td><td>Live validation</td></tr>
+            <tr><td><code>submit</code></td><td>User submits a form.</td><td>Form validation</td></tr>
+            <tr><td><code>keydown</code></td><td>User presses a key.</td><td>Keyboard shortcuts</td></tr>
+            <tr><td><code>load</code></td><td>A resource or page finishes loading.</td><td>Initialization</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Example -->
+    <section class="note-section">
+      <h2 class="section-title">Example: Button Click Counter</h2>
+      <ol class="steps">
+        <li>
+          <h3>HTML code</h3>
+          <pre class="code-block">&lt;button id="button"&gt;Click Me&lt;/button&gt;
+
+&lt;h3&gt;Count: &lt;span id="output"&gt;0&lt;/span&gt;&lt;/h3&gt;</pre>
+        </li>
+        <li>
+          <h3>JavaScript code</h3>
+          <pre class="code-block">let count = 0;
+
+const button = document.getElementById("button");
+const output = document.getElementById("output");
+
+button.addEventListener("click", (event) =&gt; {
+
+    count++;
+
+    output.textContent = count;
+
+});</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <p>Click the button to increase the counter.</p>
+          <div class="demo-box">
+            <button id="button" type="button">Click Me</button>
+          </div>
+          <div class="output" data-label="Result" role="status" aria-live="polite">Count: <span id="output">0</span></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Explanation -->
+    <section class="note-section">
+      <h2 class="section-title">Explanation</h2>
+      <div class="list-box">
+        <ul>
+          <li><code>addEventListener()</code> registers an event listener.</li>
+          <li><code>"click"</code> specifies the event to detect.</li>
+          <li>The callback function runs when the event occurs.</li>
+          <li><code>count++</code> increases the counter by one.</li>
+          <li><code>output.textContent</code> displays the updated count.</li>
+          <li><code>event</code> contains information about the event.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Why -->
+    <section class="note-section">
+      <h2 class="section-title">Why Use addEventListener()?</h2>
+      <div class="output-box" data-label="Remember">
+        <p>It separates JavaScript behaviour from HTML structure and allows multiple listeners to be attached to an element.</p>
+        <p>A button can respond to clicks without placing JavaScript directly inside its HTML markup.</p>
+      </div>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit4.7.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit4.9.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      // Same code as shown in the JavaScript code card above
+      let count = 0;
+
+      const button = document.getElementById("button");
+      const output = document.getElementById("output");
+
+      button.addEventListener("click", (event) => {
+
+        count++;
+
+        output.textContent = count;
+
+      });
+    })();
+  </script>
+</body>
+</html>

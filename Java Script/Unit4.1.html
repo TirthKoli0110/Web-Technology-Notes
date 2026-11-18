@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Client-Side Scripting with JavaScript</title>
+  <meta name="description" content="Web Technology (C2111C3): an introduction to client-side scripting with JavaScript, the roles of HTML, CSS and JavaScript, and the fundamental building blocks.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Topic.css only colours the first 4 sections, so colour the rest here */
+    .note-section:nth-of-type(n+5) { --accent: var(--color-teal, #00c9a7); }
+
+    /* ---- Tables (same look as Unit 3.7) ---- */
+    .cmp-wrap {
+      overflow-x: auto;
+      margin: 0.6rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 14px;
+    }
+    .cmp {
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--color-ink, #ffffff);
+    }
+    .cmp th,
+    .cmp td {
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .cmp th {
+      background: var(--accent, #00c9a7);
+      color: #031b26;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .cmp td.code { font-family: Consolas, "Courier New", monospace; font-weight: 600; }
+    .steps pre.example { margin: 0.6rem 0 0; overflow-x: auto; white-space: pre-wrap; }
+
+    /* ---- Demo output ---- */
+    #message {
+      min-height: 3rem;
+      margin-top: 0.8rem;
+      padding: 0.8rem 1.1rem;
+      border: 2px dashed gray;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+      text-shadow: none;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit4.html">&larr; Back to Unit 4</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Client-Side Scripting with JavaScript">Client-Side Scripting with JavaScript</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; JavaScript &nbsp;/&nbsp; Introduction</p>
+
+    <p class="intro">JavaScript is a high-level, dynamic programming language that makes web pages interactive.</p>
+
+    <!-- 1 -->
+    <section class="note-section">
+      <h2 class="section-title">1. Role of HTML, CSS and JavaScript</h2>
+      <ol class="steps">
+        <li>
+          <h3>Three technologies, three jobs</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Technology</th><th scope="col">Role</th></tr></thead>
+              <tbody>
+                <tr><td>HTML</td><td>Defines the structure and content of a webpage.</td></tr>
+                <tr><td>CSS</td><td>Controls the appearance and design of a webpage.</td></tr>
+                <tr><td>JavaScript</td><td>Adds behaviour and interactivity.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 2 -->
+    <section class="note-section">
+      <h2 class="section-title">2. Fundamental Building Blocks</h2>
+      <ol class="steps">
+        <li>
+          <h3>Building blocks</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Block</th><th scope="col">Purpose</th></tr></thead>
+              <tbody>
+                <tr><td>Variables</td><td>Store information.</td></tr>
+                <tr><td>Conditions</td><td>Make decisions.</td></tr>
+                <tr><td>Loops</td><td>Repeat instructions.</td></tr>
+                <tr><td>Functions</td><td>Group reusable instructions.</td></tr>
+                <tr><td>Objects and Arrays</td><td>Organize related data.</td></tr>
+                <tr><td>Browser APIs</td><td>Interact with webpages and browsers.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3 -->
+    <section class="note-section">
+      <h2 class="section-title">3. JavaScript Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>Code</h3>
+          <pre class="example">&lt;button onclick="showMessage()"&gt;Click Me&lt;/button&gt;
+&lt;p id="message"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+    function showMessage() {
+        document.getElementById("message").innerHTML =
+            "Welcome to JavaScript!";
+    }
+&lt;/script&gt;</pre>
+        </li>
+        <li>
+          <h3>Explanation</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Part</th><th scope="col">What it does</th></tr></thead>
+              <tbody>
+                <tr><td class="code">onclick</td><td>Runs the function when the button is clicked.</td></tr>
+                <tr><td class="code">showMessage()</td><td>A function that groups the instructions to run.</td></tr>
+                <tr><td class="code">getElementById</td><td>Finds the element with the matching id on the page.</td></tr>
+                <tr><td class="code">innerHTML</td><td>Sets the content shown inside that element.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>
+          <h3>Live result</h3>
+          <button class="btn" type="button" id="clickMe">Click Me</button>
+          <p id="message" role="status" aria-live="polite"></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 4 -->
+    <section class="note-section">
+      <h2 class="section-title">4. Summary</h2>
+      <ol class="steps">
+        <li>
+          <h3>Quick revision</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Topic</th><th scope="col">Key Point</th></tr></thead>
+              <tbody>
+                <tr><td>JavaScript</td><td>A high-level, dynamic language that makes web pages interactive</td></tr>
+                <tr><td>HTML, CSS, JavaScript</td><td>Structure, appearance and behaviour</td></tr>
+                <tr><td>Building blocks</td><td>Variables, conditions, loops, functions, objects and arrays, browser APIs</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a href="Unit4.html">&larr; Back to Unit 4</a>
+      <a href="Unit4.2.html">Next topic &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    // The same function as in the example above, wired to the live button
+    function showMessage() {
+      document.getElementById("message").textContent = "Welcome to JavaScript!";
+    }
+    document.getElementById("clickMe").addEventListener("click", showMessage);
+  </script>
+</body>
+</html>

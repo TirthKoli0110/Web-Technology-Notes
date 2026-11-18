@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>DHTML - Dynamic HTML</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 4.10: DHTML, how HTML, CSS and JavaScript work together, with a live interactive card.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the boxes, table and demo work with any topic.css) */
+
+    /* Box around a table, with visible borders on every cell */
+    .table-box {
+      margin: 0.6rem 0 0;
+      padding: 0.6rem;
+      overflow-x: auto;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    .box-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #062a3a;
+    }
+    .box-table th,
+    .box-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: top;
+      border: 1.5px solid rgba(6, 42, 58, 0.6);
+    }
+    .box-table th {
+      background: #00c9a7;
+      color: #031b26;
+      font-weight: 800;
+    }
+    .box-table th:nth-child(2) { background: #00b4d8; }
+    .box-table th:nth-child(3) { background: #3dbeff; }
+
+    /* Box with a bullet list inside */
+    .list-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      color: #062a3a;
+    }
+    .list-box ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .list-box li {
+      position: relative;
+      padding: 0.25rem 0 0.25rem 1.6rem;
+    }
+    .list-box li::before {
+      content: "";
+      position: absolute;
+      top: 0.85em;
+      left: 0.2rem;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: #00c9a7;
+    }
+
+    /* The interactive card (JavaScript changes its colours) */
+    #dhtml-card {
+      margin: 0.6rem 0 0;
+      padding: 1.2rem 1.4rem;
+      border: 2px solid teal;
+      border-radius: 14px;
+      background-color: white;
+      color: black;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    #dhtml-card h3 { margin: 0 0 0.3rem; color: inherit; }
+    #dhtml-card p { margin: 0; color: inherit; }
+
+    /* Button */
+    .js-btn {
+      margin: 0.8rem 0 0;
+      padding: 0.5rem 1.4rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .js-btn:hover { transform: translateY(-2px); }
+    .js-btn:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+
+    /* Dark mode */
+    html[data-theme="dark"] .table-box,
+    html[data-theme="dark"] .list-box {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(4, 18, 28, 0.7);
+    }
+    html[data-theme="dark"] .box-table,
+    html[data-theme="dark"] .list-box { color: #eaf8ff; }
+    html[data-theme="dark"] .box-table th,
+    html[data-theme="dark"] .box-table td { border-color: rgba(255, 255, 255, 0.45); }
+    html[data-theme="dark"] .box-table th { color: #031b26; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit4.html">&larr; All Unit 4 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="DHTML: HTML, CSS and JavaScript Together">DHTML: HTML, CSS and JavaScript Together</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 4 &nbsp;/&nbsp; Topic 10</p>
+
+    <p class="intro">DHTML (Dynamic HTML) is a descriptive term for using HTML, CSS and JavaScript together to make webpages interactive and dynamically change their appearance or content.</p>
+
+    <div class="output-box" data-label="Note">
+      <p>It is not a separate programming language.</p>
+    </div>
+
+    <!-- Roles -->
+    <section class="note-section">
+      <h2 class="section-title">Roles of Three Technologies</h2>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">Technology</th><th scope="col">Role</th><th scope="col">What it does</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>1. HTML</b></td><td>Structure</td><td>Creates headings, forms, cards, buttons and other page elements.</td></tr>
+            <tr><td><b>2. CSS</b></td><td>Presentation</td><td>Controls layout, colours, spacing and visual states.</td></tr>
+            <tr><td><b>3. JavaScript</b></td><td>Behaviour</td><td>Responds to events and changes DOM content, attributes or classes.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="note-section">
+      <h2 class="section-title">How DHTML Works</h2>
+      <ol class="steps">
+        <li><h3>Step 1</h3><p>The browser reads HTML and creates the DOM tree.</p></li>
+        <li><h3>Step 2</h3><p>CSS rules determine how the elements appear.</p></li>
+        <li><h3>Step 3</h3><p>JavaScript selects elements and listens for events.</p></li>
+        <li><h3>Step 4</h3><p>When an event occurs, JavaScript updates the DOM.</p></li>
+        <li><h3>Step 5</h3><p>The browser applies CSS and redraws the affected content.</p></li>
+      </ol>
+    </section>
+
+    <!-- Example -->
+    <section class="note-section">
+      <h2 class="section-title">Example: Interactive Course Card</h2>
+      <ol class="steps">
+        <li>
+          <h3>HTML code</h3>
+          <pre class="code-block">&lt;div id="dhtml-card"&gt;
+
+    &lt;h3&gt;Interactive Course Card&lt;/h3&gt;
+
+    &lt;p&gt;Press the button to highlight this card.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;button id="dhtml-toggle"&gt;Toggle Highlight&lt;/button&gt;</pre>
+        </li>
+        <li>
+          <h3>JavaScript code</h3>
+          <pre class="code-block">const card = document.querySelector("#dhtml-card");
+
+const toggleButton =
+    document.querySelector("#dhtml-toggle");
+
+let isActive = false;
+
+toggleButton.addEventListener("click", () => {
+
+    if (isActive) {
+        card.style.backgroundColor = "white";
+        card.style.color = "black";
+        isActive = false;
+    } else {
+        card.style.backgroundColor = "teal";
+        card.style.color = "white";
+        isActive = true;
+    }
+
+});</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <div id="dhtml-card">
+            <h3>Interactive Course Card</h3>
+            <p>Press the button to highlight this card.</p>
+          </div>
+          <button id="dhtml-toggle" class="js-btn" type="button">Toggle Highlight</button>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Explanation -->
+    <section class="note-section">
+      <h2 class="section-title">Explanation</h2>
+      <div class="output-box" data-label="Explanation">
+        <p>Clicking the button changes the card's background colour and text colour using JavaScript. This demonstrates dynamic webpage behaviour.</p>
+      </div>
+    </section>
+
+    <!-- Best practice -->
+    <section class="note-section">
+      <h2 class="section-title">Best Practice</h2>
+      <div class="list-box">
+        <ul>
+          <li><b>HTML:</b> Structure</li>
+          <li><b>CSS:</b> Presentation</li>
+          <li><b>JavaScript:</b> Interaction Logic</li>
+        </ul>
+      </div>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit4.9.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit4.11.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      // Same code as shown in the JavaScript code card above
+      const card = document.querySelector("#dhtml-card");
+
+      const toggleButton =
+        document.querySelector("#dhtml-toggle");
+
+      let isActive = false;
+
+      toggleButton.addEventListener("click", () => {
+
+        if (isActive) {
+          card.style.backgroundColor = "white";
+          card.style.color = "black";
+          isActive = false;
+        } else {
+          card.style.backgroundColor = "teal";
+          card.style.color = "white";
+          isActive = true;
+        }
+
+      });
+    })();
+  </script>
+</body>
+</html>

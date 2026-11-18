@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>JavaScript Objects and DOM</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 4.8: JavaScript objects, properties, methods and the DOM, with live examples.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the boxes, table and buttons work with any topic.css) */
+
+    /* Box around the table, with visible borders on every cell */
+    .table-box {
+      margin: 0.6rem 0 0;
+      padding: 0.6rem;
+      overflow-x: auto;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    .box-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #062a3a;
+    }
+    .box-table th,
+    .box-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: top;
+      border: 1.5px solid rgba(6, 42, 58, 0.6);
+    }
+    .box-table th {
+      background: #00c9a7;
+      color: #031b26;
+      font-weight: 800;
+    }
+    .box-table th:nth-child(2) { background: #00b4d8; }
+    .box-table th:nth-child(3) { background: #3dbeff; }
+    .box-table code {
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.92em;
+      font-weight: 700;
+    }
+
+    /* Box with a bullet list inside */
+    .list-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      color: #062a3a;
+    }
+    .list-box ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .list-box li {
+      position: relative;
+      padding: 0.25rem 0 0.25rem 1.6rem;
+    }
+    .list-box li::before {
+      content: "";
+      position: absolute;
+      top: 0.85em;
+      left: 0.2rem;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: #00c9a7;
+    }
+
+    /* White area where the DOM example changes the text */
+    .dom-demo {
+      margin: 0.6rem 0 0;
+      padding: 0.9rem 1.1rem;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+      font-weight: 700;
+    }
+    .dom-demo p { margin: 0; color: inherit; }
+
+    /* Buttons */
+    .js-btn {
+      margin: 0.6rem 0.5rem 0 0;
+      padding: 0.5rem 1.4rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .js-btn:hover { transform: translateY(-2px); }
+    .js-btn:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+
+    /* Dark mode */
+    html[data-theme="dark"] .table-box,
+    html[data-theme="dark"] .list-box {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(4, 18, 28, 0.7);
+    }
+    html[data-theme="dark"] .box-table,
+    html[data-theme="dark"] .list-box { color: #eaf8ff; }
+    html[data-theme="dark"] .box-table th,
+    html[data-theme="dark"] .box-table td { border-color: rgba(255, 255, 255, 0.45); }
+    html[data-theme="dark"] .box-table th { color: #031b26; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit4.html">&larr; All Unit 4 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="JavaScript Objects and the DOM">JavaScript Objects and the DOM</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 4 &nbsp;/&nbsp; Topic 8</p>
+
+    <!-- A. Objects -->
+    <section class="note-section">
+      <h2 class="section-title">A. Objects</h2>
+      <p class="intro">An object stores related information as properties and can also contain functions called methods.</p>
+      <ol class="steps" style="margin-top:1rem;">
+        <li>
+          <h3>Example</h3>
+          <pre class="code-block">const learner = {
+    name: "Asha",
+    unit: 4,
+
+    introduce() {
+        return `${this.name} is studying Unit ${this.unit}.`;
+    }
+};
+
+console.log(learner.name);
+console.log(learner.introduce());</pre>
+        </li>
+        <li>
+          <h3>Live output</h3>
+          <div id="out1" class="output" data-label="Output" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+      <div class="output-box" data-label="Note">
+        <p>Here, <code>name</code> and <code>unit</code> are properties, and <code>introduce()</code> is a method. The <code>this</code> keyword refers to the object.</p>
+      </div>
+    </section>
+
+    <!-- B. DOM -->
+    <section class="note-section">
+      <h2 class="section-title">B. DOM (Document Object Model)</h2>
+      <p class="intro">The DOM is a programming representation of an HTML document as a tree of nodes or objects.</p>
+      <ol class="steps" style="margin-top:1rem;">
+        <li>
+          <h3>Uses of DOM</h3>
+          <div class="list-box">
+            <ul>
+              <li>Find HTML elements.</li>
+              <li>Read or change text.</li>
+              <li>Modify attributes and CSS classes.</li>
+              <li>Create and remove elements.</li>
+              <li>Respond to user actions.</li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Operations table -->
+    <section class="note-section">
+      <h2 class="section-title">Common DOM Operations</h2>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">Operation</th><th scope="col">Example</th><th scope="col">Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Select an element</td><td><code>document.querySelector(".notice")</code></td><td>Finds the first matching element.</td></tr>
+            <tr><td>Change text</td><td><code>element.textContent = "Updated"</code></td><td>Replaces text content.</td></tr>
+            <tr><td>Toggle a class</td><td><code>element.classList.toggle("active")</code></td><td>Adds or removes a CSS class.</td></tr>
+            <tr><td>Add an element</td><td><code>list.append(newItem)</code></td><td>Adds content to a container.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- DOM example -->
+    <section class="note-section">
+      <h2 class="section-title">DOM Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>Code</h3>
+          <pre class="code-block">function changeMessage() {
+    const message = document.querySelector("#message");
+
+    message.textContent = "Welcome to JavaScript!";
+}</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <p>Click the button to change the text below using the DOM.</p>
+          <div class="dom-demo">
+            <p id="message">Original Message</p>
+          </div>
+          <button id="changeBtn" class="js-btn" type="button">Change Text</button>
+          <button id="resetBtn" class="js-btn" type="button">Reset</button>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Remember -->
+    <section class="note-section">
+      <h2 class="section-title">Remember</h2>
+      <div class="output-box" data-label="Remember">
+        <p>The DOM connects JavaScript to the HTML page, allowing the page to change dynamically.</p>
+      </div>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit4.7.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit4.9.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      // Print lines into an output panel (textContent keeps it plain text)
+      function show(panel, lines) {
+        panel.textContent = "";
+        lines.forEach(function (line) {
+          var row = document.createElement("div");
+          row.textContent = line;
+          panel.appendChild(row);
+        });
+      }
+
+      // A. Objects
+      const learner = {
+        name: "Asha",
+        unit: 4,
+
+        introduce() {
+          return `${this.name} is studying Unit ${this.unit}.`;
+        }
+      };
+      show(document.getElementById("out1"), [learner.name, learner.introduce()]);
+
+      // DOM example
+      function changeMessage() {
+        const message = document.querySelector("#message");
+
+        message.textContent = "Welcome to JavaScript!";
+      }
+
+      document.getElementById("changeBtn").addEventListener("click", changeMessage);
+      document.getElementById("resetBtn").addEventListener("click", function () {
+        document.querySelector("#message").textContent = "Original Message";
+      });
+    })();
+  </script>
+</body>
+</html>

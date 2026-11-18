@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Conditions and Logical Operators</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 4.4: JavaScript conditions, logical operators and the ternary operator, with live examples.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit4.html">&larr; All Unit 4 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Conditions and Logical Operators">Conditions and Logical Operators</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 4 &nbsp;/&nbsp; Topic 4</p>
+
+    <p class="intro">Conditions allow a program to make decisions based on whether an expression is true or false.</p>
+
+    <!-- Conditional Statements -->
+    <section class="note-section">
+      <h2 class="section-title">Conditional Statements</h2>
+      <ol class="steps">
+        <li><h3><code>if</code></h3><p>Executes code when a condition is true.</p></li>
+        <li><h3><code>else if</code></h3><p>Checks another condition when the previous condition is false.</p></li>
+        <li><h3><code>else</code></h3><p>Executes when none of the conditions is true.</p></li>
+      </ol>
+    </section>
+
+    <!-- Example -->
+    <section class="note-section">
+      <h2 class="section-title">Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>Code</h3>
+          <pre class="code-block">const age = 20;
+const feesPaid = true;
+
+if (age &gt;= 18 &amp;&amp; feesPaid) {
+    console.log("Student can register");
+} else if (age &gt;= 18 &amp;&amp; !feesPaid) {
+    console.log("Please pay the fees");
+} else {
+    console.log("Student is not eligible");
+}</pre>
+        </li>
+        <li>
+          <h3>Live output</h3>
+          <div id="out1" class="output" data-label="Output" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Logical Operators -->
+    <section class="note-section">
+      <h2 class="section-title">Logical Operators</h2>
+      <ol class="steps">
+        <li>
+          <h3>The three logical operators</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Operator</th><th scope="col">Meaning</th><th scope="col">Example</th></tr></thead>
+              <tbody>
+                <tr><td class="code">&amp;&amp;</td><td>AND - Both conditions must be true.</td><td class="code">age &gt;= 18 &amp;&amp; feesPaid</td></tr>
+                <tr><td class="code">||</td><td>OR - At least one condition must be true.</td><td class="code">isAdmin || isTeacher</td></tr>
+                <tr><td class="code">!</td><td>NOT - Reverses a Boolean value.</td><td class="code">!feesPaid</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Ternary Operator -->
+    <section class="note-section">
+      <h2 class="section-title">Ternary Operator</h2>
+      <div class="output-box" data-label="Definition">
+        <p>The ternary operator is a short form of <code>if...else</code>.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Example code</h3>
+          <pre class="code-block">const age = 20;
+const result = age &gt;= 18 ? "Adult" : "Minor";
+
+console.log("Result: " + result);</pre>
+        </li>
+        <li>
+          <h3>Live output</h3>
+          <div id="out2" class="output" data-label="Output" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit4.3.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit4.5.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      // Print lines into an output panel (textContent keeps it plain text)
+      function show(panel, lines) {
+        panel.textContent = "";
+        lines.forEach(function (line) {
+          var row = document.createElement("div");
+          row.textContent = line;
+          panel.appendChild(row);
+        });
+      }
+
+      // Example: if / else if / else
+      const age = 20;
+      const feesPaid = true;
+      var message;
+
+      if (age >= 18 && feesPaid) {
+        message = "Student can register";
+      } else if (age >= 18 && !feesPaid) {
+        message = "Please pay the fees";
+      } else {
+        message = "Student is not eligible";
+      }
+      show(document.getElementById("out1"), [message]);
+
+      // Ternary operator
+      const result = age >= 18 ? "Adult" : "Minor";
+      show(document.getElementById("out2"), ["Result: " + result]);
+    })();
+  </script>
+</body>
+</html>

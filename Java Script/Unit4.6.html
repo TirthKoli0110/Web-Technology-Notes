@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Functions in JavaScript</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 4.6: JavaScript functions, parameters, arguments and return values, with live examples.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit4.html">&larr; All Unit 4 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Functions in JavaScript">Functions in JavaScript</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 4 &nbsp;/&nbsp; Topic 6</p>
+
+    <p class="intro">A function is a reusable block of code that performs a specific task. It reduces repetition and makes programs easier to understand and maintain.</p>
+
+    <!-- Syntax -->
+    <section class="note-section">
+      <h2 class="section-title">Syntax</h2>
+      <pre class="code-block">function functionName(parameters) {
+    // Statements
+    return value;
+}</pre>
+      <ol class="steps">
+        <li><h3>Function name</h3><p>Identifies the function.</p></li>
+        <li><h3>Parameters</h3><p>Inputs received by the function.</p></li>
+        <li><h3>Return</h3><p>Sends a result back to the calling code.</p></li>
+      </ol>
+    </section>
+
+    <!-- Example 1 -->
+    <section class="note-section">
+      <h2 class="section-title">Example 1: Function with Parameters</h2>
+      <ol class="steps">
+        <li>
+          <h3>Code</h3>
+          <pre class="code-block">function calculateTotal(price, quantity) {
+    return price * quantity;
+}
+
+const bill = calculateTotal(120, 3);
+
+console.log("Total Bill: " + bill);</pre>
+        </li>
+        <li>
+          <h3>Live output</h3>
+          <div id="out1" class="output" data-label="Output" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+      <div class="output-box" data-label="Note">
+        <p>Here, <code>price</code> and <code>quantity</code> are parameters, while <code>120</code> and <code>3</code> are arguments.</p>
+      </div>
+    </section>
+
+    <!-- Example 2 -->
+    <section class="note-section">
+      <h2 class="section-title">Example 2: Function Returning a Greeting</h2>
+      <ol class="steps">
+        <li>
+          <h3>Code</h3>
+          <pre class="code-block">function greet(student) {
+    return "Welcome, " + student + "!";
+}
+
+console.log(greet("Asha"));</pre>
+        </li>
+        <li>
+          <h3>Live output</h3>
+          <div id="out2" class="output" data-label="Output" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit4.5.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit4.7.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      // Print lines into an output panel (textContent keeps it plain text)
+      function show(panel, lines) {
+        panel.textContent = "";
+        lines.forEach(function (line) {
+          var row = document.createElement("div");
+          row.textContent = line;
+          panel.appendChild(row);
+        });
+      }
+
+      // Example 1: function with parameters
+      function calculateTotal(price, quantity) {
+        return price * quantity;
+      }
+      const bill = calculateTotal(120, 3);
+      show(document.getElementById("out1"), ["Total Bill: " + bill]);
+
+      // Example 2: function returning a greeting
+      function greet(student) {
+        return "Welcome, " + student + "!";
+      }
+      show(document.getElementById("out2"), [greet("Asha")]);
+    })();
+  </script>
+</body>
+</html>

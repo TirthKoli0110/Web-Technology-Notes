@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Variables and Values</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 4.2: JavaScript variables and values, let vs const, with live examples.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit4.html">&larr; All Unit 4 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Variables and Values">Variables and Values</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 4 &nbsp;/&nbsp; Topic 2</p>
+
+    <p class="intro">A variable is a named storage location used to hold data.</p>
+
+    <!-- Example -->
+    <section class="note-section">
+      <h2 class="section-title">Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>Code</h3>
+          <pre class="code-block">const studentName = "Asha";
+let marks = 78;
+let isPass = marks &gt;= 40;
+
+console.log(studentName);
+console.log(marks);
+console.log(isPass);</pre>
+        </li>
+        <li>
+          <h3>Values stored</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Variable</th><th scope="col">Value</th><th scope="col">Type of value</th></tr></thead>
+              <tbody>
+                <tr><td class="code">studentName</td><td class="code">"Asha"</td><td>Text (string)</td></tr>
+                <tr><td class="code">marks</td><td class="code">78</td><td>Number</td></tr>
+                <tr><td class="code">isPass</td><td class="code">true</td><td>True or false (boolean)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>
+          <h3>Live output</h3>
+          <div id="out1" class="output" data-label="Output" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- let vs const -->
+    <section class="note-section">
+      <h2 class="section-title">let vs const</h2>
+      <ol class="steps">
+        <li>
+          <h3>Difference</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Keyword</th><th scope="col">Meaning</th></tr></thead>
+              <tbody>
+                <tr><td class="code">let</td><td>Used when a variable may be reassigned.</td></tr>
+                <tr><td class="code">const</td><td>Used when a variable should not be reassigned.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Example of let and const -->
+    <section class="note-section">
+      <h2 class="section-title">Example of let and const</h2>
+      <ol class="steps">
+        <li>
+          <h3>Code</h3>
+          <pre class="code-block">let score = 80;
+score = 90;
+
+const course = "Web Technologies";
+
+console.log("Score: " + score);
+console.log("Course: " + course);</pre>
+        </li>
+        <li>
+          <h3>Live output</h3>
+          <div id="out2" class="output" data-label="Output" role="status" aria-live="polite"></div>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <p>Try to change each variable and see what happens.</p>
+          <button class="btn" type="button" id="changeScore">Reassign score (let)</button>
+          <button class="btn" type="button" id="changeCourse">Reassign course (const)</button>
+          <button class="btn" type="button" id="resetOut2">Reset</button>
+          <div id="try2" class="output" data-label="Result" role="status" aria-live="polite">Click a button to try it.</div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Remember -->
+    <section class="note-section">
+      <h2 class="section-title">Remember</h2>
+      <ol class="steps">
+        <li>
+          <h3>const and objects or arrays</h3>
+          <p>A const variable cannot be reassigned, but the contents of an object or array declared with const can still be modified.</p>
+          <pre class="code-block">const subjects = ["HTML", "CSS"];
+
+subjects.push("JavaScript");   // allowed: changes the contents
+subjects = ["Python"];         // error: reassigns the variable</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <button class="btn" type="button" id="addItem">Add an item to the array</button>
+          <button class="btn" type="button" id="reassignArray">Reassign the array</button>
+          <button class="btn" type="button" id="resetArray">Reset</button>
+          <div id="try4" class="output" data-label="Result" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Summary -->
+    <section class="note-section">
+      <h2 class="section-title">Summary</h2>
+      <ol class="steps">
+        <li>
+          <h3>Quick revision</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Topic</th><th scope="col">Key Point</th></tr></thead>
+              <tbody>
+                <tr><td>Variable</td><td>A named storage location used to hold data</td></tr>
+                <tr><td class="code">let</td><td>Can be reassigned</td></tr>
+                <tr><td class="code">const</td><td>Cannot be reassigned</td></tr>
+                <tr><td>const with objects and arrays</td><td>The contents can still be modified</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit4.1.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit4.3.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      // Print lines into an output panel (textContent keeps it plain text)
+      function show(panel, lines, isError) {
+        panel.textContent = "";
+        lines.forEach(function (line) {
+          var row = document.createElement("div");
+          row.textContent = line;
+          if (isError) row.className = "err";
+          panel.appendChild(row);
+        });
+      }
+
+      // 1. Example
+      var studentName = "Asha";
+      var marks = 78;
+      var isPass = marks >= 40;
+      show(document.getElementById("out1"), [studentName, String(marks), String(isPass)]);
+
+      // 3. let and const
+      var out2 = document.getElementById("out2");
+      var try2 = document.getElementById("try2");
+      var score = 80;
+      score = 90;
+      var course = "Web Technologies";
+
+      function showOut2() {
+        show(out2, ["Score: " + score, "Course: " + course]);
+      }
+      showOut2();
+
+      document.getElementById("changeScore").addEventListener("click", function () {
+        let value = score;      // 'let' lets us reassign
+        value = value + 5;
+        score = value;
+        showOut2();
+        show(try2, ["score = " + score + "  (works: let can be reassigned)"]);
+      });
+
+      document.getElementById("changeCourse").addEventListener("click", function () {
+        try {
+          const fixed = "Web Technologies";
+          fixed = "Something else";   // const cannot be reassigned
+        } catch (error) {
+          show(try2, [error.name + ": " + error.message, "course is still: " + course], true);
+        }
+      });
+
+      document.getElementById("resetOut2").addEventListener("click", function () {
+        score = 90;
+        showOut2();
+        show(try2, ["Click a button to try it."]);
+      });
+
+      // 4. const with arrays
+      var try4 = document.getElementById("try4");
+      var subjects = ["HTML", "CSS"];
+      var extras = ["JavaScript", "PHP", "SQL"];
+      var added = 0;
+
+      function showArray(note) {
+        show(try4, ["subjects = [" + subjects.join(", ") + "]"].concat(note ? [note] : []));
+      }
+      showArray("");
+
+      document.getElementById("addItem").addEventListener("click", function () {
+        if (added < extras.length) {
+          subjects.push(extras[added]);
+          added += 1;
+          showArray("Allowed: the contents of a const array can change.");
+        } else {
+          showArray("No more items to add. Press Reset to start again.");
+        }
+      });
+
+      document.getElementById("reassignArray").addEventListener("click", function () {
+        try {
+          const fixedList = ["HTML", "CSS"];
+          fixedList = ["Python"];   // const cannot be reassigned
+        } catch (error) {
+          show(try4, [error.name + ": " + error.message, "subjects = [" + subjects.join(", ") + "]"], true);
+        }
+      });
+
+      document.getElementById("resetArray").addEventListener("click", function () {
+        subjects = ["HTML", "CSS"];
+        added = 0;
+        showArray("");
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Forms and Validation</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 4.9: HTML validation attributes, JavaScript validation methods and a live form validation example.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the boxes, tables and form work with any topic.css) */
+
+    /* Box around a table, with visible borders on every cell */
+    .table-box {
+      margin: 0.6rem 0 0;
+      padding: 0.6rem;
+      overflow-x: auto;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    .box-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #062a3a;
+    }
+    .box-table th,
+    .box-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: top;
+      border: 1.5px solid rgba(6, 42, 58, 0.6);
+    }
+    .box-table th {
+      background: #00c9a7;
+      color: #031b26;
+      font-weight: 800;
+    }
+    .box-table th:nth-child(2) { background: #00b4d8; }
+    .box-table th:nth-child(3) { background: #3dbeff; }
+    .box-table code {
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.92em;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    /* Box with a bullet list inside */
+    .list-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      color: #062a3a;
+    }
+    .list-box ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .list-box li {
+      position: relative;
+      padding: 0.25rem 0 0.25rem 1.6rem;
+    }
+    .list-box li::before {
+      content: "";
+      position: absolute;
+      top: 0.85em;
+      left: 0.2rem;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: #00c9a7;
+    }
+
+    /* The live form (white box so it is readable in both themes) */
+    .form-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem 1.3rem;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+    }
+    .form-box label {
+      display: block;
+      margin-top: 0.9rem;
+      font-weight: 700;
+    }
+    .form-box label:first-child { margin-top: 0; }
+    .form-box input {
+      display: block;
+      width: 100%;
+      max-width: 420px;
+      margin-top: 0.3rem;
+      padding: 0.55rem 0.8rem;
+      border: 2px solid #8aa6b2;
+      border-radius: 10px;
+      background: #ffffff;
+      color: #031b26;
+      font: 500 1rem Poppins, system-ui, sans-serif;
+    }
+    .form-box input:focus-visible {
+      border-color: #00b4d8;
+      outline: 3px solid rgba(0, 180, 216, 0.35);
+    }
+    .form-box button {
+      margin-top: 1.2rem;
+      padding: 0.55rem 1.6rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .form-box button[type="reset"] {
+      margin-left: 0.6rem;
+      border: 2px solid #031b26;
+      background: transparent;
+    }
+    .form-box button:hover { transform: translateY(-2px); }
+    .form-box button:focus-visible { outline: 3px solid #031b26; outline-offset: 3px; }
+
+    /* Dark mode */
+    html[data-theme="dark"] .table-box,
+    html[data-theme="dark"] .list-box {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(4, 18, 28, 0.7);
+    }
+    html[data-theme="dark"] .box-table,
+    html[data-theme="dark"] .list-box { color: #eaf8ff; }
+    html[data-theme="dark"] .box-table th,
+    html[data-theme="dark"] .box-table td { border-color: rgba(255, 255, 255, 0.45); }
+    html[data-theme="dark"] .box-table th { color: #031b26; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit4.html">&larr; All Unit 4 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Forms and Validation">Forms and Validation</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 4 &nbsp;/&nbsp; Topic 9</p>
+
+    <p class="intro">Form validation is the process of checking user input before accepting or submitting it.</p>
+
+    <!-- Examples -->
+    <section class="note-section">
+      <h2 class="section-title">Examples of Form Validation</h2>
+      <div class="list-box">
+        <ul>
+          <li>Checking whether required fields are filled in.</li>
+          <li>Checking whether an email address has a valid format.</li>
+          <li>Checking whether a password meets the minimum length.</li>
+          <li>Checking whether a number falls within an allowed range.</li>
+          <li>Checking whether input follows a specified pattern.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- A -->
+    <section class="note-section">
+      <h2 class="section-title">A. HTML Validation Attributes</h2>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">Attribute</th><th scope="col">Purpose</th><th scope="col">Example</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>required</code></td><td>Makes a field compulsory.</td><td><code>&lt;input required&gt;</code></td></tr>
+            <tr><td><code>type</code></td><td>Specifies the input type.</td><td><code>type="email"</code></td></tr>
+            <tr><td><code>minlength</code></td><td>Sets minimum text length.</td><td><code>minlength="2"</code></td></tr>
+            <tr><td><code>maxlength</code></td><td>Sets maximum text length.</td><td><code>maxlength="40"</code></td></tr>
+            <tr><td><code>min</code></td><td>Sets minimum numeric value.</td><td><code>min="1"</code></td></tr>
+            <tr><td><code>max</code></td><td>Sets maximum numeric value.</td><td><code>max="10"</code></td></tr>
+            <tr><td><code>step</code></td><td>Sets permitted increments.</td><td><code>step="1"</code></td></tr>
+            <tr><td><code>pattern</code></td><td>Requires a matching pattern.</td><td><code>pattern="[A-Z]{2}[0-9]{4}"</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- B -->
+    <section class="note-section">
+      <h2 class="section-title">B. JavaScript Validation Methods</h2>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">Method</th><th scope="col">Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>checkValidity()</code></td><td>Checks whether input satisfies validation rules.</td></tr>
+            <tr><td><code>reportValidity()</code></td><td>Displays validation feedback.</td></tr>
+            <tr><td><code>setCustomValidity(message)</code></td><td>Defines a custom error message.</td></tr>
+            <tr><td><code>setCustomValidity("")</code></td><td>Clears a custom error message.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- C -->
+    <section class="note-section">
+      <h2 class="section-title">C. Form Validation Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>HTML code</h3>
+          <pre class="code-block">&lt;form id="myForm" novalidate&gt;
+    &lt;label for="name"&gt;Student Name:&lt;/label&gt;
+    &lt;input type="text" id="name" required minlength="2"&gt;
+
+    &lt;label for="email"&gt;Email:&lt;/label&gt;
+    &lt;input type="email" id="email" required&gt;
+
+    &lt;label for="password"&gt;Password:&lt;/label&gt;
+    &lt;input type="password" id="password" required minlength="6"&gt;
+
+    &lt;label for="age"&gt;Age:&lt;/label&gt;
+    &lt;input type="number" id="age" min="1" max="100" required&gt;
+
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+    &lt;button type="reset"&gt;Reset&lt;/button&gt;
+&lt;/form&gt;</pre>
+        </li>
+        <li>
+          <h3>JavaScript code</h3>
+          <pre class="code-block">
+
+// The Reset button clears the fields and the message
+form.addEventListener("reset", () => {
+    message.textContent = "";
+});</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <p>Fill in the form, or leave fields empty, and click Submit. After a successful submit the form clears itself. Click Reset at any time to clear the fields and the message. The <code>novalidate</code> attribute stops the browser from checking on its own, so the JavaScript above does the checking.</p>
+          <div class="form-box">
+            <form id="myForm" novalidate>
+              <label for="name">Student Name:</label>
+              <input type="text" id="name" required minlength="2">
+
+              <label for="email">Email:</label>
+              <input type="email" id="email" required>
+
+              <label for="password">Password:</label>
+              <input type="password" id="password" required minlength="6">
+
+              <label for="age">Age:</label>
+              <input type="number" id="age" min="1" max="100" required>
+
+              <button type="submit">Submit</button>
+              <button type="reset">Reset</button>
+            </form>
+          </div>
+          <div id="message" class="output" data-label="Result" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- D -->
+    <section class="note-section">
+      <h2 class="section-title">D. Validation Process</h2>
+      <ol class="steps">
+        <li><h3>Step 1</h3><p>Collect the user's input.</p></li>
+        <li><h3>Step 2</h3><p>Check built-in HTML constraints.</p></li>
+        <li><h3>Step 3</h3><p>Apply additional application-specific rules.</p></li>
+        <li><h3>Step 4</h3><p>Display errors and guide the user to correct them.</p></li>
+        <li><h3>Step 5</h3><p>Submit the data only after validation succeeds.</p></li>
+        <li><h3>Step 6</h3><p>Validate the data again on the server.</p></li>
+      </ol>
+    </section>
+
+    <!-- Exam point -->
+    <section class="note-section">
+      <h2 class="section-title">Important Exam Point</h2>
+      <div class="output-box" data-label="Important">
+        <p>Client-side validation improves user experience, but it is not a security measure by itself. Server-side validation is also necessary because client-side JavaScript can be disabled or bypassed.</p>
+      </div>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit4.8.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit4.10.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      // Same code as shown in the JavaScript code card above
+      const form = document.getElementById("myForm");
+      const message = document.getElementById("message");
+
+      form.addEventListener("submit", (event) => {
+
+        event.preventDefault();
+
+        if (!form.checkValidity()) {
+
+          form.reportValidity();
+
+          message.textContent =
+            "Please correct the highlighted fields.";
+
+          return;
+        }
+
+        form.reset();   // clear all fields after a successful submit
+
+        message.textContent = "Form is ready to submit.";
+      });
+
+      // The Reset button clears the fields and the message
+      form.addEventListener("reset", () => {
+        message.textContent = "";
+      });
+    })();
+  </script>
+</body>
+</html>

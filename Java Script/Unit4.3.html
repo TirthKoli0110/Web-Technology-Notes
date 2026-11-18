@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>JavaScript Data Types</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 4.3: JavaScript data types and the typeof operator, with live examples.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit4.html">&larr; All Unit 4 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="JavaScript Data Types">JavaScript Data Types</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 4 &nbsp;/&nbsp; Topic 3</p>
+
+    <p class="intro">A data type describes the kind of value a variable contains. JavaScript is dynamically typed, meaning a variable can hold values of different types at different times.</p>
+
+    <!-- Types of Data Types -->
+    <section class="note-section">
+      <h2 class="section-title">Types of Data Types</h2>
+      <ol class="steps">
+        <li>
+          <h3>The eight data types</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Data Type</th><th scope="col">Example</th><th scope="col">Meaning</th></tr></thead>
+              <tbody>
+                <tr><td>String</td><td class="code">"Hello"</td><td>Text</td></tr>
+                <tr><td>Number</td><td class="code">42, 3.14</td><td>Integers and decimal values</td></tr>
+                <tr><td>BigInt</td><td class="code">9007199254740993n</td><td>Very large integers</td></tr>
+                <tr><td>Boolean</td><td class="code">true, false</td><td>Logical values</td></tr>
+                <tr><td>Undefined</td><td class="code">undefined</td><td>A value has not been assigned</td></tr>
+                <tr><td>Null</td><td class="code">null</td><td>Intentional absence of a value</td></tr>
+                <tr><td>Symbol</td><td class="code">Symbol("id")</td><td>Unique identifier</td></tr>
+                <tr><td>Object</td><td class="code">{name: "Asha"}</td><td>Collection of properties</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+      <p class="note">Arrays and functions are also object-related types in JavaScript.</p>
+    </section>
+
+    <!-- Checking Data Types -->
+    <section class="note-section">
+      <h2 class="section-title">Checking Data Types</h2>
+      <p class="lead-text">Use the <code>typeof</code> operator to determine the type of a value.</p>
+      <ol class="steps">
+        <li>
+          <h3>Example code</h3>
+          <pre class="code-block">const name = "Asha";
+const marks = 85;
+const isEnrolled = true;
+
+console.log("Name: " + typeof name);
+console.log("Marks: " + typeof marks);
+console.log("Is Enrolled: " + typeof isEnrolled);</pre>
+        </li>
+        <li>
+          <h3>Live output</h3>
+          <div id="out1" class="output" data-label="Output" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Important Facts -->
+    <section class="note-section">
+      <h2 class="section-title">Important Facts</h2>
+      <ol class="steps">
+        <li>
+          <h3>Example code</h3>
+          <pre class="code-block">console.log("typeof undefined: " + typeof undefined);
+console.log("typeof null: " + typeof null);
+console.log("typeof []: " + typeof []);
+console.log("Array.isArray([]): " + Array.isArray([]));
+console.log("typeof function: " + typeof function() {});</pre>
+        </li>
+        <li>
+          <h3>Live output</h3>
+          <div id="out2" class="output" data-label="Output" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+      <p class="note"><strong>Remember:</strong> <code>typeof null</code> gives <code>"object"</code>. This is a well-known quirk of JavaScript, so check for null with <code>value === null</code>, and use <code>Array.isArray()</code> to check for arrays.</p>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit4.2.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit4.4.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      // Print lines into an output panel (textContent keeps it plain text)
+      function show(panel, lines) {
+        panel.textContent = "";
+        lines.forEach(function (line) {
+          var row = document.createElement("div");
+          row.textContent = line;
+          panel.appendChild(row);
+        });
+      }
+
+      // Checking Data Types
+      const name = "Asha";
+      const marks = 85;
+      const isEnrolled = true;
+
+      show(document.getElementById("out1"), [
+        "Name: " + typeof name,
+        "Marks: " + typeof marks,
+        "Is Enrolled: " + typeof isEnrolled
+      ]);
+
+      // Important Facts
+      show(document.getElementById("out2"), [
+        "typeof undefined: " + typeof undefined,
+        "typeof null: " + typeof null,
+        "typeof []: " + typeof [],
+        "Array.isArray([]): " + Array.isArray([]),
+        "typeof function: " + typeof function () {}
+      ]);
+    })();
+  </script>
+</body>
+</html>
