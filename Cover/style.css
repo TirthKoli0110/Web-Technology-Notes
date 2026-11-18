@@ -1,0 +1,490 @@
+/* ==========================================================================
+   Variables & Theming
+   ========================================================================== */
+:root {
+  /* Light Theme (Default) */
+  --color-ink: #052331;
+  --color-ink-soft: #0b4557;
+  --color-page: #04121c;
+  --color-teal: #00c9a7;
+  --color-cyan: #00b4d8;
+  --color-sky: #3dbeff;
+  --color-sea: #12a3a0;
+  --color-green: #25c55e;
+  --glass-border: rgba(255, 255, 255, 0.75);
+  --glass-fill: rgba(255, 255, 255, 0.45);
+  --card-shadow: 0 10px 30px -10px rgba(0, 180, 216, 0.4);
+  --text-contrast: 0 1px 12px rgba(255, 255, 255, 0.7);
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  /* Dark Theme */
+  --color-ink: #eef8ff;
+  --color-ink-soft: #a8d4e5;
+  --color-page: #030d14;
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --glass-fill: rgba(4, 18, 28, 0.68);
+  --card-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.65);
+  --text-contrast: 0 1px 14px rgba(0, 0, 0, 0.75);
+  color-scheme: dark;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-page);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: max(1.2rem, env(safe-area-inset-top)) 1.2rem max(1.2rem, env(safe-area-inset-bottom));
+  background: transparent;
+  color: var(--color-ink);
+  font-family: Poppins, system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5vh 0 4vh;
+}
+
+/* Background Canvas */
+#background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+body.no-webgl {
+  background: linear-gradient(
+      -45deg,
+      var(--color-teal),
+      var(--color-cyan),
+      var(--color-sky),
+      var(--color-sea),
+      var(--color-green)
+    ) 0 0 / 400% 400%;
+  animation: gradient-flow 14s ease infinite;
+}
+
+@keyframes gradient-flow {
+  0%, 100% { background-position: 0 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* ==========================================================================
+   Theme Toggle Button
+   ========================================================================== */
+.theme-toggle {
+  position: fixed;
+  top: max(0.9rem, env(safe-area-inset-top));
+  right: 1rem;
+  z-index: 50;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-fill);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--color-ink);
+  font-size: 1.25rem;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s, background 0.3s;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.08);
+}
+
+/* ==========================================================================
+   Header & Glitch Title
+   ========================================================================== */
+h1 {
+  margin: 0 0 0.4rem;
+  color: var(--color-ink);
+  font-size: clamp(2.1rem, 7.5vw, 4.6rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: var(--text-contrast);
+}
+
+.glitch {
+  position: relative;
+  display: block;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.glitch::before {
+  color: #fff;
+  animation: glitch-white 5s infinite steps(1);
+}
+
+.glitch::after {
+  color: #0a63ff;
+  animation: glitch-blue 5s infinite steps(1);
+}
+
+@keyframes glitch-white {
+  0%, 86%, 100% { clip-path: inset(0 0 100% 0); }
+  88% { clip-path: inset(10% 0 62% 0); transform: translate(-7px); }
+  92% { clip-path: inset(58% 0 18% 0); transform: translate(5px); }
+  96% { clip-path: inset(32% 0 40% 0); transform: translate(-3px); }
+}
+
+@keyframes glitch-blue {
+  0%, 87%, 100% { clip-path: inset(0 0 100% 0); }
+  90% { clip-path: inset(42% 0 30% 0); transform: translate(7px); }
+  94% { clip-path: inset(5% 0 75% 0);  transform: translate(-5px); }
+  98% { clip-path: inset(70% 0 8% 0);  transform: translate(3px); }
+}
+
+.meta, .lead {
+  max-width: 720px;
+  margin: 0.3rem auto;
+  text-align: center;
+  text-shadow: var(--text-contrast);
+}
+
+.meta {
+  color: var(--color-ink);
+  font-size: 0.88rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.lead {
+  margin-top: 0.9rem;
+  color: var(--color-ink);
+  font-size: 1.08rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Progress Bar & Winner Banner
+   ========================================================================== */
+.progress {
+  max-width: 440px;
+  margin: 1.4rem auto 0;
+  color: var(--color-ink);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: var(--text-contrast);
+}
+
+.progress-track {
+  height: 9px;
+  margin-bottom: 0.45rem;
+  overflow: hidden;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.progress-fill {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: 99px;
+  background: var(--color-teal);
+  transition: width 0.4s ease;
+}
+
+.completion-banner {
+  max-width: 520px;
+  margin: 1rem auto 0;
+  padding: 0.85rem 1.2rem;
+  border-radius: 14px;
+  background: var(--color-ink);
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  animation: pop-in 0.4s cubic-bezier(0.2, 1.3, 0.4, 1);
+}
+
+@keyframes pop-in {
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* ==========================================================================
+   Search Input
+   ========================================================================== */
+.search-box {
+  max-width: 440px;
+  margin: 1.2rem auto 0;
+}
+
+#search-input {
+  width: 100%;
+  padding: 0.75rem 1.2rem;
+  border-radius: 99px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-fill);
+  color: var(--color-ink);
+  font: 600 0.95rem Poppins, system-ui, sans-serif;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+#search-input::placeholder {
+  color: var(--color-ink-soft);
+  opacity: 0.85;
+}
+
+.no-results {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  text-shadow: var(--text-contrast);
+}
+
+/* ==========================================================================
+   Unit Cards Grid
+   ========================================================================== */
+.unit-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.1rem;
+  margin: 2.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  perspective: 900px;
+}
+
+.unit-card {
+  position: relative;
+  opacity: 0;
+  transform: translateY(24px);
+  animation: card-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: calc(0.2s + var(--i) * 0.08s);
+}
+
+@keyframes card-in {
+  to { opacity: 1; transform: none; }
+}
+
+.unit-card:nth-child(1) { --accent: var(--color-teal); }
+.unit-card:nth-child(2) { --accent: var(--color-cyan); }
+.unit-card:nth-child(3) { --accent: var(--color-sky); }
+.unit-card:nth-child(4) { --accent: var(--color-sea); }
+.unit-card:nth-child(5) { --accent: var(--color-green); }
+.unit-card:nth-child(6) { --accent: var(--color-teal); }
+
+.unit-link {
+  --mx: 50%;
+  --my: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  min-height: 94px;
+  padding: 1.2rem 1.2rem 2.8rem;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  background:
+    radial-gradient(280px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.45), transparent 65%),
+    var(--glass-fill);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  color: var(--color-ink);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.2s ease-out, border-color 0.25s, box-shadow 0.25s;
+  will-change: transform;
+}
+
+.unit-link:hover {
+  border-color: rgba(61, 190, 255, 0.9);
+}
+
+.unit-link::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--accent);
+}
+
+/* Unit Icon (Replaces plain numbers) */
+.unit-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #031b26;
+  font-size: 1.35rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.unit-text small {
+  display: block;
+  color: var(--color-ink-soft);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.unit-title {
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+/* "Mark as revised" Button */
+.revise-btn {
+  position: absolute;
+  right: 0.9rem;
+  bottom: 0.8rem;
+  z-index: 2;
+  padding: 0.32rem 0.8rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--color-ink);
+  font: 700 0.75rem Poppins, system-ui, sans-serif;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+
+.revise-btn:hover {
+  background: #fff;
+  transform: translateY(-1px);
+}
+
+.unit-card.done .revise-btn {
+  border-color: var(--color-teal);
+  background: var(--color-teal);
+  color: #04202c;
+}
+
+.unit-card.done .unit-link {
+  opacity: 0.84;
+}
+
+/* ==========================================================================
+   Accessibility & Focus Outlines
+   ========================================================================== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.unit-link:focus-visible,
+.revise-btn:focus-visible,
+.theme-toggle:focus-visible,
+#search-input:focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.85);
+}
+
+[data-theme="dark"] .unit-link:focus-visible,
+[data-theme="dark"] .revise-btn:focus-visible,
+[data-theme="dark"] .theme-toggle:focus-visible,
+[data-theme="dark"] #search-input:focus-visible {
+  outline-color: var(--color-sky);
+  box-shadow: 0 0 0 5px rgba(4, 18, 28, 0.9);
+}
+
+/* ==========================================================================
+   Celebration Confetti
+   ========================================================================== */
+.confetti-piece {
+  position: fixed;
+  top: -15px;
+  width: 9px;
+  height: 14px;
+  z-index: 100;
+  pointer-events: none;
+  border-radius: 2px;
+  animation: confetti-fall 2.5s ease-in forwards;
+}
+
+@keyframes confetti-fall {
+  to {
+    transform: translateY(106vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   Footer & Responsive Breakpoints
+   ========================================================================== */
+footer {
+  margin-top: 3.5rem;
+  color: var(--color-ink);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: center;
+  opacity: 0.85;
+  text-shadow: var(--text-contrast);
+}
+
+@media (min-width: 700px) {
+  body { padding-left: 2rem; padding-right: 2rem; }
+  .unit-list { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1100px) {
+  .unit-list { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .unit-card { opacity: 1; transform: none; animation: none; }
+  .glitch::before, .glitch::after, body.no-webgl { animation: none; }
+  .confetti-piece { display: none; }
+}
+
+#background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Prevents background canvas from intercepting touch scrolling */
+}

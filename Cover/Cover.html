@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Web Technology</title>
+  <meta name="description" content="Web Technology (C2111C3) revision notes: Unit 1 to Unit 6.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script src="Brain.js" defer></script>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <!-- Theme Toggle -->
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main>
+    <h1><span class="glitch" data-text="Web Technology">Web Technology</span></h1>
+    <p class="meta"><b>Subject:</b> Web Technology &nbsp;/&nbsp; <b>Code:</b> C2111C3</p>
+    <p class="lead">If you want to complete your subject 2 Days Before Exam, you can prefer this website.</p>
+    
+    <!-- Progress Tracker -->
+    <div class="progress" role="status">
+      <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Revision Progress">
+        <i class="progress-fill" id="progress-fill"></i>
+      </div>
+      <span id="progress-text">0 of 6 units revised (0% Complete)</span>
+    </div>
+
+    <!-- Celebration Win Banner -->
+    <div id="completion-banner" class="completion-banner" role="status" hidden>
+      🎉 Congratulations! You completed Web Technology revision.
+    </div>
+
+    <!-- Search Input -->
+    <div class="search-box">
+      <label for="search-input" class="sr-only">Search units</label>
+      <input id="search-input" type="search" placeholder="Search units (press / to focus)..." autocomplete="off">
+    </div>
+
+    <!-- Unit Cards -->
+    <ul class="unit-list">
+      <li class="unit-card" style="--i:0" data-keywords="www web internet http browser server url tcp ip dns">
+        <a class="unit-link" href="Unit1.html">
+          <span class="unit-icon" aria-hidden="true">🌐</span>
+          <span class="unit-text">
+            <small>Unit 1 &nbsp;·&nbsp; ⏱ 18 min</small>
+            <span class="unit-title">Introduction to World Wide Web</span>
+          </span>
+        </a>
+      </li>
+
+      <li class="unit-card" style="--i:1" data-keywords="html tags elements forms tables links markup semantics">
+        <a class="unit-link" href="Unit2.html">
+          <span class="unit-icon" aria-hidden="true">📝</span>
+          <span class="unit-text">
+            <small>Unit 2 &nbsp;·&nbsp; ⏱ 25 min</small>
+            <span class="unit-title">HTML</span>
+          </span>
+        </a>
+      </li>
+
+      <li class="unit-card" style="--i:2" data-keywords="css style selectors flexbox grid layout design responsive">
+        <a class="unit-link" href="Unit3.html">
+          <span class="unit-icon" aria-hidden="true">🎨</span>
+          <span class="unit-text">
+            <small>Unit 3 &nbsp;·&nbsp; ⏱ 25 min</small>
+            <span class="unit-title">CSS</span>
+          </span>
+        </a>
+      </li>
+
+      <li class="unit-card" style="--i:3" data-keywords="js javascript script dom events functions loops arrays">
+        <a class="unit-link" href="Unit4.html">
+          <span class="unit-icon" aria-hidden="true">⚡</span>
+          <span class="unit-text">
+            <small>Unit 4 &nbsp;·&nbsp; ⏱ 30 min</small>
+            <span class="unit-title">JavaScript</span>
+          </span>
+        </a>
+      </li>
+
+      <li class="unit-card" style="--i:4" data-keywords="xml dtd schema xslt data markup parser nodes">
+        <a class="unit-link" href="Unit5.html">
+          <span class="unit-icon" aria-hidden="true">📄</span>
+          <span class="unit-text">
+            <small>Unit 5 &nbsp;·&nbsp; ⏱ 15 min</small>
+            <span class="unit-title">XML</span>
+          </span>
+        </a>
+      </li>
+
+      <li class="unit-card" style="--i:5" data-keywords="php server backend forms mysql database sessions cookies get post">
+        <a class="unit-link" href="Unit6.html">
+          <span class="unit-icon" aria-hidden="true">🐘</span>
+          <span class="unit-text">
+            <small>Unit 6 &nbsp;·&nbsp; ⏱ 25 min</small>
+            <span class="unit-title">PHP</span>
+          </span>
+        </a>
+      </li>
+    </ul>
+
+    <p id="no-results" class="no-results" hidden>No units match your search.</p>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+</body>
+</html>

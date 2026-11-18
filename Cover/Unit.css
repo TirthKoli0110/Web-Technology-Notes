@@ -1,0 +1,173 @@
+/* unit.css - styles for Unit pages. Load it AFTER style.css. */
+
+body {
+  counter-reset: topic;            /* numbers continue across all groups */
+}
+
+/* ---------- Header ---------- */
+.back-link {
+  display: inline-block;
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 99px;
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--color-ink);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+.back-link:hover { transform: translateX(-4px); }
+
+.unit-h1 {
+  margin-top: 1.4rem;
+  font-size: clamp(1.7rem, 5.5vw, 3.3rem);
+}
+
+/* ---------- Groups ---------- */
+.topic-group {
+  margin-top: 2.2rem;
+  opacity: 0;
+  transform: translateY(24px);
+  animation: card-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: calc(0.15s + var(--g, 0) * 0.1s);
+}
+
+.topic-group:nth-child(1) { --accent: var(--color-teal); }
+.topic-group:nth-child(2) { --accent: var(--color-cyan); }
+.topic-group:nth-child(3) { --accent: var(--color-sky); }
+.topic-group:nth-child(4) { --accent: var(--color-sea); }
+.topic-group:nth-child(5) { --accent: var(--color-green); }
+.topic-group:nth-child(6) { --accent: var(--color-teal); }
+
+.group-title {
+  margin: 0 0 0.9rem;
+  color: var(--color-ink-soft);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-shadow: var(--text-contrast);
+}
+
+.group-title::after {
+  content: "";
+  display: block;
+  height: 3px;
+  margin-top: 0.45rem;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+
+/* ---------- Topic cards ---------- */
+.topic-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topic-list li { counter-increment: topic; }
+
+.topic {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 96px;
+  padding: 1.1rem 4.8rem 1.1rem 1.4rem;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  color: var(--color-ink);
+  font-weight: 600;
+  line-height: 1.35;
+  text-decoration: none;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.2s ease-out, border-color 0.25s, box-shadow 0.25s;
+}
+
+/* Big faded number */
+.topic::before {
+  content: counter(topic, decimal-leading-zero);
+  position: absolute;
+  right: 0.8rem;
+  bottom: -0.7rem;
+  color: var(--accent);
+  font-size: 4.2rem;
+  font-weight: 800;
+  line-height: 1;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* Colour bar on the left edge */
+.topic::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 5px;
+  background: var(--accent);
+}
+
+.topic:hover {
+  transform: translateY(-4px);
+  border-color: rgba(61, 190, 255, 0.9);
+}
+
+.topic:focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.85);
+}
+
+[data-theme="dark"] .topic:focus-visible {
+  outline-color: var(--color-sky);
+  box-shadow: 0 0 0 5px rgba(4, 18, 28, 0.9);
+}
+
+/* ---------- Responsive ---------- */
+@media (min-width: 700px)  { .topic-list { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .topic-list { grid-template-columns: repeat(3, 1fr); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .topic-group { opacity: 1; transform: none; animation: none; }
+}
+
+/* ===== Readability boost ===== */
+:root { --solid: rgba(255, 255, 255, 0.82); }
+[data-theme="dark"] { --solid: rgba(4, 18, 28, 0.88); }
+
+/* Topic cards: more solid, bigger, bolder text */
+.topic {
+  background: var(--solid);
+  color: var(--color-ink);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+.topic::before { opacity: 0.28; }   /* big numbers fade so they don't fight the text */
+
+/* Group headings become clear label chips */
+.group-title {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--glass-border);
+  border-left: 5px solid var(--accent);
+  border-radius: 99px;
+  background: var(--solid);
+  color: var(--color-ink);
+  font-size: 0.9rem;
+  text-shadow: none;
+}
+.group-title::after { display: none; }
+
+/* Small header text */
+.meta, .lead { font-weight: 700; }
