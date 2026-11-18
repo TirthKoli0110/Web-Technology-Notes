@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>XML Key Components</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 5.3: XML key components, syntax rules, reserved characters, namespaces and a live example.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the boxes, tables and demo work with any topic.css) */
+
+    /* Box around a table, with visible borders on every cell */
+    .table-box {
+      margin: 0.6rem 0 0;
+      padding: 0.6rem;
+      overflow-x: auto;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    .box-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #062a3a;
+    }
+    .box-table th,
+    .box-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: top;
+      border: 1.5px solid rgba(6, 42, 58, 0.6);
+    }
+    .box-table th {
+      background: #00c9a7;
+      color: #031b26;
+      font-weight: 800;
+    }
+    .box-table th:nth-child(2) { background: #00b4d8; }
+    .box-table code,
+    .list-box code {
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.92em;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    /* Box with a bullet list inside */
+    .list-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      color: #062a3a;
+    }
+    .list-box ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .list-box li {
+      position: relative;
+      padding: 0.25rem 0 0.25rem 1.6rem;
+    }
+    .list-box li::before {
+      content: "";
+      position: absolute;
+      top: 0.85em;
+      left: 0.2rem;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: #00c9a7;
+    }
+
+    /* The live demo button (white box so it is readable in both themes) */
+    .demo-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem 1.3rem;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+    }
+    .demo-box button {
+      padding: 0.55rem 1.6rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .demo-box button:hover { transform: translateY(-2px); }
+    .demo-box button:focus-visible { outline: 3px solid #031b26; outline-offset: 3px; }
+
+    /* Keeps the line breaks in the result */
+    #result { white-space: pre-line; overflow-wrap: anywhere; }
+
+    /* Dark mode */
+    html[data-theme="dark"] .table-box,
+    html[data-theme="dark"] .list-box {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(4, 18, 28, 0.7);
+    }
+    html[data-theme="dark"] .box-table,
+    html[data-theme="dark"] .list-box { color: #eaf8ff; }
+    html[data-theme="dark"] .box-table th,
+    html[data-theme="dark"] .box-table td { border-color: rgba(255, 255, 255, 0.45); }
+    html[data-theme="dark"] .box-table th { color: #031b26; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit5.html">&larr; All Unit 5 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="XML Key Components">XML Key Components</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 5 &nbsp;/&nbsp; Topic 3</p>
+
+    <p class="intro">An XML document consists of different components arranged in a <b>tree structure</b>.</p>
+
+    <!-- Example -->
+    <section class="note-section">
+      <h2 class="section-title">Example of XML</h2>
+      <ol class="steps">
+        <li>
+          <h3>XML code</h3>
+          <pre class="code-block">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;student id="s-204" status="active"&gt;
+    &lt;name&gt;Mira Shah&lt;/name&gt;
+    &lt;programme&gt;B.Tech CSE&lt;/programme&gt;
+    &lt;marks subject="XML"&gt;88&lt;/marks&gt;
+    &lt;!-- A student record --&gt;
+&lt;/student&gt;</pre>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Components -->
+    <section class="note-section">
+      <h2 class="section-title">Main Components</h2>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">Component</th><th scope="col">Meaning</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>XML Declaration</td><td>Specifies XML version and character encoding.</td></tr>
+            <tr><td>Element</td><td>A named unit of data enclosed in tags.</td></tr>
+            <tr><td>Root Element</td><td>The single outermost element of an XML document.</td></tr>
+            <tr><td>Attribute</td><td>Provides additional information about an element.</td></tr>
+            <tr><td>Text Node</td><td>Actual text or data stored inside an element.</td></tr>
+            <tr><td>Comment</td><td>A note for readers that is not part of document data.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Syntax rules -->
+    <section class="note-section">
+      <h2 class="section-title">XML Syntax Rules to Remember</h2>
+      <ol class="steps">
+        <li><h3>Case-sensitive</h3><p>XML element names are case-sensitive.</p></li>
+        <li><h3>Close every element</h3><p>Every opened element must be closed.</p></li>
+        <li><h3>Proper nesting</h3><p>Elements must be properly nested.</p></li>
+        <li><h3>One root</h3><p>There must be exactly one root element.</p></li>
+        <li><h3>Quoted attributes</h3><p>Attribute values must be written inside quotes.</p></li>
+        <li><h3>Empty elements</h3><p>Empty elements can be written as <code>&lt;image/&gt;</code>.</p></li>
+      </ol>
+    </section>
+
+    <!-- Reserved characters -->
+    <section class="note-section">
+      <h2 class="section-title">Reserved Characters in XML</h2>
+      <ol class="steps">
+        <li>
+          <h3>Entities</h3>
+          <div class="table-box">
+            <table class="box-table">
+              <thead>
+                <tr><th scope="col">Character</th><th scope="col">XML Entity</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>&amp;</td><td><code>&amp;amp;</code></td></tr>
+                <tr><td>&lt;</td><td><code>&amp;lt;</code></td></tr>
+                <tr><td>&gt;</td><td><code>&amp;gt;</code></td></tr>
+                <tr><td>"</td><td><code>&amp;quot;</code></td></tr>
+                <tr><td>'</td><td><code>&amp;apos;</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <pre class="code-block">&lt;message&gt;Tom &amp;amp; Jerry&lt;/message&gt;</pre>
+          <p><b>Output:</b> Tom &amp; Jerry</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Namespaces -->
+    <section class="note-section">
+      <h2 class="section-title">XML Namespaces</h2>
+      <ol class="steps">
+        <li>
+          <h3>What it is</h3>
+          <p>A namespace prevents naming conflicts when XML documents use elements from different sources.</p>
+          <p>A namespace is declared using the <code>xmlns</code> attribute and is connected to a URI.</p>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <pre class="code-block">&lt;course xmlns:lib="https://example.edu/library"&gt;
+    &lt;title&gt;Web Technologies&lt;/title&gt;
+    &lt;lib:title&gt;XML for Libraries&lt;/lib:title&gt;
+&lt;/course&gt;</pre>
+        </li>
+        <li>
+          <h3>Explanation</h3>
+          <div class="list-box">
+            <ul>
+              <li><code>title</code> belongs to the default namespace.</li>
+              <li><code>lib:title</code> belongs to the library namespace.</li>
+              <li>Both names are treated as different elements.</li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- JavaScript example -->
+    <section class="note-section">
+      <h2 class="section-title">JavaScript Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>HTML code</h3>
+          <pre class="code-block">&lt;button onclick="showStudent()"&gt;Show Student Details&lt;/button&gt;
+
+&lt;p id="result"&gt;&lt;/p&gt;</pre>
+        </li>
+        <li>
+          <h3>JavaScript code</h3>
+          <pre class="code-block">function showStudent() {
+
+    let xml = `
+    &lt;student id="s-204"&gt;
+        &lt;name&gt;Mira Shah&lt;/name&gt;
+        &lt;programme&gt;B.Tech CSE&lt;/programme&gt;
+        &lt;marks&gt;88&lt;/marks&gt;
+    &lt;/student&gt;`;
+
+    let parser = new DOMParser();
+    let data = parser.parseFromString(xml, "text/xml");
+
+    let name = data.getElementsByTagName("name")[0].textContent;
+    let programme = data.getElementsByTagName("programme")[0].textContent;
+    let marks = data.getElementsByTagName("marks")[0].textContent;
+
+    document.getElementById("result").textContent =
+        "Name: " + name + "\n" +
+        "Programme: " + programme + "\n" +
+        "Marks: " + marks;
+}</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <p>Click the button to read the XML text with <code>DOMParser</code> and display the student information.</p>
+          <div class="demo-box">
+            <button type="button" onclick="showStudent()">Show Student Details</button>
+          </div>
+          <div id="result" class="output" data-label="Result" role="status" aria-live="polite">Click the button to display student information.</div>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit5.2.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit5.4.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    // Same code as shown in the JavaScript code card above
+    function showStudent() {
+
+      let xml = `
+      <student id="s-204">
+          <name>Mira Shah</name>
+          <programme>B.Tech CSE</programme>
+          <marks>88</marks>
+      </student>`;
+
+      let parser = new DOMParser();
+      let data = parser.parseFromString(xml, "text/xml");
+
+      let name = data.getElementsByTagName("name")[0].textContent;
+      let programme = data.getElementsByTagName("programme")[0].textContent;
+      let marks = data.getElementsByTagName("marks")[0].textContent;
+
+      document.getElementById("result").textContent =
+        "Name: " + name + "\n" +
+        "Programme: " + programme + "\n" +
+        "Marks: " + marks;
+    }
+  </script>
+</body>
+</html>

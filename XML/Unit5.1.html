@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Introduction to XML</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 5.1: introduction to XML, its features, XML vs HTML and a live JavaScript example.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the boxes, tables and demo work with any topic.css) */
+
+    /* Box around a table, with visible borders on every cell */
+    .table-box {
+      margin: 0.6rem 0 0;
+      padding: 0.6rem;
+      overflow-x: auto;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    .box-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #062a3a;
+    }
+    .box-table th,
+    .box-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: top;
+      border: 1.5px solid rgba(6, 42, 58, 0.6);
+    }
+    .box-table th {
+      background: #00c9a7;
+      color: #031b26;
+      font-weight: 800;
+    }
+    .box-table th:nth-child(2) { background: #00b4d8; }
+
+    /* Box with a bullet list inside */
+    .list-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      color: #062a3a;
+    }
+    .list-box ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .list-box li {
+      position: relative;
+      padding: 0.25rem 0 0.25rem 1.6rem;
+    }
+    .list-box li::before {
+      content: "";
+      position: absolute;
+      top: 0.85em;
+      left: 0.2rem;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: #00c9a7;
+    }
+    .list-box code {
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.92em;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    /* The live demo (white box so it is readable in both themes) */
+    .demo-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem 1.3rem;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+    }
+    .demo-box button {
+      padding: 0.55rem 1.6rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .demo-box button:hover { transform: translateY(-2px); }
+    .demo-box button:focus-visible { outline: 3px solid #031b26; outline-offset: 3px; }
+
+    /* Keeps the line break in the result */
+    #result { white-space: pre-line; overflow-wrap: anywhere; }
+
+    /* Dark mode */
+    html[data-theme="dark"] .table-box,
+    html[data-theme="dark"] .list-box {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(4, 18, 28, 0.7);
+    }
+    html[data-theme="dark"] .box-table,
+    html[data-theme="dark"] .list-box { color: #eaf8ff; }
+    html[data-theme="dark"] .box-table th,
+    html[data-theme="dark"] .box-table td { border-color: rgba(255, 255, 255, 0.45); }
+    html[data-theme="dark"] .box-table th { color: #031b26; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit5.html">&larr; All Unit 5 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Introduction to XML">Introduction to XML</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 5 &nbsp;/&nbsp; Topic 1</p>
+
+    <p class="intro"><b>XML (Extensible Markup Language)</b> is a text-based markup language used to store and transport structured data.</p>
+    <p class="intro">Unlike HTML, XML allows users to create their own tags to describe data.</p>
+
+    <!-- Example -->
+    <section class="note-section">
+      <h2 class="section-title">XML Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>XML code</h3>
+          <pre class="code-block">&lt;course code="WT205"&gt;
+    &lt;title&gt;Web Technologies&lt;/title&gt;
+    &lt;credits&gt;4&lt;/credits&gt;
+    &lt;instructor&gt;Dr. Mehta&lt;/instructor&gt;
+&lt;/course&gt;</pre>
+        </li>
+        <li>
+          <h3>Explanation</h3>
+          <div class="list-box">
+            <ul>
+              <li><code>&lt;course&gt;</code> - Main element.</li>
+              <li><code>&lt;title&gt;</code> - Stores course name.</li>
+              <li><code>&lt;credits&gt;</code> - Stores course credits.</li>
+              <li><code>&lt;instructor&gt;</code> - Stores instructor name.</li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Features -->
+    <section class="note-section">
+      <h2 class="section-title">Features of XML</h2>
+      <ol class="steps">
+        <li><h3>Extensible</h3><p>Users can create their own tags.</p></li>
+        <li><h3>Structured</h3><p>Data is arranged in a tree-like structure.</p></li>
+        <li><h3>Portable</h3><p>XML can be read by humans and software.</p></li>
+        <li><h3>Text-based</h3><p>XML stores data in readable text format.</p></li>
+        <li><h3>Platform independent</h3><p>XML works across different systems.</p></li>
+      </ol>
+    </section>
+
+    <!-- XML vs HTML -->
+    <section class="note-section">
+      <h2 class="section-title">Difference between XML and HTML</h2>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">XML</th><th scope="col">HTML</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Used to store and transport data.</td><td>Used to display data on web pages.</td></tr>
+            <tr><td>Allows custom tags.</td><td>Uses predefined tags.</td></tr>
+            <tr><td>Focuses on data meaning.</td><td>Focuses on data presentation.</td></tr>
+            <tr><td>Tags are case-sensitive.</td><td>Tags are generally case-insensitive.</td></tr>
+            <tr><td>Does not automatically create a user interface.</td><td>Displays content in a browser.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- JavaScript example -->
+    <section class="note-section">
+      <h2 class="section-title">JavaScript Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>HTML code</h3>
+          <pre class="code-block">&lt;p id="result"&gt;Click the button to display XML data.&lt;/p&gt;
+
+&lt;button onclick="showXML()"&gt;Show XML Data&lt;/button&gt;</pre>
+        </li>
+        <li>
+          <h3>JavaScript code</h3>
+          <pre class="code-block">function showXML() {
+    let xml = "&lt;course&gt;&lt;title&gt;Web Technologies&lt;/title&gt;&lt;credits&gt;4&lt;/credits&gt;&lt;/course&gt;";
+
+    let parser = new DOMParser();
+    let data = parser.parseFromString(xml, "text/xml");
+
+    let title = data.getElementsByTagName("title")[0].textContent;
+    let credits = data.getElementsByTagName("credits")[0].textContent;
+
+    document.getElementById("result").textContent =
+        "Course: " + title + "\nCredits: " + credits;
+}</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <p>Click the button to read the XML text with <code>DOMParser</code> and display two of its values.</p>
+          <div class="demo-box">
+            <button type="button" onclick="showXML()">Show XML Data</button>
+          </div>
+          <div id="result" class="output" data-label="Result" role="status" aria-live="polite">Click the button to display XML data.</div>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit5.html">&larr; All Unit 5 topics</a>
+      <a class="nav-next" href="Unit5.2.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    // Same code as shown in the JavaScript code card above
+    function showXML() {
+      let xml = "<course><title>Web Technologies</title><credits>4</credits></course>";
+
+      let parser = new DOMParser();
+      let data = parser.parseFromString(xml, "text/xml");
+
+      let title = data.getElementsByTagName("title")[0].textContent;
+      let credits = data.getElementsByTagName("credits")[0].textContent;
+
+      document.getElementById("result").textContent =
+        "Course: " + title + "\nCredits: " + credits;
+    }
+  </script>
+</body>
+</html>

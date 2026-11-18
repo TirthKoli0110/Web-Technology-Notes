@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Unit 5 Important Points</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 5.5: important points of Unit 5 (XML) at a glance, with a live example.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the demo works with any topic.css) */
+
+    /* The live demo button (white box so it is readable in both themes) */
+    .demo-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem 1.3rem;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+    }
+    .demo-box button {
+      padding: 0.55rem 1.6rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .demo-box button:hover { transform: translateY(-2px); }
+    .demo-box button:focus-visible { outline: 3px solid #031b26; outline-offset: 3px; }
+
+    /* The list the demo builds */
+    #result ul {
+      margin: 0;
+      padding-left: 1.3rem;
+    }
+    #result li { padding: 0.2rem 0; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit5.html">&larr; All Unit 5 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Important Points – Unit 5 at a Glance">Important Points &ndash; Unit 5 at a Glance</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 5 &nbsp;/&nbsp; Topic 5</p>
+
+    <p class="intro">A quick revision of the seven most important points of Unit 5 (XML).</p>
+
+    <!-- Points -->
+    <section class="note-section">
+      <h2 class="section-title">Unit 5 at a Glance</h2>
+      <ol class="steps">
+        <li>
+          <h3>XML</h3>
+          <p>XML is an extensible, text-based language used to store and transport structured data.</p>
+        </li>
+        <li>
+          <h3>Document tree</h3>
+          <p>XML elements, attributes, text and namespaces form the document tree.</p>
+        </li>
+        <li>
+          <h3>Well-formedness</h3>
+          <p>Well-formedness checks XML syntax rules.</p>
+        </li>
+        <li>
+          <h3>DTD and XSD</h3>
+          <p>DTD and XSD define the structure and rules of XML documents.</p>
+        </li>
+        <li>
+          <h3>XSD vs DTD</h3>
+          <p>XSD supports advanced data types and constraints compared to DTD.</p>
+        </li>
+        <li>
+          <h3>XPath</h3>
+          <p>XPath selects elements, attributes and values from XML.</p>
+        </li>
+        <li>
+          <h3>XSLT</h3>
+          <p>XSLT transforms XML into HTML, XML or plain text.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- JavaScript example -->
+    <section class="note-section">
+      <h2 class="section-title">JavaScript Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>HTML code</h3>
+          <pre class="code-block">&lt;button onclick="showPoints()"&gt;Show Important Points&lt;/button&gt;
+
+&lt;div id="result"&gt;&lt;/div&gt;</pre>
+        </li>
+        <li>
+          <h3>JavaScript code</h3>
+          <pre class="code-block">function showPoints() {
+
+    let points = [
+        "XML stores and transports structured data.",
+        "Elements, attributes, text and namespaces form the document tree.",
+        "Well-formedness checks XML syntax rules.",
+        "DTD and XSD define XML document structure.",
+        "XSD supports advanced data types and constraints.",
+        "XPath selects elements, attributes and values.",
+        "XSLT transforms XML into HTML, XML or plain text."
+    ];
+
+    let list = document.createElement("ul");
+
+    points.forEach(function (text) {
+        let item = document.createElement("li");
+        item.textContent = text;
+        list.appendChild(item);
+    });
+
+    let result = document.getElementById("result");
+    result.textContent = "";
+    result.appendChild(list);
+}</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <p>Click the button to display all important points as a list. Clicking again rebuilds the list, so the points never repeat.</p>
+          <div class="demo-box">
+            <button type="button" onclick="showPoints()">Show Important Points</button>
+          </div>
+          <div id="result" class="output" data-label="Result" role="status" aria-live="polite">Click the button to display the important points.</div>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit5.4.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit5.html">All Unit 5 topics &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    // Same code as shown in the JavaScript code card above
+    function showPoints() {
+
+      let points = [
+        "XML stores and transports structured data.",
+        "Elements, attributes, text and namespaces form the document tree.",
+        "Well-formedness checks XML syntax rules.",
+        "DTD and XSD define XML document structure.",
+        "XSD supports advanced data types and constraints.",
+        "XPath selects elements, attributes and values.",
+        "XSLT transforms XML into HTML, XML or plain text."
+      ];
+
+      let list = document.createElement("ul");
+
+      points.forEach(function (text) {
+        let item = document.createElement("li");
+        item.textContent = text;
+        list.appendChild(item);
+      });
+
+      let result = document.getElementById("result");
+      result.textContent = "";
+      result.appendChild(list);
+    }
+  </script>
+</body>
+</html>

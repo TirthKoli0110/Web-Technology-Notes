@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>XML Using XSL and XSLT</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 5.4: XSL, XSLT, XPath, connecting XML to a stylesheet and a live XML to HTML example.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the boxes, tables and demo work with any topic.css) */
+
+    /* Box around a table, with visible borders on every cell */
+    .table-box {
+      margin: 0.6rem 0 0;
+      padding: 0.6rem;
+      overflow-x: auto;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    .box-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #062a3a;
+    }
+    .box-table th,
+    .box-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: top;
+      border: 1.5px solid rgba(6, 42, 58, 0.6);
+    }
+    .box-table th {
+      background: #00c9a7;
+      color: #031b26;
+      font-weight: 800;
+    }
+    .box-table th:nth-child(2) { background: #00b4d8; }
+    .box-table code,
+    .list-box code {
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.92em;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    /* Box with a bullet list inside */
+    .list-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      color: #062a3a;
+    }
+    .list-box ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .list-box li {
+      position: relative;
+      padding: 0.25rem 0 0.25rem 1.6rem;
+    }
+    .list-box li::before {
+      content: "";
+      position: absolute;
+      top: 0.85em;
+      left: 0.2rem;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: #00c9a7;
+    }
+
+    /* The live demo button (white box so it is readable in both themes) */
+    .demo-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem 1.3rem;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+    }
+    .demo-box button {
+      padding: 0.55rem 1.6rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .demo-box button:hover { transform: translateY(-2px); }
+    .demo-box button:focus-visible { outline: 3px solid #031b26; outline-offset: 3px; }
+
+    /* The table the demo builds (white cells so it is readable in both themes) */
+    #result { overflow-x: auto; }
+    .result-table {
+      border-collapse: collapse;
+      background: #ffffff;
+      color: #031b26;
+    }
+    .result-table th,
+    .result-table td {
+      padding: 0.6rem 1rem;
+      text-align: left;
+      border: 1.5px solid #031b26;
+    }
+    .result-table th { background: #00c9a7; font-weight: 800; }
+
+    /* Dark mode */
+    html[data-theme="dark"] .table-box,
+    html[data-theme="dark"] .list-box {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(4, 18, 28, 0.7);
+    }
+    html[data-theme="dark"] .box-table,
+    html[data-theme="dark"] .list-box { color: #eaf8ff; }
+    html[data-theme="dark"] .box-table th,
+    html[data-theme="dark"] .box-table td { border-color: rgba(255, 255, 255, 0.45); }
+    html[data-theme="dark"] .box-table th { color: #031b26; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit5.html">&larr; All Unit 5 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Transforming XML Using XSL and XSLT">Transforming XML Using XSL and XSLT</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 5 &nbsp;/&nbsp; Topic 4</p>
+
+    <p class="intro"><b>XSL</b> and <b>XSLT</b> are used to work with XML documents and to transform XML into other formats such as HTML.</p>
+
+    <!-- What is XSL -->
+    <section class="note-section">
+      <h2 class="section-title">What is XSL?</h2>
+      <ol class="steps">
+        <li>
+          <h3>Definition</h3>
+          <p><b>XSL (Extensible Stylesheet Language)</b> is a family of technologies used for working with XML documents.</p>
+        </li>
+        <li>
+          <h3>XSLT</h3>
+          <p>Used to transform XML into HTML, XML or plain text.</p>
+        </li>
+        <li>
+          <h3>XPath</h3>
+          <p>Used to select elements, attributes and values from XML.</p>
+        </li>
+        <li>
+          <h3>XSL-FO</h3>
+          <p>Used for formatting documents, especially paginated output.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- What is XSLT -->
+    <section class="note-section">
+      <h2 class="section-title">What is XSLT?</h2>
+      <ol class="steps">
+        <li>
+          <h3>Definition</h3>
+          <p><b>XSLT (Extensible Stylesheet Language Transformations)</b> is used to transform XML documents into another format.</p>
+          <p>It reads the XML document, selects required elements using XPath and applies templates to generate output.</p>
+        </li>
+        <li>
+          <h3>Uses of XSLT</h3>
+          <div class="list-box">
+            <ul>
+              <li>Convert XML into HTML.</li>
+              <li>Convert XML into another XML format.</li>
+              <li>Convert XML into plain text.</li>
+              <li>Display XML data in table format.</li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- How it works -->
+    <section class="note-section">
+      <h2 class="section-title">How XSLT Works</h2>
+      <ol class="steps">
+        <li><h3>Read</h3><p>Reads the source XML document.</p></li>
+        <li><h3>Select</h3><p>Selects elements using XPath.</p></li>
+        <li><h3>Apply</h3><p>Applies XSLT template rules.</p></li>
+        <li><h3>Generate</h3><p>Generates the final output.</p></li>
+      </ol>
+    </section>
+
+    <!-- Examples -->
+    <section class="note-section">
+      <h2 class="section-title">Example of XML and XSLT</h2>
+      <ol class="steps">
+        <li>
+          <h3>Example of XML source</h3>
+          <pre class="code-block">&lt;catalog&gt;
+    &lt;book id="b101"&gt;
+        &lt;title&gt;Learning XML&lt;/title&gt;
+        &lt;author&gt;Asha Rao&lt;/author&gt;
+        &lt;price&gt;450&lt;/price&gt;
+    &lt;/book&gt;
+&lt;/catalog&gt;</pre>
+        </li>
+        <li>
+          <h3>Example of XSLT stylesheet</h3>
+          <pre class="code-block">&lt;xsl:stylesheet version="1.0"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+
+    &lt;xsl:output method="html" indent="yes"/&gt;
+
+    &lt;xsl:template match="/"&gt;
+        &lt;table&gt;
+            &lt;tr&gt;
+                &lt;th&gt;ID&lt;/th&gt;
+                &lt;th&gt;Title&lt;/th&gt;
+                &lt;th&gt;Author&lt;/th&gt;
+                &lt;th&gt;Price&lt;/th&gt;
+            &lt;/tr&gt;
+
+            &lt;xsl:for-each select="catalog/book"&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;&lt;xsl:value-of select="@id"/&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;xsl:value-of select="title"/&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;xsl:value-of select="author"/&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;xsl:value-of select="price"/&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/xsl:for-each&gt;
+        &lt;/table&gt;
+    &lt;/xsl:template&gt;
+
+&lt;/xsl:stylesheet&gt;</pre>
+        </li>
+      </ol>
+    </section>
+
+    <!-- XSLT elements -->
+    <section class="note-section">
+      <h2 class="section-title">Important XSLT Elements</h2>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">Element</th><th scope="col">Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>xsl:stylesheet</code></td><td>Defines an XSLT stylesheet.</td></tr>
+            <tr><td><code>xsl:template</code></td><td>Defines a template rule.</td></tr>
+            <tr><td><code>xsl:for-each</code></td><td>Repeats instructions for selected elements.</td></tr>
+            <tr><td><code>xsl:value-of</code></td><td>Extracts the value of an element or attribute.</td></tr>
+            <tr><td><code>xsl:output</code></td><td>Specifies the output format.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- XPath -->
+    <section class="note-section">
+      <h2 class="section-title">XPath</h2>
+      <p class="intro" style="margin-top:0; margin-bottom:1rem;"><b>XPath (XML Path Language)</b> is used to navigate and select elements and attributes in an XML document.</p>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">XPath Expression</th><th scope="col">Meaning</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>/catalog</code></td><td>Selects the catalog root element.</td></tr>
+            <tr><td><code>catalog/book</code></td><td>Selects book elements inside catalog.</td></tr>
+            <tr><td><code>//book</code></td><td>Selects all book elements.</td></tr>
+            <tr><td><code>title</code></td><td>Selects title elements.</td></tr>
+            <tr><td><code>@id</code></td><td>Selects the ID attribute.</td></tr>
+            <tr><td><code>price</code></td><td>Selects price elements.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Connecting -->
+    <section class="note-section">
+      <h2 class="section-title">Connecting XML File to XSLT Stylesheet</h2>
+      <ol class="steps">
+        <li>
+          <h3>How</h3>
+          <p>An XML file can be connected to an XSLT stylesheet using the <code>xml-stylesheet</code> processing instruction.</p>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <pre class="code-block">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;?xml-stylesheet type="text/xsl" href="catalog.xsl"?&gt;
+
+&lt;catalog&gt;
+    &lt;book id="b101"&gt;
+        &lt;title&gt;Learning XML&lt;/title&gt;
+        &lt;author&gt;Asha Rao&lt;/author&gt;
+        &lt;price&gt;450&lt;/price&gt;
+    &lt;/book&gt;
+&lt;/catalog&gt;</pre>
+        </li>
+        <li>
+          <h3>Explanation</h3>
+          <div class="list-box">
+            <ul>
+              <li><code>catalog.xml</code> is the XML file.</li>
+              <li><code>catalog.xsl</code> is the XSLT stylesheet.</li>
+              <li>The browser uses the stylesheet to transform XML into HTML.</li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- JavaScript example -->
+    <section class="note-section">
+      <h2 class="section-title">JavaScript Example: XML to HTML</h2>
+      <ol class="steps">
+        <li>
+          <h3>HTML code</h3>
+          <pre class="code-block">&lt;button onclick="transformXML()"&gt;Transform XML&lt;/button&gt;
+
+&lt;div id="result"&gt;&lt;/div&gt;</pre>
+        </li>
+        <li>
+          <h3>JavaScript code</h3>
+          <pre class="code-block">function transformXML() {
+
+    let xml = `
+    &lt;catalog&gt;
+        &lt;book id="b101"&gt;
+            &lt;title&gt;Learning XML&lt;/title&gt;
+            &lt;author&gt;Asha Rao&lt;/author&gt;
+            &lt;price&gt;450&lt;/price&gt;
+        &lt;/book&gt;
+    &lt;/catalog&gt;`;
+
+    let parser = new DOMParser();
+    let data = parser.parseFromString(xml, "text/xml");
+
+    let book = data.getElementsByTagName("book")[0];
+
+    let values = [
+        book.getAttribute("id"),
+        book.getElementsByTagName("title")[0].textContent,
+        book.getElementsByTagName("author")[0].textContent,
+        book.getElementsByTagName("price")[0].textContent
+    ];
+
+    let table = document.createElement("table");
+    table.className = "result-table";
+
+    let head = table.insertRow();
+    ["ID", "Title", "Author", "Price"].forEach(function (text) {
+        let th = document.createElement("th");
+        th.textContent = text;
+        head.appendChild(th);
+    });
+
+    let row = table.insertRow();
+    values.forEach(function (text) {
+        row.insertCell().textContent = text;
+    });
+
+    let result = document.getElementById("result");
+    result.textContent = "";
+    result.appendChild(table);
+}</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <p>Click the button to read the XML with <code>DOMParser</code> and display its values in a table. This shows the idea of turning XML into an HTML table. It does not run a real XSLT stylesheet.</p>
+          <div class="demo-box">
+            <button type="button" onclick="transformXML()">Transform XML</button>
+          </div>
+          <div id="result" class="output" data-label="Result" role="status" aria-live="polite">Click the button to display XML data in a table.</div>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit5.3.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit5.5.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    // Same code as shown in the JavaScript code card above
+    function transformXML() {
+
+      let xml = `
+      <catalog>
+          <book id="b101">
+              <title>Learning XML</title>
+              <author>Asha Rao</author>
+              <price>450</price>
+          </book>
+      </catalog>`;
+
+      let parser = new DOMParser();
+      let data = parser.parseFromString(xml, "text/xml");
+
+      let book = data.getElementsByTagName("book")[0];
+
+      let values = [
+        book.getAttribute("id"),
+        book.getElementsByTagName("title")[0].textContent,
+        book.getElementsByTagName("author")[0].textContent,
+        book.getElementsByTagName("price")[0].textContent
+      ];
+
+      let table = document.createElement("table");
+      table.className = "result-table";
+
+      let head = table.insertRow();
+      ["ID", "Title", "Author", "Price"].forEach(function (text) {
+        let th = document.createElement("th");
+        th.textContent = text;
+        head.appendChild(th);
+      });
+
+      let row = table.insertRow();
+      values.forEach(function (text) {
+        row.insertCell().textContent = text;
+      });
+
+      let result = document.getElementById("result");
+      result.textContent = "";
+      result.appendChild(table);
+    }
+  </script>
+</body>
+</html>

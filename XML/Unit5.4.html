@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>DTD and XML Schema</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 5.3: DTD, XML Schema (XSD), the difference between them, XML validation commands and a live price check.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the boxes, tables and demo work with any topic.css) */
+
+    /* Box around a table, with visible borders on every cell */
+    .table-box {
+      margin: 0.6rem 0 0;
+      padding: 0.6rem;
+      overflow-x: auto;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    .box-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #062a3a;
+    }
+    .box-table th,
+    .box-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: top;
+      border: 1.5px solid rgba(6, 42, 58, 0.6);
+    }
+    .box-table th {
+      background: #00c9a7;
+      color: #031b26;
+      font-weight: 800;
+    }
+    .box-table th:nth-child(2) { background: #00b4d8; }
+
+    /* Box with a bullet list inside */
+    .list-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem;
+      border: 2px solid rgba(6, 42, 58, 0.6);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      color: #062a3a;
+    }
+    .list-box ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .list-box li {
+      position: relative;
+      padding: 0.25rem 0 0.25rem 1.6rem;
+    }
+    .list-box li::before {
+      content: "";
+      position: absolute;
+      top: 0.85em;
+      left: 0.2rem;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: #00c9a7;
+    }
+    .list-box code {
+      font-family: ui-monospace, Consolas, "Courier New", monospace;
+      font-size: 0.92em;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    /* The live price checker (white box so it is readable in both themes) */
+    .demo-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem 1.3rem;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+    }
+    .demo-box label {
+      display: block;
+      font-weight: 700;
+    }
+    .demo-box input {
+      display: block;
+      width: 100%;
+      max-width: 320px;
+      margin-top: 0.3rem;
+      padding: 0.55rem 0.8rem;
+      border: 2px solid #8aa6b2;
+      border-radius: 10px;
+      background: #ffffff;
+      color: #031b26;
+      font: 500 1rem Poppins, system-ui, sans-serif;
+    }
+    .demo-box input:focus-visible {
+      border-color: #00b4d8;
+      outline: 3px solid rgba(0, 180, 216, 0.35);
+    }
+    .demo-box button {
+      margin-top: 1rem;
+      padding: 0.55rem 1.6rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .demo-box button:hover { transform: translateY(-2px); }
+    .demo-box button:focus-visible { outline: 3px solid #031b26; outline-offset: 3px; }
+
+    /* Dark mode */
+    html[data-theme="dark"] .table-box,
+    html[data-theme="dark"] .list-box {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(4, 18, 28, 0.7);
+    }
+    html[data-theme="dark"] .box-table,
+    html[data-theme="dark"] .list-box { color: #eaf8ff; }
+    html[data-theme="dark"] .box-table th,
+    html[data-theme="dark"] .box-table td { border-color: rgba(255, 255, 255, 0.45); }
+    html[data-theme="dark"] .box-table th { color: #031b26; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit5.html">&larr; All Unit 5 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="DTD and XML Schema (XSD)">DTD and XML Schema (XSD)</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 5 &nbsp;/&nbsp; Topic 3</p>
+
+    <p class="intro">Well-formedness checks XML syntax, but it does not check whether the document follows a particular structure.</p>
+    <p class="intro">For this purpose, XML uses <b>DTD</b> and <b>XSD</b>.</p>
+
+    <!-- A -->
+    <section class="note-section">
+      <h2 class="section-title">A. DTD (Document Type Definition)</h2>
+      <ol class="steps">
+        <li>
+          <h3>What it is</h3>
+          <p>DTD defines the basic structure and rules of an XML document.</p>
+        </li>
+        <li>
+          <h3>It specifies</h3>
+          <div class="list-box">
+            <ul>
+              <li>Elements.</li>
+              <li>Attributes.</li>
+              <li>Entities.</li>
+              <li>Content models.</li>
+              <li>Order of elements.</li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <h3>Example of DTD</h3>
+          <pre class="code-block">&lt;!ELEMENT catalog (product+)&gt;
+&lt;!ELEMENT product (name, price)&gt;
+&lt;!ATTLIST product id ID #REQUIRED&gt;
+&lt;!ELEMENT name (#PCDATA)&gt;
+&lt;!ELEMENT price (#PCDATA)&gt;</pre>
+        </li>
+        <li>
+          <h3>Explanation</h3>
+          <div class="list-box">
+            <ul>
+              <li><code>catalog</code> must contain one or more products.</li>
+              <li>Each <code>product</code> must contain <code>name</code> followed by <code>price</code>.</li>
+              <li>Every product must have an ID attribute.</li>
+              <li><code>name</code> and <code>price</code> contain text data.</li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- B -->
+    <section class="note-section">
+      <h2 class="section-title">B. XML Schema (XSD)</h2>
+      <ol class="steps">
+        <li>
+          <h3>What it is</h3>
+          <p><b>XSD</b> stands for XML Schema Definition. It defines the structure and data types of XML documents.</p>
+        </li>
+        <li>
+          <h3>Features of XSD</h3>
+          <div class="list-box">
+            <ul>
+              <li>Supports built-in data types such as string, decimal and date.</li>
+              <li>Supports attributes and elements.</li>
+              <li>Supports namespaces.</li>
+              <li>Allows restrictions and constraints.</li>
+              <li>Provides stronger validation than DTD.</li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <h3>Example of XSD</h3>
+          <pre class="code-block">&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="catalog"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+                &lt;xs:element name="product"
+                    maxOccurs="unbounded"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="name"
+                                type="xs:string"/&gt;
+                            &lt;xs:element name="price"
+                                type="xs:decimal"/&gt;
+                        &lt;/xs:sequence&gt;
+
+                        &lt;xs:attribute name="id"
+                            type="xs:ID" use="required"/&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+&lt;/xs:schema&gt;</pre>
+        </li>
+      </ol>
+    </section>
+
+    <!-- DTD vs XSD -->
+    <section class="note-section">
+      <h2 class="section-title">Difference between DTD and XSD</h2>
+      <div class="table-box">
+        <table class="box-table">
+          <thead>
+            <tr><th scope="col">DTD</th><th scope="col">XSD</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Uses specialized DTD syntax.</td><td>Uses XML syntax.</td></tr>
+            <tr><td>Supports limited data types.</td><td>Supports many built-in data types.</td></tr>
+            <tr><td>Limited namespace support.</td><td>Supports namespaces.</td></tr>
+            <tr><td>Provides basic validation.</td><td>Provides advanced validation.</td></tr>
+            <tr><td>Suitable for simple structures.</td><td>Suitable for complex structures.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="output-box" data-label="Important">
+        <p>XSD is more powerful than DTD because it supports data types, namespaces and detailed restrictions.</p>
+      </div>
+    </section>
+
+    <!-- Validation -->
+    <section class="note-section">
+      <h2 class="section-title">XML Validation</h2>
+      <ol class="steps">
+        <li>
+          <h3>What it is</h3>
+          <p>XML validation checks whether an XML document follows the rules defined in DTD or XSD.</p>
+        </li>
+        <li>
+          <h3>DTD validation command</h3>
+          <pre class="code-block">xmllint --noout --valid catalog.xml</pre>
+        </li>
+        <li>
+          <h3>XSD validation command</h3>
+          <pre class="code-block">xmllint --noout --schema catalog.xsd catalog.xml</pre>
+          <p>If the document follows all the defined rules, validation is successful.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- JavaScript example -->
+    <section class="note-section">
+      <h2 class="section-title">JavaScript Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>HTML code</h3>
+          <pre class="code-block">&lt;label for="price"&gt;Product Price:&lt;/label&gt;
+
+&lt;input type="text" id="price" placeholder="Enter price"&gt;
+
+&lt;button onclick="checkPrice()"&gt;Check Price&lt;/button&gt;
+
+&lt;p id="result"&gt;&lt;/p&gt;</pre>
+        </li>
+        <li>
+          <h3>JavaScript code</h3>
+          <pre class="code-block">function checkPrice() {
+
+    let price = document.getElementById("price").value.trim();
+
+    if (price === "" || isNaN(price) || Number(price) &lt; 0) {
+        document.getElementById("result").textContent =
+            "Invalid Price. Enter a valid decimal number.";
+    } else {
+        document.getElementById("result").textContent =
+            "Valid Price: " + Number(price);
+    }
+}</pre>
+        </li>
+        <li>
+          <h3>Try it</h3>
+          <p>Enter a product price and click the button to check it. This is the same idea as the <code>xs:decimal</code> type in the XSD above: the value must be a number.</p>
+          <div class="demo-box">
+            <label for="price">Product Price:</label>
+            <input type="text" id="price" placeholder="Enter price" inputmode="decimal">
+            <button type="button" onclick="checkPrice()">Check Price</button>
+          </div>
+          <div id="result" class="output" data-label="Result" role="status" aria-live="polite"></div>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit5.2.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit5.4.html">Next &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    // Same code as shown in the JavaScript code card above
+    function checkPrice() {
+
+      let price = document.getElementById("price").value.trim();
+
+      if (price === "" || isNaN(price) || Number(price) < 0) {
+        document.getElementById("result").textContent =
+          "Invalid Price. Enter a valid decimal number.";
+      } else {
+        document.getElementById("result").textContent =
+          "Valid Price: " + Number(price);
+      }
+    }
+  </script>
+</body>
+</html>

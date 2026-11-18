@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Unit 5 Revision Checklist</title>
+  <meta name="description" content="Web Technology (C2111C3) Unit 5.7: most important topics for exams, a Unit 5 (XML) revision checklist with live progress.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Styles for this page only (so the checklist works with any topic.css) */
+
+    /* The live checklist (white box so it is readable in both themes) */
+    .check-box {
+      margin: 0.6rem 0 0;
+      padding: 1.1rem 1.3rem 1.3rem;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+    }
+    .progress-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin: 0;
+      font-weight: 800;
+    }
+    #percentage { font-size: 1.4rem; color: #00758f; }
+
+    .bar-track {
+      height: 0.8rem;
+      margin: 0.6rem 0 1rem;
+      overflow: hidden;
+      border-radius: 99px;
+      background: #d6e6ec;
+    }
+    .bar-fill {
+      width: 0;
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #00c9a7, #00b4d8);
+      transition: width 0.3s ease-out;
+    }
+
+    .check-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .check-list li { border-bottom: 1px solid #d6e6ec; }
+    .check-list li:last-child { border-bottom: 0; }
+    .check-list label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: 0.6rem 0.2rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .check-list input {
+      flex: none;
+      width: 1.2rem;
+      height: 1.2rem;
+      margin-top: 0.2rem;
+      accent-color: #00a88c;
+      cursor: pointer;
+    }
+    .check-list input:focus-visible {
+      outline: 3px solid #031b26;
+      outline-offset: 2px;
+    }
+
+    .reset-btn {
+      margin-top: 1rem;
+      padding: 0.55rem 1.6rem;
+      border: 0;
+      border-radius: 99px;
+      background: #00b4d8;
+      color: #031b26;
+      font: 800 1rem Poppins, system-ui, sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .reset-btn:hover { transform: translateY(-2px); }
+    .reset-btn:focus-visible { outline: 3px solid #031b26; outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit5.html">&larr; All Unit 5 topics</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Most Important Topics for Exams">Most Important Topics for Exams</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; Unit 5 &nbsp;/&nbsp; Topic 7</p>
+
+    <p class="intro">Tick each topic when you have revised it. The counter and the bar show how much of <b>Unit 5</b> is done.</p>
+
+    <!-- Checklist -->
+    <section class="note-section">
+      <h2 class="section-title">Unit 5 &ndash; Revision Checklist</h2>
+      <div class="check-box">
+        <p class="progress-line">
+          <span id="progress" role="status" aria-live="polite">0 of 13 completed</span>
+          <span id="percentage">0%</span>
+        </p>
+        <div class="bar-track" aria-hidden="true"><div class="bar-fill" id="bar"></div></div>
+
+        <ul class="check-list" id="checklist">
+          <li><label><input type="checkbox" onchange="updateProgress()"> <span>XML definition, features and uses</span></label></li>
+          <li><label><input type="checkbox" onchange="updateProgress()"> <span>Difference between XML and HTML</span></label></li>
+          <li><label><input type="checkbox" onchange="updateProgress()"> <span>Well-formed XML vs Valid XML</span></label></li>
+          <li><label><input type="checkbox" onchange="updateProgress()"> <span>XML declaration, root element, elements and attributes</span></label></li>
+          <li><label><input type="checkbox" onchange="updateProgress()"> <span>XML syntax rules and reserved characters</span></label></li>
+          <li><label><input type="checkbox" onchange="updateProgress()"> <span>XML namespaces</span></label></li>
+          <li><label><input type="checkbox" onchange="updateProgress()"> <span>DTD and its declarations</span></label></li>
+          <li><label><input type="checkbox" onchange="updateProgress()"> <span>XML Schema (XSD) and data types</span></label></li>
+          <li><label><input type="checkbox" onchange="updateProgress()"> <span>Difference between DTD and XSD</span></label></li>
+          <li><label><input type="checkbox" onchange="updateProgress()"> <span>XML validation</span></label></li>
+          <li><label><input type="checkbox" onchange="updateProgress()"> <span>XSL, XSLT and XPath</span></label></li>
+          <li><label><input type="checkbox" onchange="updateProgress()"> <span>XSLT elements: template, value-of and for-each</span></label></li>
+          <li><label><input type="checkbox" onchange="updateProgress()"> <span>Connecting an XML file to an XSLT stylesheet</span></label></li>
+        </ul>
+
+        <button class="reset-btn" type="button" onclick="resetChecklist()">Reset Checklist</button>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="note-section">
+      <h2 class="section-title">How the Checklist Works</h2>
+      <ol class="steps">
+        <li>
+          <h3>JavaScript code</h3>
+          <pre class="code-block">function updateProgress() {
+
+    const boxes = document.querySelectorAll(
+        "#checklist input[type='checkbox']"
+    );
+
+    let completed = 0;
+
+    boxes.forEach(function (box) {
+        if (box.checked) {
+            completed++;
+        }
+    });
+
+    const total = boxes.length;
+    const percent = Math.round((completed / total) * 100);
+
+    document.getElementById("progress").textContent =
+        completed + " of " + total + " completed";
+
+    document.getElementById("percentage").textContent =
+        percent + "%";
+
+    document.getElementById("bar").style.width = percent + "%";
+}
+
+function resetChecklist() {
+
+    document.querySelectorAll(
+        "#checklist input[type='checkbox']"
+    ).forEach(function (box) {
+        box.checked = false;
+    });
+
+    updateProgress();
+}
+
+updateProgress();</pre>
+        </li>
+        <li>
+          <h3>Explanation</h3>
+          <p><code>updateProgress()</code> counts the ticked boxes, works out the percentage and updates the text and the bar. <code>resetChecklist()</code> unticks every box and then calls <code>updateProgress()</code> again. The last line runs once when the page loads, so the numbers are always correct.</p>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a class="nav-prev" href="Unit5.6.html">&larr; Previous</a>
+      <a class="nav-next" href="Unit5.html">All Unit 5 topics &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    // Same code as shown in the JavaScript code card above
+    function updateProgress() {
+
+      const boxes = document.querySelectorAll(
+        "#checklist input[type='checkbox']"
+      );
+
+      let completed = 0;
+
+      boxes.forEach(function (box) {
+        if (box.checked) {
+          completed++;
+        }
+      });
+
+      const total = boxes.length;
+      const percent = Math.round((completed / total) * 100);
+
+      document.getElementById("progress").textContent =
+        completed + " of " + total + " completed";
+
+      document.getElementById("percentage").textContent =
+        percent + "%";
+
+      document.getElementById("bar").style.width = percent + "%";
+    }
+
+    function resetChecklist() {
+
+      document.querySelectorAll(
+        "#checklist input[type='checkbox']"
+      ).forEach(function (box) {
+        box.checked = false;
+      });
+
+      updateProgress();
+    }
+
+    updateProgress();
+  </script>
+</body>
+</html>
