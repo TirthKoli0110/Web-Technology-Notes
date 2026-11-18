@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>HTML Text Formatting</title>
+  <meta name="description" content="Web Technology (C2111C3): sub, sup and text formatting tags in HTML.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Topic.css">
+  <script src="Brain.js" defer></script>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit2.html">&larr; Back to Unit 2</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="HTML Text Formatting">HTML Text Formatting</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; HTML &nbsp;/&nbsp; Text Formatting</p>
+
+    <p class="intro">Text formatting tags change how text looks and what it means. This page covers <b>subscript</b>, <b>superscript</b> and the other common formatting tags.</p>
+
+    <!-- 1 -->
+    <section class="note-section">
+      <h2 class="section-title">1. &lt;sub&gt; - Subscript</h2>
+      <ol class="steps">
+        <li>
+          <h3>Purpose</h3>
+          <p>Displays text below the normal line.</p>
+        </li>
+        <li>
+          <h3>Syntax</h3>
+          <pre class="example">H&lt;sub&gt;2&lt;/sub&gt;O</pre>
+        </li>
+        <li>
+          <h3>Output</h3>
+          <p>H<sub>2</sub>O</p>
+        </li>
+        <li>
+          <h3>Uses</h3>
+          <p class="example">Chemical formulas (H<sub>2</sub>O, CO<sub>2</sub>)<br>Mathematical notation</p>
+        </li>
+        <li>
+          <h3>Remember</h3>
+          <p class="example">Sub = Down &#11015;&#65039;</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 2 -->
+    <section class="note-section">
+      <h2 class="section-title">2. &lt;sup&gt; - Superscript</h2>
+      <ol class="steps">
+        <li>
+          <h3>Purpose</h3>
+          <p>Displays text above the normal line.</p>
+        </li>
+        <li>
+          <h3>Syntax</h3>
+          <pre class="example">x&lt;sup&gt;2&lt;/sup&gt;</pre>
+        </li>
+        <li>
+          <h3>Output</h3>
+          <p>x<sup>2</sup></p>
+        </li>
+        <li>
+          <h3>Uses</h3>
+          <p class="example">Powers (x<sup>2</sup>)<br>Footnotes<br>Ordinal numbers (1<sup>st</sup>, 2<sup>nd</sup>)</p>
+        </li>
+        <li>
+          <h3>Remember</h3>
+          <p class="example">Sup = Up &#11014;&#65039;</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3 -->
+    <section class="note-section">
+      <h2 class="section-title">3. Text Formatting Tags</h2>
+
+      <div style="overflow-x:auto; border:1px solid rgba(255,255,255,0.35); border-radius:18px; background:var(--solid, rgba(4,18,28,0.88)); box-shadow:0 8px 24px rgba(0,0,0,0.25);">
+        <table style="width:100%; border-collapse:collapse; color:var(--color-ink, #ffffff);">
+          <thead>
+            <tr>
+              <th scope="col" style="padding:0.9rem 1.2rem; text-align:left; background:#3dbeff; color:#031b26; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; border:1px solid rgba(255,255,255,0.35);">Tag</th>
+              <th scope="col" style="padding:0.9rem 1.2rem; text-align:left; background:#3dbeff; color:#031b26; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; border:1px solid rgba(255,255,255,0.35);">Purpose</th>
+              <th scope="col" style="padding:0.9rem 1.2rem; text-align:left; background:#3dbeff; color:#031b26; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; border:1px solid rgba(255,255,255,0.35);">Example Output</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:600; font-family:Consolas,'Courier New',monospace; border:1px solid rgba(255,255,255,0.35);">&lt;b&gt;</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);">Bold text</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);"><b>Bold Text</b></td>
+            </tr>
+            <tr>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:600; font-family:Consolas,'Courier New',monospace; border:1px solid rgba(255,255,255,0.35);">&lt;strong&gt;</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);">Important text (semantic + bold)</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);"><strong>Important Text</strong></td>
+            </tr>
+            <tr>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:600; font-family:Consolas,'Courier New',monospace; border:1px solid rgba(255,255,255,0.35);">&lt;i&gt;</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);">Italic / Alternate voice</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);"><i>Italic Text</i></td>
+            </tr>
+            <tr>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:600; font-family:Consolas,'Courier New',monospace; border:1px solid rgba(255,255,255,0.35);">&lt;em&gt;</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);">Emphasized text</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);"><em>Emphasized Text</em></td>
+            </tr>
+            <tr>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:600; font-family:Consolas,'Courier New',monospace; border:1px solid rgba(255,255,255,0.35);">&lt;small&gt;</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);">Smaller text</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);"><small>Small Text</small></td>
+            </tr>
+            <tr>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:600; font-family:Consolas,'Courier New',monospace; border:1px solid rgba(255,255,255,0.35);">&lt;mark&gt;</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);">Highlighted text</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);"><mark>Highlighted Text</mark></td>
+            </tr>
+            <tr>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:600; font-family:Consolas,'Courier New',monospace; border:1px solid rgba(255,255,255,0.35);">&lt;del&gt;</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);">Deleted (Strikethrough)</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);"><del>Deleted Text</del></td>
+            </tr>
+            <tr>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:600; font-family:Consolas,'Courier New',monospace; border:1px solid rgba(255,255,255,0.35);">&lt;ins&gt;</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);">Inserted (Underlined)</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);"><ins>Inserted Text</ins></td>
+            </tr>
+            <tr>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:600; font-family:Consolas,'Courier New',monospace; border:1px solid rgba(255,255,255,0.35);">&lt;sub&gt;</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);">Subscript</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);">H<sub>2</sub>O</td>
+            </tr>
+            <tr>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:600; font-family:Consolas,'Courier New',monospace; border:1px solid rgba(255,255,255,0.35);">&lt;sup&gt;</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);">Superscript</td>
+              <td style="padding:0.9rem 1.2rem; text-align:left; font-weight:500; border:1px solid rgba(255,255,255,0.35);">x<sup>2</sup></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a href="Unit2.4.html">&larr; Previous: Important HTML Tags</a>
+      <a href="Unit2.html">All Unit 2 topics &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+</body>
+</html>

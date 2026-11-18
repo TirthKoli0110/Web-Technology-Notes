@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>HTML Quick Revision</title>
+  <meta name="description" content="Web Technology (C2111C3): quick revision of HTML colors, links and quotation tags, with differences and memory tricks.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Topic.css only colours the first 4 sections, so colour section 5 here */
+    .note-section:nth-of-type(5) { --accent: var(--color-teal, #00c9a7); }
+
+    .cmp-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 18px;
+      background: var(--solid, rgba(4, 18, 28, 0.88));
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+    .cmp {
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--color-ink, #ffffff);
+    }
+    .cmp th,
+    .cmp td {
+      padding: 0.8rem 1.1rem;
+      text-align: left;
+      font-weight: 500;
+      vertical-align: middle;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .cmp th {
+      background: var(--accent, #00c9a7);
+      color: #031b26;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .cmp td:first-child {
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 600;
+    }
+    .cmp tbody tr:hover td { background: rgba(0, 180, 216, 0.16); }
+
+    .demo {
+      margin: 0.5rem 0 0;
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+    .steps a.demo-link { color: var(--color-ink, #ffffff); font-weight: 700; text-decoration: underline; }
+    .steps blockquote {
+      margin: 0.4rem 0;
+      padding: 0.3rem 0.8rem;
+      border-left: 4px solid var(--accent, #00c9a7);
+    }
+    .steps address { margin: 0.2rem 0; font-style: italic; }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit2.html">&larr; Back to Unit 2</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="HTML Quick Revision">&#11088; HTML Quick Revision</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; HTML &nbsp;/&nbsp; Quick Revision</p>
+
+    <p class="intro">A fast revision of the most important differences, syntax and memory tricks from colors, links and quotations.</p>
+
+    <!-- 1 -->
+    <section class="note-section">
+      <h2 class="section-title">Important Differences</h2>
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <thead><tr><th scope="col">Topic</th><th scope="col">Difference</th></tr></thead>
+          <tbody>
+            <tr><td>RGB vs RGBA</td><td>RGBA adds Alpha (Transparency)</td></tr>
+            <tr><td>HSL vs HSLA</td><td>HSLA adds Alpha (Transparency)</td></tr>
+            <tr><td>Absolute URL vs Relative URL</td><td>External Website vs Internal Page</td></tr>
+            <tr><td>&lt;q&gt; vs &lt;blockquote&gt;</td><td>Short Quote vs Long Quote</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="note-section">
+      <h2 class="section-title">Most Important Syntax - Colors</h2>
+      <ol class="steps">
+        <li>
+          <h3>Text color</h3>
+          <p class="demo" style="background:#ffffff; color:red;">Red Text</p>
+        </li>
+        <li>
+          <h3>Background color</h3>
+          <p class="demo" style="background-color:yellow; color:#031b26;">Yellow Background</p>
+        </li>
+        <li>
+          <h3>Border</h3>
+          <p class="demo" style="border:2px solid blue;">Blue Border</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3 -->
+    <section class="note-section">
+      <h2 class="section-title">Most Important Syntax - Links</h2>
+      <ol class="steps">
+        <li>
+          <h3>Normal link</h3>
+          <p><a class="demo-link" href="#">Visit Page</a></p>
+        </li>
+        <li>
+          <h3>Open in a new tab</h3>
+          <p><a class="demo-link" href="#" target="_blank" rel="noopener">Open in New Tab</a></p>
+        </li>
+        <li>
+          <h3>Email link</h3>
+          <p><a class="demo-link" href="mailto:test@example.com">Send Email</a></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 4 -->
+    <section class="note-section">
+      <h2 class="section-title">Most Important Syntax - Quotations</h2>
+      <ol class="steps">
+        <li>
+          <h3>&lt;abbr&gt;</h3>
+          <p><abbr title="HyperText Markup Language">HTML</abbr></p>
+        </li>
+        <li>
+          <h3>&lt;blockquote&gt;</h3>
+          <blockquote>This is a long quotation.</blockquote>
+        </li>
+        <li>
+          <h3>&lt;q&gt;</h3>
+          <p><q>This is a short quotation.</q></p>
+        </li>
+        <li>
+          <h3>&lt;cite&gt;</h3>
+          <p><cite>Wings of Fire</cite></p>
+        </li>
+        <li>
+          <h3>&lt;address&gt;</h3>
+          <address>John Doe<br>India</address>
+        </li>
+        <li>
+          <h3>&lt;bdo&gt;</h3>
+          <p><bdo dir="rtl">Hello</bdo></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 5 -->
+    <section class="note-section">
+      <h2 class="section-title">One-Line Memory Tricks</h2>
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <thead><tr><th scope="col">Concept</th><th scope="col">Memory Trick</th></tr></thead>
+          <tbody>
+            <tr><td>RGB</td><td>Red, Green, Blue</td></tr>
+            <tr><td>RGBA</td><td>RGB + Alpha</td></tr>
+            <tr><td>HEX</td><td>#RRGGBB</td></tr>
+            <tr><td>HSL</td><td>Hue, Saturation, Lightness</td></tr>
+            <tr><td>href</td><td>Link Destination</td></tr>
+            <tr><td>target</td><td>Where the Link Opens</td></tr>
+            <tr><td>mailto:</td><td>Email Link</td></tr>
+            <tr><td>Image inside &lt;a&gt;</td><td>Clickable Image</td></tr>
+            <tr><td>&lt;q&gt;</td><td>Short Quote</td></tr>
+            <tr><td>&lt;blockquote&gt;</td><td>Long Quote</td></tr>
+            <tr><td>&lt;abbr&gt;</td><td>Abbreviation</td></tr>
+            <tr><td>&lt;cite&gt;</td><td>Creative Work Title</td></tr>
+            <tr><td>&lt;address&gt;</td><td>Contact Information</td></tr>
+            <tr><td>&lt;bdo&gt;</td><td>Text Direction (rtl / ltr)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a href="Unit2.10.html">&larr; Previous: Quotation &amp; Citation</a>
+      <a href="Unit2.12.html">Next: HTML Lists, Tables, Images &amp; Forms &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+</body>
+</html>
