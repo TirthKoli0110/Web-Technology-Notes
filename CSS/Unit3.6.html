@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CSS Lesson 6 - Inheritance and Cascade</title>
+  <meta name="description" content="Web Technology (C2111C3): CSS inheritance and the cascade, with an interactive demo, debugging tips and a quiz.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Only used by the inheritance demo on this page */
+    #parent,
+    #child {
+      padding: 0.8rem 1rem;
+      border: 2px solid #9fb6c0;
+      border-radius: 10px;
+    }
+    #child {
+      margin-top: 0.8rem;
+      border-style: dashed;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit3.html">&larr; Back to Unit 3</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Inheritance and the Cascade">Inheritance and the Cascade</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; CSS &nbsp;/&nbsp; Lesson 6</p>
+
+    <p class="intro">Learn how CSS properties are passed from parent elements to child elements and how the browser chooses CSS values.</p>
+
+    <!-- 1 -->
+    <section class="note-section">
+      <h2 class="section-title">1. What is Inheritance?</h2>
+      <ol class="steps">
+        <li>
+          <h3>Meaning</h3>
+          <p>Inheritance means some CSS properties automatically receive their values from a parent element.</p>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <pre class="example">.article {
+    color: darkblue;
+    border: 1px solid gray;
+}
+
+.article p {
+    font-family: Georgia, serif;
+}</pre>
+        </li>
+        <li>
+          <h3>HTML Example</h3>
+          <pre class="example">&lt;div class="article"&gt;
+    &lt;p&gt;This is an article paragraph.&lt;/p&gt;
+&lt;/div&gt;</pre>
+        </li>
+        <li>
+          <h3>Explanation</h3>
+          <ul class="sub">
+            <li>The paragraph inherits the text color from its parent.</li>
+            <li>The paragraph uses the specified Georgia font family.</li>
+            <li>The parent's border does not automatically pass to the paragraph.</li>
+          </ul>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 2 -->
+    <section class="note-section">
+      <h2 class="section-title">2. Common Inherited Properties</h2>
+      <ul class="points">
+        <li><b>color:</b> Text color.</li>
+        <li><b>font-family:</b> Font style.</li>
+        <li><b>font-size:</b> Text size.</li>
+        <li><b>line-height:</b> Space between lines.</li>
+      </ul>
+    </section>
+
+    <!-- 3 -->
+    <section class="note-section">
+      <h2 class="section-title">3. Common Non-Inherited Properties</h2>
+      <ul class="points">
+        <li><b>margin:</b> Space outside an element.</li>
+        <li><b>padding:</b> Space inside an element.</li>
+        <li><b>border:</b> Element boundary.</li>
+        <li><b>width:</b> Element width.</li>
+        <li><b>height:</b> Element height.</li>
+      </ul>
+    </section>
+
+    <!-- 4 -->
+    <section class="note-section">
+      <h2 class="section-title">4. Interactive Inheritance Demo</h2>
+      <ol class="steps">
+        <li>
+          <h3>Try it</h3>
+          <p>Click the buttons to see how changing a parent element's text properties can affect its child.</p>
+          <div class="demo-box">
+            <div id="parent">
+              <h3>Parent Element</h3>
+              <p>This is the parent element's text.</p>
+
+              <div id="child">
+                <h3>Child Element</h3>
+                <p>This paragraph receives inherited text properties.</p>
+              </div>
+            </div>
+          </div>
+          <button class="btn" type="button" data-change="color">Change Parent Color</button>
+          <button class="btn" type="button" data-change="font">Change Parent Font</button>
+          <button class="btn" type="button" data-change="size">Change Parent Font Size</button>
+          <button class="btn" type="button" data-change="reset">Reset Demo</button>
+          <p id="inheritMsg" class="msg" role="status" aria-live="polite"></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 5 -->
+    <section class="note-section">
+      <h2 class="section-title">5. Important: Cascade and Inheritance</h2>
+      <p>The cascade determines the applicable value for an element first. If an inherited property has no applicable value on the child, the child can receive that value from its parent.</p>
+      <p class="callout"><b>Remember:</b><br>Inheritance and the cascade work together.</p>
+    </section>
+
+    <!-- 6 -->
+    <section class="note-section">
+      <h2 class="section-title">6. CSS Debugging Tips</h2>
+      <p>If a CSS rule does not work, check these things:</p>
+      <ol class="steps">
+        <li class="single"><p>Spelling of properties and values.</p></li>
+        <li class="single"><p>Missing semicolons.</p></li>
+        <li class="single"><p>Missing or mismatched braces.</p></li>
+        <li class="single"><p>Whether the selector matches the HTML element.</p></li>
+        <li class="single"><p>Whether another rule overrides the declaration.</p></li>
+      </ol>
+    </section>
+
+    <!-- 7 -->
+    <section class="note-section">
+      <h2 class="section-title">7. Quick Quiz</h2>
+      <ol class="steps">
+        <li class="quiz" data-explain="Color is commonly inherited.">
+          <h3>Question 1: Which property is commonly inherited?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>color</button>
+            <button class="btn" type="button">border</button>
+            <button class="btn" type="button">margin</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Border does not inherit by default.">
+          <h3>Question 2: Does border automatically inherit from a parent?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button">Yes</button>
+            <button class="btn" type="button" data-correct>No</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="The cascade determines applicable values.">
+          <h3>Question 3: What determines the applicable CSS value?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button">Inheritance</button>
+            <button class="btn" type="button" data-correct>Cascade</button>
+            <button class="btn" type="button">HTML</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 8 -->
+    <section class="note-section">
+      <h2 class="section-title">8. Summary</h2>
+      <ul class="points">
+        <li>Inheritance passes certain CSS values from parent to child.</li>
+        <li>Color, font-family, font-size and line-height are commonly inherited.</li>
+        <li>Margin, padding, border, width and height are not inherited by default.</li>
+        <li>The cascade determines applicable values before inheritance is used.</li>
+        <li>Always check selectors and overriding rules when debugging CSS.</li>
+      </ul>
+    </section>
+
+    <p class="intro"><b>Lesson Completed!</b></p>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a href="Unit3.5.html">&larr; Previous: How the CSS Cascade Chooses a Value</a>
+      <a href="Unit3.7.html">Next topic &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      var parent = document.getElementById("parent");
+      var message = document.getElementById("inheritMsg");
+
+      // ---- Inheritance demo: change the PARENT, the child inherits it ----
+      var changes = {
+        color: { property: "color",      value: "darkblue",       text: "Parent color changed to darkblue. The child inherits it." },
+        font:  { property: "fontFamily", value: "Georgia, serif",  text: "Parent font changed to Georgia. The child inherits it." },
+        size:  { property: "fontSize",   value: "24px",            text: "Parent font size changed to 24px. The child inherits it." }
+      };
+
+      document.querySelectorAll("[data-change]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          var name = button.getAttribute("data-change");
+
+          if (name === "reset") {
+            parent.style.color = "";
+            parent.style.fontFamily = "";
+            parent.style.fontSize = "";
+            message.textContent = "";
+            return;
+          }
+
+          parent.style[changes[name].property] = changes[name].value;
+          message.textContent = changes[name].text;
+        });
+      });
+
+      // ---- Quiz: the button marked data-correct is the right answer ----
+      document.querySelectorAll(".quiz").forEach(function (question) {
+        var answer = question.querySelector(".result");
+
+        question.querySelectorAll(".quiz-options .btn").forEach(function (button) {
+          button.addEventListener("click", function () {
+            if (button.hasAttribute("data-correct")) {
+              answer.textContent = "Correct! " + question.getAttribute("data-explain");
+              answer.className = "result ok";
+            } else {
+              answer.textContent = "Not quite. Try again!";
+              answer.className = "result bad";
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

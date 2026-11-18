@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CSS Lesson 14 - Responsive Web Design</title>
+  <meta name="description" content="Web Technology (C2111C3): responsive web design, media queries, flexible grids and reduced motion, with interactive demos and a quiz.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Topic.css only colours the first 4 sections, so colour the rest here */
+    .note-section:nth-of-type(n+5) { --accent: var(--color-teal, #00c9a7); }
+
+    /* ---- Tables (same look as Unit 3.7) ---- */
+    .cmp-wrap {
+      overflow-x: auto;
+      margin: 0.6rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 14px;
+    }
+    .cmp {
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--color-ink, #ffffff);
+    }
+    .cmp th,
+    .cmp td {
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .cmp th {
+      background: var(--accent, #00c9a7);
+      color: #031b26;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .cmp td.code { font-family: Consolas, "Courier New", monospace; font-weight: 600; }
+    .steps pre.example { margin: 0.6rem 0 0; overflow-x: auto; white-space: pre-wrap; }
+    .steps ul.plain { margin: 0.4rem 0; padding-left: 1.4rem; }
+    .steps ul.plain li {
+      all: revert;
+      color: var(--color-ink, #ffffff);
+      font-weight: 500;
+    }
+
+    /* ---- Demos ---- */
+    .panel {
+      padding: 15px;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+    }
+    .demoCard {
+      padding: 20px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #00bcd4, #00a878);
+      color: #ffffff;
+      font-weight: 700;
+      text-align: center;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+      overflow-wrap: anywhere;
+    }
+
+    #responsiveDemo {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 100%;
+      margin: 0 auto;
+      transition: max-width 0.3s ease;
+    }
+    #flexibleGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      width: 100%;
+      max-width: 850px;
+      margin: 0 auto;
+      transition: max-width 0.3s ease;
+    }
+
+    /* Motion demo */
+    .motion-track { padding: 12px; border-radius: 12px; background: #ffffff; overflow-x: auto; }
+    #motionBox {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 150px;
+      height: 100px;
+      border-radius: 12px;
+      background: #00a878;
+      color: #ffffff;
+      font-weight: 700;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+      transition: transform 0.5s ease;
+    }
+    #motionBox.no-motion { transition: none; }
+    @media (prefers-reduced-motion: reduce) {
+      #motionBox { transition: none; }
+      #responsiveDemo,
+      #flexibleGrid { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit3.html">&larr; Back to Unit 3</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Responsive Web Design">Responsive Web Design</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; CSS &nbsp;/&nbsp; Lesson 14</p>
+
+    <p class="intro">Responsive Web Design allows a webpage to adapt to different screen sizes and viewing conditions. A responsive webpage should work properly on mobile phones, tablets, laptops and desktop computers.</p>
+
+    <!-- 1 -->
+    <section class="note-section">
+      <h2 class="section-title">1. What is Responsive Web Design?</h2>
+      <ol class="steps">
+        <li>
+          <h3>Definition</h3>
+          <p>Responsive Web Design makes a website adjust its layout and content according to the available screen size.</p>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Device</th><th scope="col">Layout</th></tr></thead>
+              <tbody>
+                <tr><td>Mobile</td><td>Content appears in a single column.</td></tr>
+                <tr><td>Tablet</td><td>Content may appear in two columns.</td></tr>
+                <tr><td>Desktop</td><td>Content can appear in three or more columns.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>
+          <h3>Responsive layout demo</h3>
+          <p>Change the simulated screen size:</p>
+          <button class="btn" type="button" data-screen="400">Mobile</button>
+          <button class="btn" type="button" data-screen="750">Tablet</button>
+          <button class="btn" type="button" data-screen="1100">Desktop</button>
+          <p id="screenInfo" class="msg" role="status" aria-live="polite">Simulated screen: Desktop (1100px) | Columns: 3</p>
+          <div class="demo-box">
+            <div id="responsiveDemo" class="panel">
+              <div class="demoCard">Card 1</div>
+              <div class="demoCard">Card 2</div>
+              <div class="demoCard">Card 3</div>
+              <div class="demoCard">Card 4</div>
+              <div class="demoCard">Card 5</div>
+              <div class="demoCard">Card 6</div>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 2 -->
+    <section class="note-section">
+      <h2 class="section-title">2. Media Queries</h2>
+      <ol class="steps">
+        <li>
+          <h3>Definition</h3>
+          <p>A media query applies CSS rules only when a specified condition is true.</p>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <pre class="example">.feature-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+@media (max-width: 600px) {
+    .feature-list {
+        grid-template-columns: 1fr;
+    }
+}</pre>
+        </li>
+        <li>
+          <h3>Explanation</h3>
+          <ul class="plain">
+            <li>On wider screens, the grid displays three columns.</li>
+            <li>At 600px or less, the grid changes to one column.</li>
+            <li>This improves readability on smaller screens.</li>
+          </ul>
+        </li>
+        <li>
+          <h3>Basic syntax</h3>
+          <pre class="example">@media (condition) {
+    selector {
+        property: value;
+    }
+}</pre>
+        </li>
+        <li>
+          <h3>Common media query conditions</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Condition</th><th scope="col">Meaning</th></tr></thead>
+              <tbody>
+                <tr><td class="code">max-width</td><td>Applies when the viewport is no wider than a specified width.</td></tr>
+                <tr><td class="code">min-width</td><td>Applies when the viewport is at least a specified width.</td></tr>
+                <tr><td class="code">prefers-reduced-motion</td><td>Detects whether the user prefers reduced motion.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3 -->
+    <section class="note-section">
+      <h2 class="section-title">3. Flexible Layouts</h2>
+      <ol class="steps">
+        <li>
+          <h3>Definition</h3>
+          <p>CSS provides flexible sizing functions such as <b>minmax()</b> and <b>auto-fit</b>.</p>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <pre class="example">.feature-list {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}</pre>
+        </li>
+        <li>
+          <h3>Explanation</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Code</th><th scope="col">What it does</th></tr></thead>
+              <tbody>
+                <tr><td class="code">minmax(180px, 1fr)</td><td>Sets a minimum track size of 180px and allows it to expand.</td></tr>
+                <tr><td class="code">auto-fit</td><td>Fits as many grid tracks as practical into the available space.</td></tr>
+                <tr><td class="code">1fr</td><td>Allows tracks to share available space.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>
+          <h3>Flexible grid demo</h3>
+          <p>Try changing the container width:</p>
+          <button class="btn" type="button" data-width="350">Small Width</button>
+          <button class="btn" type="button" data-width="550">Medium Width</button>
+          <button class="btn" type="button" data-width="850">Large Width</button>
+          <p id="gridWidthInfo" class="msg" role="status" aria-live="polite">Container width: 850px</p>
+          <div class="demo-box">
+            <div id="flexibleGrid" class="panel">
+              <div class="demoCard">Feature 1</div>
+              <div class="demoCard">Feature 2</div>
+              <div class="demoCard">Feature 3</div>
+              <div class="demoCard">Feature 4</div>
+              <div class="demoCard">Feature 5</div>
+              <div class="demoCard">Feature 6</div>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 4 -->
+    <section class="note-section">
+      <h2 class="section-title">4. Reduced Motion</h2>
+      <ol class="steps">
+        <li>
+          <h3>Definition</h3>
+          <p>Some users prefer fewer animations because movement can cause discomfort. CSS can detect this preference using <b>prefers-reduced-motion</b>.</p>
+        </li>
+        <li>
+          <h3>Example</h3>
+          <pre class="example">@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition: none;
+        animation: none;
+    }
+}</pre>
+        </li>
+        <li>
+          <h3>Explanation</h3>
+          <ul class="plain">
+            <li>Detects the user's reduced-motion preference.</li>
+            <li>Disables unnecessary transitions.</li>
+            <li>Disables unnecessary animations.</li>
+            <li>Helps make websites more comfortable to use.</li>
+          </ul>
+        </li>
+        <li>
+          <h3>Motion demo</h3>
+          <p>Move the box, then switch animation off and move it again to compare.</p>
+          <button class="btn" type="button" id="moveBox">Move Box</button>
+          <button class="btn" type="button" id="toggleMotion">Toggle Animation</button>
+          <div class="demo-box">
+            <div class="motion-track">
+              <div id="motionBox">Motion Demo</div>
+            </div>
+          </div>
+          <p id="motionInfo" class="msg" role="status" aria-live="polite">Animation is enabled in this demonstration.</p>
+          <p id="motionPref" class="msg"></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 5 -->
+    <section class="note-section">
+      <h2 class="section-title">5. Quick Quiz</h2>
+      <ol class="steps">
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 1: What is Responsive Web Design?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>A website that adapts to screen sizes</button>
+            <button class="btn" type="button">A website with only animations</button>
+            <button class="btn" type="button">A website with fixed width only</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 2: Which CSS feature applies styles based on conditions?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button">Flexbox</button>
+            <button class="btn" type="button" data-correct>Media Queries</button>
+            <button class="btn" type="button">Borders</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 3: What does max-width: 600px mean?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button">Viewport is at least 600px wide</button>
+            <button class="btn" type="button" data-correct>Viewport is no wider than 600px</button>
+            <button class="btn" type="button">Viewport must be exactly 600px wide</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 4: What does 1fr represent in CSS Grid?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button">A color</button>
+            <button class="btn" type="button">A fixed height</button>
+            <button class="btn" type="button" data-correct>A share of available space</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 5: Which condition detects a reduced-motion preference?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button">max-width</button>
+            <button class="btn" type="button" data-correct>prefers-reduced-motion</button>
+            <button class="btn" type="button">min-width</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 6 -->
+    <section class="note-section">
+      <h2 class="section-title">6. Summary</h2>
+      <ol class="steps">
+        <li>
+          <h3>Quick revision</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Topic</th><th scope="col">Key Point</th></tr></thead>
+              <tbody>
+                <tr><td>Responsive Web Design</td><td>Adapts websites to different screen sizes</td></tr>
+                <tr><td>Media Queries</td><td>Apply CSS rules based on conditions</td></tr>
+                <tr><td class="code">max-width</td><td>Targets viewports up to a specified width</td></tr>
+                <tr><td class="code">min-width</td><td>Targets viewports at least a specified width</td></tr>
+                <tr><td class="code">minmax()</td><td>Defines flexible minimum and maximum track sizes</td></tr>
+                <tr><td class="code">auto-fit</td><td>Adjusts the number of grid tracks to available space</td></tr>
+                <tr><td class="code">prefers-reduced-motion</td><td>Detects the user's motion preference</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <p class="intro"><b>Lesson Completed!</b></p>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a href="Unit3.13.html">&larr; Previous: Choosing a CSS Layout Method</a>
+      <a href="Unit3.15.html">Next topic &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      // 1. Responsive layout demo: narrow the box and change the columns like a media query would
+      var responsiveDemo = document.getElementById("responsiveDemo");
+      document.querySelectorAll("[data-screen]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          var width = Number(button.getAttribute("data-screen"));
+          var columns, screen;
+          if (width <= 600) { columns = 1; screen = "Mobile"; }
+          else if (width <= 900) { columns = 2; screen = "Tablet"; }
+          else { columns = 3; screen = "Desktop"; }
+
+          responsiveDemo.style.maxWidth = width + "px";
+          responsiveDemo.style.gridTemplateColumns = "repeat(" + columns + ", minmax(0, 1fr))";
+          document.getElementById("screenInfo").textContent =
+            "Simulated screen: " + screen + " (" + width + "px) | Columns: " + columns;
+        });
+      });
+
+      // 3. Flexible grid demo
+      var flexibleGrid = document.getElementById("flexibleGrid");
+      document.querySelectorAll("[data-width]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          var width = button.getAttribute("data-width");
+          flexibleGrid.style.maxWidth = width + "px";
+          document.getElementById("gridWidthInfo").textContent = "Container width: " + width + "px";
+        });
+      });
+
+      // 4. Motion demo
+      var motionBox = document.getElementById("motionBox");
+      var motionInfo = document.getElementById("motionInfo");
+      var animated = true;
+      var moved = false;
+
+      document.getElementById("moveBox").addEventListener("click", function () {
+        moved = !moved;
+        motionBox.style.transform = moved ? "translateX(80px)" : "translateX(0)";
+      });
+
+      document.getElementById("toggleMotion").addEventListener("click", function () {
+        animated = !animated;
+        motionBox.classList.toggle("no-motion", !animated);
+        motionInfo.textContent = animated
+          ? "Animation is enabled in this demonstration."
+          : "Animation is disabled in this demonstration.";
+      });
+
+      // Show whether this device asks for reduced motion
+      var pref = document.getElementById("motionPref");
+      if (window.matchMedia) {
+        var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        pref.textContent = reduced
+          ? "Your device asks for reduced motion, so this page already turns off the box animation."
+          : "Your device does not ask for reduced motion.";
+      }
+
+      // Quiz: the button marked data-correct is the right answer
+      document.querySelectorAll(".quiz").forEach(function (question) {
+        var answer = question.querySelector(".result");
+        question.querySelectorAll(".quiz-options .btn").forEach(function (button) {
+          button.addEventListener("click", function () {
+            if (button.hasAttribute("data-correct")) {
+              answer.textContent = "Correct! " + question.getAttribute("data-explain");
+              answer.className = "result ok";
+            } else {
+              answer.textContent = "Incorrect. Try again!";
+              answer.className = "result bad";
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

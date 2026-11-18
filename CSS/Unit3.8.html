@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CSS Lesson 8 - Text, Fonts and Typography</title>
+  <meta name="description" content="Web Technology (C2111C3): CSS typography, font family, size, weight, alignment, line height, decoration and transform, with interactive demos and a quiz.">
+  <meta name="theme-color" content="#00b4d8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="topic.css">
+  <script src="Brain.js" defer></script>
+
+  <style>
+    /* Topic.css only colours the first 4 sections, so colour the rest here */
+    .note-section:nth-of-type(n+5) { --accent: var(--color-teal, #00c9a7); }
+
+    /* ---- Tables (same look as Unit 3.7) ---- */
+    .cmp-wrap {
+      overflow-x: auto;
+      margin: 0.6rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 14px;
+    }
+    .cmp {
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--color-ink, #ffffff);
+    }
+    .cmp th,
+    .cmp td {
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .cmp th {
+      background: var(--accent, #00c9a7);
+      color: #031b26;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .cmp td.code { font-family: Consolas, "Courier New", monospace; font-weight: 600; }
+    .steps pre.example { margin: 0.6rem 0 0; overflow-x: auto; white-space: pre-wrap; }
+
+    /* ---- Demos: light panel so every font, weight and colour stays readable ---- */
+    .tdemo {
+      padding: 1rem 1.2rem;
+      border: 2px solid gray;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #031b26;
+      text-shadow: none;
+    }
+    #fontDemo { font-size: 1.4rem; font-family: Arial, sans-serif; }
+    #sizeDemo { font-size: 20px; }
+    #weightDemo { font-size: 1.4rem; font-weight: 400; }
+    #alignDemo { font-size: 1.1rem; text-align: left; }
+    #lineDemo { max-width: 600px; line-height: 1.6; }
+    #decorationDemo { font-size: 1.4rem; text-decoration: underline; }
+    #transformDemo { font-size: 1.4rem; text-transform: none; }
+    #headingDemo {
+      color: navy;
+      text-align: center;
+      text-decoration: underline;
+      text-transform: uppercase;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="background" aria-hidden="true"></canvas>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">🌙</button>
+
+  <main class="topic-main">
+    <a class="back-link" href="Unit3.html">&larr; Back to Unit 3</a>
+
+    <h1 class="topic-h1"><span class="glitch" data-text="Text, Fonts and Typography">Text, Fonts and Typography</span></h1>
+    <p class="meta"><b>Web Technology</b> &nbsp;/&nbsp; CSS &nbsp;/&nbsp; Lesson 8</p>
+
+    <p class="intro">Typography refers to the appearance and arrangement of text on a webpage. CSS controls fonts, size, weight, alignment, spacing and decoration.</p>
+
+    <!-- 1 -->
+    <section class="note-section">
+      <h2 class="section-title">1. Important Typography Properties</h2>
+      <ol class="steps">
+        <li>
+          <h3>Properties</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Property</th><th scope="col">Example</th><th scope="col">Purpose</th></tr></thead>
+              <tbody>
+                <tr><td class="code">font-family</td><td class="code">Georgia, serif</td><td>Sets the typeface.</td></tr>
+                <tr><td class="code">font-size</td><td class="code">1.1rem</td><td>Sets text size.</td></tr>
+                <tr><td class="code">font-weight</td><td class="code">700 or bold</td><td>Controls text thickness.</td></tr>
+                <tr><td class="code">text-align</td><td class="code">center</td><td>Aligns text horizontally.</td></tr>
+                <tr><td class="code">line-height</td><td class="code">1.6</td><td>Controls line spacing.</td></tr>
+                <tr><td class="code">text-decoration</td><td class="code">underline</td><td>Adds or removes decoration.</td></tr>
+                <tr><td class="code">text-transform</td><td class="code">uppercase</td><td>Changes displayed letter case.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 2 -->
+    <section class="note-section">
+      <h2 class="section-title">2. Typography Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>CSS code</h3>
+          <pre class="example">p {
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: justify;
+    line-height: 1.6;
+}</pre>
+        </li>
+        <li>
+          <h3>Explanation</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Property</th><th scope="col">What it does</th></tr></thead>
+              <tbody>
+                <tr><td class="code">font-family</td><td>Specifies the preferred font and fallback family.</td></tr>
+                <tr><td class="code">font-size</td><td>Controls the size of text.</td></tr>
+                <tr><td class="code">font-weight</td><td>Controls character thickness.</td></tr>
+                <tr><td class="code">text-align</td><td>Determines horizontal alignment.</td></tr>
+                <tr><td class="code">line-height</td><td>Controls vertical space between lines.</td></tr>
+                <tr><td class="code">text-decoration</td><td>Controls underlines and related effects.</td></tr>
+                <tr><td class="code">text-transform</td><td>Changes displayed capitalization.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3 -->
+    <section class="note-section">
+      <h2 class="section-title">3. Font Family Demo</h2>
+      <ol class="steps">
+        <li>
+          <h3>Font family demo</h3>
+          <p>Click a button to change the font family.</p>
+          <div class="demo-box">
+            <div id="fontDemo" class="tdemo">Typography makes text more attractive and readable.</div>
+          </div>
+          <button class="btn" type="button" data-font="Arial, sans-serif">Arial</button>
+          <button class="btn" type="button" data-font="Georgia, serif">Georgia</button>
+          <button class="btn" type="button" data-font="'Courier New', monospace">Courier New</button>
+          <button class="btn" type="button" data-font="'Times New Roman', serif">Times New Roman</button>
+          <p id="fontValue" class="msg" role="status" aria-live="polite">Current font: Arial, sans-serif</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 4 -->
+    <section class="note-section">
+      <h2 class="section-title">4. Font Size Demo</h2>
+      <ol class="steps">
+        <li>
+          <h3>Font size demo</h3>
+          <p>Change the size of the sample text.</p>
+          <div class="demo-box">
+            <div id="sizeDemo" class="tdemo">Learning typography is important for web design.</div>
+          </div>
+          <button class="btn" type="button" data-fsize="14px">Small</button>
+          <button class="btn" type="button" data-fsize="20px">Medium</button>
+          <button class="btn" type="button" data-fsize="28px">Large</button>
+          <button class="btn" type="button" data-fsize="36px">Extra Large</button>
+          <p id="fsizeValue" class="msg" role="status" aria-live="polite">Current size: 20px</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 5 -->
+    <section class="note-section">
+      <h2 class="section-title">5. Font Weight Demo</h2>
+      <ol class="steps">
+        <li>
+          <h3>Font weight demo</h3>
+          <p>Font weight controls how thick the characters appear.</p>
+          <div class="demo-box">
+            <div id="weightDemo" class="tdemo">This text demonstrates different font weights.</div>
+          </div>
+          <button class="btn" type="button" data-weight="400">Normal</button>
+          <button class="btn" type="button" data-weight="600">Semi Bold</button>
+          <button class="btn" type="button" data-weight="700">Bold</button>
+          <button class="btn" type="button" data-weight="900">Extra Bold</button>
+          <p id="weightValue" class="msg" role="status" aria-live="polite">Current weight: 400</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 6 -->
+    <section class="note-section">
+      <h2 class="section-title">6. Text Alignment Demo</h2>
+      <ol class="steps">
+        <li>
+          <h3>Text alignment demo</h3>
+          <p>Text alignment controls the horizontal position of text.</p>
+          <div class="demo-box">
+            <div id="alignDemo" class="tdemo">Typography improves the appearance and readability of a webpage. Proper alignment makes content easier to understand.</div>
+          </div>
+          <button class="btn" type="button" data-align="left">Left</button>
+          <button class="btn" type="button" data-align="center">Center</button>
+          <button class="btn" type="button" data-align="right">Right</button>
+          <button class="btn" type="button" data-align="justify">Justify</button>
+          <p id="alignValue" class="msg" role="status" aria-live="polite">Current alignment: left</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 7 -->
+    <section class="note-section">
+      <h2 class="section-title">7. Line Height Demo</h2>
+      <ol class="steps">
+        <li>
+          <h3>Line height demo</h3>
+          <p>Line height controls the vertical space allocated to each line of text.</p>
+          <div class="demo-box">
+            <div id="lineDemo" class="tdemo">Good typography improves readability. Proper line spacing makes paragraphs easier to read. It is especially useful when displaying long articles and educational content on websites.</div>
+          </div>
+          <button class="btn" type="button" data-line="1">1.0</button>
+          <button class="btn" type="button" data-line="1.4">1.4</button>
+          <button class="btn" type="button" data-line="1.6">1.6</button>
+          <button class="btn" type="button" data-line="2">2.0</button>
+          <p id="lineValue" class="msg" role="status" aria-live="polite">Current line height: 1.6</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 8 -->
+    <section class="note-section">
+      <h2 class="section-title">8. Text Decoration Demo</h2>
+      <ol class="steps">
+        <li>
+          <h3>Text decoration demo</h3>
+          <p>Text decoration adds or removes effects from text.</p>
+          <div class="demo-box">
+            <div id="decorationDemo" class="tdemo">Explore different text decorations.</div>
+          </div>
+          <button class="btn" type="button" data-decoration="underline">Underline</button>
+          <button class="btn" type="button" data-decoration="overline">Overline</button>
+          <button class="btn" type="button" data-decoration="line-through">Line Through</button>
+          <button class="btn" type="button" data-decoration="none">None</button>
+          <p id="decorationValue" class="msg" role="status" aria-live="polite">Current decoration: underline</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 9 -->
+    <section class="note-section">
+      <h2 class="section-title">9. Text Transform Demo</h2>
+      <ol class="steps">
+        <li>
+          <h3>Text transform demo</h3>
+          <p>Text transform changes the displayed capitalization without changing the original text.</p>
+          <div class="demo-box">
+            <div id="transformDemo" class="tdemo">Welcome to CSS typography learning.</div>
+          </div>
+          <button class="btn" type="button" data-transform="uppercase">UPPERCASE</button>
+          <button class="btn" type="button" data-transform="lowercase">lowercase</button>
+          <button class="btn" type="button" data-transform="capitalize">Capitalize</button>
+          <button class="btn" type="button" data-transform="none">Normal</button>
+          <p id="transformValue" class="msg" role="status" aria-live="polite">Current transform: none</p>
+        </li>
+        <li>
+          <h3>Transform values</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Value</th><th scope="col">Result</th></tr></thead>
+              <tbody>
+                <tr><td class="code">uppercase</td><td>ALL LETTERS CAPITAL</td></tr>
+                <tr><td class="code">lowercase</td><td>all letters small</td></tr>
+                <tr><td class="code">capitalize</td><td>First Letter Of Each Word Capital</td></tr>
+                <tr><td class="code">none</td><td>Text stays as typed</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 10 -->
+    <section class="note-section">
+      <h2 class="section-title">10. Styled Heading Example</h2>
+      <ol class="steps">
+        <li>
+          <h3>CSS code</h3>
+          <pre class="example">h1 {
+    color: navy;
+    text-align: center;
+    text-decoration: underline;
+    text-transform: uppercase;
+}</pre>
+        </li>
+        <li>
+          <h3>Output example</h3>
+          <div class="demo-box">
+            <div id="headingDemo" class="tdemo">Beautiful Web Design</div>
+          </div>
+          <p>This heading appears in navy, is centered, underlined, and displayed in uppercase.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 11 -->
+    <section class="note-section">
+      <h2 class="section-title">11. Typography Tip</h2>
+      <ol class="steps">
+        <li>
+          <h3>Tip</h3>
+          <p>A suitable line height improves readability, especially for long paragraphs.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 12 -->
+    <section class="note-section">
+      <h2 class="section-title">12. Quick Quiz</h2>
+      <ol class="steps">
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 1: Which property sets the typeface?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>font-family</button>
+            <button class="btn" type="button">font-size</button>
+            <button class="btn" type="button">text-align</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 2: Which property controls text thickness?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>font-weight</button>
+            <button class="btn" type="button">line-height</button>
+            <button class="btn" type="button">color</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 3: Which property aligns text horizontally?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>text-align</button>
+            <button class="btn" type="button">font-family</button>
+            <button class="btn" type="button">font-size</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 4: Which property controls line spacing?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>line-height</button>
+            <button class="btn" type="button">font-weight</button>
+            <button class="btn" type="button">text-decoration</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+        <li class="quiz" data-explain="Well done.">
+          <h3>Question 5: Which property changes displayed capitalization?</h3>
+          <div class="quiz-options">
+            <button class="btn" type="button" data-correct>text-transform</button>
+            <button class="btn" type="button">text-align</button>
+            <button class="btn" type="button">font-family</button>
+          </div>
+          <p class="result" role="status" aria-live="polite"></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 13 -->
+    <section class="note-section">
+      <h2 class="section-title">13. Summary</h2>
+      <ol class="steps">
+        <li>
+          <h3>Quick revision</h3>
+          <div class="cmp-wrap">
+            <table class="cmp">
+              <thead><tr><th scope="col">Topic</th><th scope="col">Key Point</th></tr></thead>
+              <tbody>
+                <tr><td>Typography</td><td>Controls the appearance of text</td></tr>
+                <tr><td class="code">font-family</td><td>Selects the typeface</td></tr>
+                <tr><td class="code">font-size</td><td>Controls text size</td></tr>
+                <tr><td class="code">font-weight</td><td>Controls text thickness</td></tr>
+                <tr><td class="code">text-align</td><td>Controls horizontal alignment</td></tr>
+                <tr><td class="code">line-height</td><td>Controls line spacing</td></tr>
+                <tr><td class="code">text-decoration</td><td>Adds or removes text decoration</td></tr>
+                <tr><td class="code">text-transform</td><td>Changes displayed capitalization</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <p class="intro"><b>Lesson Completed!</b></p>
+
+    <nav class="topic-nav" aria-label="Topic navigation">
+      <a href="Unit3.7.html">&larr; Previous: Colors and Backgrounds</a>
+      <a href="Unit3.9.html">Next topic &rarr;</a>
+    </nav>
+
+    <footer>Made by Tirth Koli &nbsp;/&nbsp; Web Technology &nbsp;/&nbsp; C2111C3</footer>
+  </main>
+
+  <script>
+    (function () {
+      // Each demo: buttons carry the value in a data attribute, the box gets the style
+      function demo(attr, boxId, cssProp, outId, label) {
+        var box = document.getElementById(boxId);
+        document.querySelectorAll("[" + attr + "]").forEach(function (button) {
+          button.addEventListener("click", function () {
+            var value = button.getAttribute(attr);
+            box.style[cssProp] = value;
+            document.getElementById(outId).textContent = label + value;
+          });
+        });
+      }
+
+      demo("data-font", "fontDemo", "fontFamily", "fontValue", "Current font: ");
+      demo("data-fsize", "sizeDemo", "fontSize", "fsizeValue", "Current size: ");
+      demo("data-weight", "weightDemo", "fontWeight", "weightValue", "Current weight: ");
+      demo("data-align", "alignDemo", "textAlign", "alignValue", "Current alignment: ");
+      demo("data-line", "lineDemo", "lineHeight", "lineValue", "Current line height: ");
+      demo("data-decoration", "decorationDemo", "textDecoration", "decorationValue", "Current decoration: ");
+      demo("data-transform", "transformDemo", "textTransform", "transformValue", "Current transform: ");
+
+      // Quiz: the button marked data-correct is the right answer
+      document.querySelectorAll(".quiz").forEach(function (question) {
+        var answer = question.querySelector(".result");
+        question.querySelectorAll(".quiz-options .btn").forEach(function (button) {
+          button.addEventListener("click", function () {
+            if (button.hasAttribute("data-correct")) {
+              answer.textContent = "Correct! " + question.getAttribute("data-explain");
+              answer.className = "result ok";
+            } else {
+              answer.textContent = "Incorrect. Try again!";
+              answer.className = "result bad";
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
